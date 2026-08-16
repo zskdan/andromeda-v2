@@ -1,0 +1,7 @@
+{
+  "id": "lab-zcu102-01",
+  "type": "zcu102",
+  "state": "AVAILABLE",
+  "serial": "configure-me",
+  "metadata": {"attached_worker": "worker2", "notes": "TimeDMA development board"}
+}

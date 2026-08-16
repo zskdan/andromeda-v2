@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "andromeda-agent-framework"
+version = "0.2.0"
+description = "Capability-scheduled control-plane skeleton for Andromeda Rocket v2"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Andromeda Rocket v2 contributors"}]
+dependencies = []
+
+[project.scripts]
+andromeda-controller = "andromeda_control.controller:main"
+andromeda-worker = "andromeda_control.worker:main"
+andromeda-submit = "andromeda_control.cli:submit_main"
+andromeda-status = "andromeda_control.cli:status_main"
+
+[tool.setuptools]
+packages = ["andromeda_control"]

@@ -1,0 +1,13 @@
+{
+  "policy_version": 1,
+  "selection_order": [
+    "all required capabilities match",
+    "all required physical resource types are AVAILABLE",
+    "most preferred capabilities match",
+    "fewest running tasks",
+    "lexicographically smallest worker id"
+  ],
+  "priority": {"minimum": 0, "maximum": 100, "default": 50},
+  "no_match_state": "WAITING_FOR_RESOURCE",
+  "notes": "v0.2 compares capability names. Version constraints are reserved for a future release."
+}

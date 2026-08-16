@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andromeda.local/schemas/resource.schema.json",
+  "title": "Andromeda Physical Resource",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "type", "state"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "type": {"type": "string", "minLength": 1},
+    "state": {"enum": ["AVAILABLE", "RESERVED", "IN_USE", "DISCONNECTED", "FAULT"]},
+    "serial": {"type": "string"},
+    "metadata": {"type": "object"}
+  }
+}

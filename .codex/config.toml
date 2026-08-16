@@ -1,0 +1,37 @@
+max_threads = 6
+
+[agents.architect]
+description = "System architecture, requirements, budgets, interfaces, and trade authority"
+config_file = "agents/architect.toml"
+
+[agents.integrator]
+description = "Independent requirements, interface, budget, and evidence integration"
+config_file = "agents/integrator.toml"
+
+[agents.rf_system]
+description = "End-to-end vehicle/channel/ground RF subsystem owner"
+config_file = "agents/rf_system.toml"
+
+[agents.video_system]
+description = "End-to-end camera, codec, transport, decode, display, and recording owner"
+config_file = "agents/video_system.toml"
+
+[agents.telemetry_command]
+description = "End-to-end telemetry data and bidirectional command owner"
+config_file = "agents/telemetry_command.toml"
+
+[agents.structures_mechanisms]
+description = "Vehicle, launcher, launch-pad, and shared mechanical-interface owner"
+config_file = "agents/structures_mechanisms.toml"
+
+[agents.flight_dynamics]
+description = "Trajectory, stability, loads, dispersion, and flight simulation owner"
+config_file = "agents/flight_dynamics.toml"
+
+[agents.fpga_specialist]
+description = "RTL, FPGA interfaces, simulation, constraints, timing, and Vivado specialist"
+config_file = "agents/fpga_specialist.toml"
+
+[agents.software_specialist]
+description = "Software implementation, build, test, packaging, and observability specialist"
+config_file = "agents/software_specialist.toml"

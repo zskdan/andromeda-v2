@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andromeda.local/schemas/heartbeat.schema.json",
+  "title": "Andromeda Worker Heartbeat",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "capabilities": {"type": "object", "additionalProperties": {"type": "string"}},
+    "resources": {"type": "array", "items": {"$ref": "resource.schema.json"}},
+    "metadata": {"type": "object"}
+  }
+}

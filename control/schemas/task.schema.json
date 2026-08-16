@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andromeda.local/schemas/task.schema.json",
+  "title": "Andromeda Task Submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["name", "command"],
+  "properties": {
+    "id": {"type": "string", "pattern": "^[A-Za-z0-9._-]+$"},
+    "name": {"type": "string", "minLength": 1},
+    "owner": {"type": "string", "default": "architect"},
+    "command": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+    "required_capabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "preferred_capabilities": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "required_resource_types": {"type": "array", "uniqueItems": true, "items": {"type": "string"}},
+    "priority": {"type": "integer", "minimum": 0, "maximum": 100, "default": 50},
+    "retry_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {"max_infrastructure_retries": {"type": "integer", "minimum": 0, "default": 3}}
+    },
+    "metadata": {"type": "object"}
+  }
+}

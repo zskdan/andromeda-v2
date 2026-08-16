@@ -1,0 +1,11 @@
+{
+  "id": "TASK-FPGA-WAIT-DEMO",
+  "name": "Vivado resource wait demonstration",
+  "owner": "fpga_specialist",
+  "command": ["vivado", "-version"],
+  "required_capabilities": ["vivado"],
+  "preferred_capabilities": [],
+  "required_resource_types": [],
+  "priority": 40,
+  "retry_policy": {"max_infrastructure_retries": 3}
+}

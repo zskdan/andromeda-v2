@@ -1,0 +1,12 @@
+{
+  "id": "TASK-FLIGHT-DEMO",
+  "name": "Flight simulation worker smoke test",
+  "owner": "flight_dynamics",
+  "command": ["python3", "-c", "print('Andromeda flight simulation worker is operational')"],
+  "required_capabilities": ["python", "rocketpy"],
+  "preferred_capabilities": ["openrocket"],
+  "required_resource_types": [],
+  "priority": 50,
+  "retry_policy": {"max_infrastructure_retries": 3},
+  "metadata": {"purpose": "control-plane smoke test; replace with a real RocketPy command later"}
+}

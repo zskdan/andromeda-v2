@@ -1,0 +1,44 @@
+schema_version: 1
+requirements:
+  - id: SYS-RF-001
+    statement: The vehicle-to-ground telemetry service shall be receivable throughout the nominal flight envelope.
+    owner: rf_system
+    verification_method: analysis_and_test
+    status: defined
+    threshold: TBD
+  - id: SYS-VIDEO-001
+    statement: The system shall deliver onboard camera video to the ground operator display.
+    owner: video_system
+    verification_method: end_to_end_test
+    status: defined
+    threshold: TBD
+  - id: SYS-TC-001
+    statement: The ground segment shall decode, display, and record vehicle telemetry.
+    owner: telemetry_command
+    verification_method: end_to_end_test
+    status: defined
+    threshold: TBD
+  - id: SYS-TC-002
+    statement: The ground segment shall validate and transmit authorized vehicle commands.
+    owner: telemetry_command
+    verification_method: end_to_end_test
+    status: defined
+    threshold: TBD
+  - id: SYS-STRUCT-001
+    statement: Vehicle geometry shall be mechanically compatible with the launcher.
+    owner: structures_mechanisms
+    verification_method: analysis_and_inspection
+    status: defined
+    threshold: TBD
+  - id: SYS-FLIGHT-001
+    statement: The complete configuration shall maintain the required flight stability margin.
+    owner: flight_dynamics
+    verification_method: analysis
+    status: defined
+    threshold: TBD
+  - id: SYS-MASS-001
+    statement: The integrated system shall maintain a controlled vehicle mass budget.
+    owner: integrator
+    verification_method: analysis_and_measurement
+    status: defined
+    threshold: TBD

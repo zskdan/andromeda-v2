@@ -1,0 +1,14 @@
+{
+  "id": "worker3",
+  "name": "cloud-simulation",
+  "location": {"type": "cloud", "site": "configure-me"},
+  "capabilities": {
+    "python": "3.11+",
+    "rocketpy": "configure-me",
+    "openrocket": "configure-me",
+    "monte-carlo": "available"
+  },
+  "resources": [],
+  "allowed_executables": ["python3", "java"],
+  "task_timeout_seconds": 7200
+}

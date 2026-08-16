@@ -1,0 +1,15 @@
+schema_version: 1
+deliverable:
+  id: EXAMPLE-001
+  revision: 1
+  owner: subsystem_owner
+  status: preliminary
+requirements: []
+inputs: {}
+outputs: {}
+interfaces: {}
+budgets: {}
+tools: []
+evidence: []
+verification: {}
+open_issues: []

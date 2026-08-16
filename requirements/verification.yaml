@@ -1,0 +1,30 @@
+schema_version: 1
+verification_records:
+  - requirement_id: SYS-RF-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-VIDEO-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-TC-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-TC-002
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-STRUCT-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-FLIGHT-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED
+  - requirement_id: SYS-MASS-001
+    implementation: not_started
+    evidence: []
+    integration_result: NOT_VERIFIED

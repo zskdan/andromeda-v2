@@ -1,0 +1,15 @@
+{
+  "id": "worker1",
+  "name": "main-workstation",
+  "location": {"type": "local", "site": "workstation"},
+  "capabilities": {
+    "python": "3.11+",
+    "vivado": "configure-me",
+    "freecad": "configure-me",
+    "kicad": "configure-me",
+    "openems": "configure-me"
+  },
+  "resources": [],
+  "allowed_executables": ["python3", "vivado", "FreeCADCmd", "kicad-cli"],
+  "task_timeout_seconds": 7200
+}

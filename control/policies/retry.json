@@ -1,0 +1,11 @@
+{
+  "policy_version": 1,
+  "heartbeat_seconds": 30,
+  "suspect_after_seconds": 60,
+  "offline_after_seconds": 120,
+  "retry_delay_seconds": 5,
+  "resource_unavailable": {"action": "wait", "timeout": "unlimited"},
+  "worker_lost": {"action": "retry_when_available", "max_retries": 3},
+  "command_failed": {"action": "fail_and_return_to_owner"},
+  "verification_failed": {"action": "do_not_blindly_retry", "escalate_to": "architect"}
+}

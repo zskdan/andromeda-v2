@@ -1,0 +1,7 @@
+{
+  "id": "lab-plutosdr-01",
+  "type": "plutosdr",
+  "state": "AVAILABLE",
+  "serial": "configure-me",
+  "metadata": {"attached_worker": "worker2"}
+}

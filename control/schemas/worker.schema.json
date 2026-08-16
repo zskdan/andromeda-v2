@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://andromeda.local/schemas/worker.schema.json",
+  "title": "Andromeda Worker Registration",
+  "type": "object",
+  "additionalProperties": true,
+  "required": ["id", "capabilities"],
+  "properties": {
+    "id": {"type": "string", "minLength": 1},
+    "session_id": {"type": ["string", "null"]},
+    "name": {"type": "string"},
+    "location": {
+      "type": "object",
+      "required": ["type"],
+      "properties": {"type": {"enum": ["local", "cloud", "lab", "unknown"]}, "site": {"type": "string"}}
+    },
+    "capabilities": {"type": "object", "additionalProperties": {"type": "string"}},
+    "resources": {"type": "array", "items": {"$ref": "resource.schema.json"}},
+    "max_concurrent_tasks": {"type": "integer", "minimum": 1},
+    "metadata": {"type": "object"}
+  }
+}

@@ -1,0 +1,16 @@
+schema_version: 1
+interface_id: ICD-LAUNCHER-VEHICLE
+status: draft
+owners: [structures_mechanisms, flight_dynamics]
+vehicle:
+  diameter_mm: TBD
+  launch_mass_kg: TBD
+launcher:
+  interface_type: rail
+  rail_profile: TBD
+  rail_length_mm: TBD
+clearances:
+  minimum_fin_clearance_mm: TBD
+launch:
+  maximum_angle_deg: TBD
+  minimum_departure_velocity_m_s: TBD
