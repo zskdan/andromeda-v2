@@ -63,3 +63,93 @@ The individual objectives are organized under nine umbrellas for planning and re
 | Ground operations | TDO-OPS-002 | Mandatory | Demonstrate prelaunch hold capability. | Any failed critical readiness check prevents launch authorization and clearly identifies the blocking condition. | Hold-condition tests, operator display, and readiness logs. | Operations / telemetry and command | Proposed |
 
 Mandatory objectives govern safe execution and evidence preservation. Primary objectives define the principal technology-demonstration outcomes. Secondary objectives provide useful campaign-level evidence but do not by themselves determine whether the flight was safely completed.
+
+## Mission Profile and Operational Modes
+
+### Operating Assumptions
+
+- `T0` is the onboard detection of liftoff.
+- The NB telemetry and command link operates from preflight checks through vehicle retrieval.
+- Local navigation, telemetry, health, event, and configured video recording continue independently of ground-link availability.
+- Recovery deployment is autonomous and does not depend on NB, WB, video, the ground GUI, or an operator command.
+- Cameras and WB equipment do not begin continuous operation at initial avionics power-on. They may be activated briefly for functional checks and then returned to standby.
+- Local camera recording starts automatically when the vehicle enters `ARMED`. WB streaming starts automatically at detected liftoff.
+- While airborne, the only permitted non-safety-critical commands are starting or stopping a selected camera's local recording, starting or stopping a selected WB video stream, and requesting selected status information in the next generated NB telemetry packet.
+- The airborne command-demonstration window is limited to coast. The same video-control and status-request commands may be demonstrated again after touchdown.
+- Commands received outside an authorized window are safely rejected and logged. No command may control, inhibit, delay, or otherwise affect recovery deployment or another safety-critical function.
+- All commanded state changes and deliberately commanded-off intervals are timestamped and recorded.
+- The planned interval from avionics activation until expected retrieval fits within the validated 60-minute full-avionics endurance, including an operational reserve that remains **TBD**.
+
+### Nominal Mission Sequence
+
+| Phase and mode | Entry condition | Vehicle and payload operation | Ground operation and permitted commands | Exit condition and evidence |
+|---|---|---|---|---|
+| 1. Transport and safe handling — `SAFE` | Vehicle prepared for transport. | Flight power is isolated or in the approved safe configuration; recovery is inhibited; removable modules are secured. | No RF transmission is required. Configuration documentation remains available. No commands are permitted. | Vehicle arrives without damage; transport and configuration inspections are completed. |
+| 2. Launcher and ground-station setup — `SAFE` | Vehicle and ground equipment are at the approved launch location. | Vehicle remains safe while launcher compatibility, rail clearances, antennas, batteries, and mechanical interfaces are checked. | Ground antennas, receivers, transmitters, recorders, GUI, weather instruments, and time references are installed and checked. Only ground-equipment tests are permitted. | Launcher fit check, RF setup, weather observations, and ground checks are completed. |
+| 3. Avionics power-on and initialization — `INIT` | Operator authorizes flight-avionics activation. | Core avionics power on; configuration identifiers are reported; sensors initialize; IMU calibration, GNSS acquisition, storage checks, and time synchronization begin. Cameras and WB equipment are functionally checked and then returned to standby. | GUI connects to ground services, begins recording, and displays initialization, configuration, health, link state, and data age. Status and approved configuration queries are permitted. | Required avionics report valid configuration and health; initialization evidence is stored. |
+| 4. Integrated preflight checks — `PREFLIGHT` | Initialization is complete. | NB telemetry operates at the defined preflight rate. Essential local data recording begins. Recovery electronics perform non-actuating checks. Cameras and WB remain in standby after their checks. | GUI displays position, attitude validity, sensor values, power, storage, NB/WB test results, camera state, radio-power state, recovery readiness, and warnings. Status requests and approved ground-test commands are permitted. | All mandatory readiness conditions pass; any critical failure forces or maintains `HOLD`. |
+| 5. Hold or launch-ready — `HOLD` / `READY` | Preflight checks are evaluated. | In `HOLD`, the vehicle remains powered and records the hold reason. In `READY`, the approved flight configuration is frozen and continuously monitored. | Operator confirms launcher, wind, flight volume, RF configuration, ground recording, power and storage margins, and recovery readiness. Status requests are permitted. Configuration changes require a return to `PREFLIGHT`. | Authorized operator approves `ARMED`, or the system returns to `PREFLIGHT` for correction. |
+| 6. Armed — `ARMED` | Explicit authorization follows successful mandatory checks. | Local camera recording starts. Liftoff detection, high-rate local sensing, navigation, telemetry, event detection, and autonomous recovery are ready. WB streaming remains in standby until liftoff. | GUI presents an unambiguous armed indication and monitors hold conditions. Status requests are permitted; other configuration changes require disarming. | Liftoff is detected, or the operator disarms and returns to `HOLD`. |
+| 7. Powered ascent — `ASCENT_POWERED` | Liftoff is detected. | WB streaming starts automatically. High-rate acceleration, angular rate, navigation, event, power, health, and video data are recorded. Essential NB telemetry is generated at intervals no greater than 100 ms. | GUI displays live position, trajectory, 3D attitude, acceleration, altitude, vertical velocity, link state, power, health, and data age. No planned commands are accepted during powered ascent. | Motor burnout is detected and timestamped. |
+| 8. Coast ascent — `ASCENT_COAST` | Motor burnout is detected. | Navigation, attitude estimation, acceleration measurement, local recording, NB telemetry, and commanded-on video continue. Apogee detection is active. | GUI continues live trajectory, 3D attitude, altitude, velocity, and system-health display. This is the only airborne command-demonstration window; video start/stop and next-packet status requests are permitted. | Apogee is detected. |
+| 9. Apogee and recovery transition — `RECOVERY_TRANSITION` | A valid apogee event is detected. | Autonomous recovery deployment is initiated independently of experimental payloads and communication links. Deployment time and available confirmation signals are recorded. | GUI marks apogee and recovery events and continues recording received data. Airborne commands are rejected and logged. | Recovery deployment is confirmed or the transition reaches a **TBD** timeout. |
+| 10. Stabilized descent — `DESCENT` | Recovery deployment or the descent state is detected. | Navigation, live position, vertical velocity, health, NB telemetry, local recording, and commanded-on video continue. Touchdown detection is active. | GUI displays descent rate, position, landing prediction if available, 3D attitude with validity, link statistics, and last-valid data with age. Airborne commands are rejected and logged. | Touchdown is detected. |
+| 11. Landed and transmitting — `LANDED` | Touchdown is detected. | Final position and touchdown status are stored. The vehicle enters a low-power recovery-beacon mode. NB position and essential status transmissions continue without a software-defined timeout. | GUI clearly marks touchdown, last-valid position, vehicle health, link state, and recovery guidance. Video start/stop and status-request commands may be demonstrated. | Authorized personnel reach and identify the vehicle, the vehicle is deliberately powered off, or battery protection reaches its safe cutoff. |
+| 12. Retrieval and safing — `RECOVERY_SAFE` | Authorized recovery personnel reach the vehicle. | Vehicle is made safe using the approved recovery procedure. RF transmission and recording are stopped in a controlled manner. | Ground station records retrieval time and final status. Controlled shutdown is permitted. | Vehicle is safe for handling and returned for inspection. |
+| 13. Post-flight processing — `POST_FLIGHT` | Vehicle is returned to the processing area. | Local storage is preserved and extracted. Hardware is inspected for structural, recovery, thermal, electrical, and landing damage. | Vehicle and ground records are checked, synchronized, and archived. Only maintenance and data-access operations are permitted. | A configuration-specific post-flight report and synchronized mission reconstruction are completed. |
+
+### Launch Readiness Conditions
+
+Transition to `ARMED` requires confirmation of at least:
+
+- acceptable surface wind and winds aloft;
+- an approved trajectory and flight volume;
+- launcher compatibility, alignment, clearances, and readiness;
+- sufficient power for the remaining mission duration and the **TBD** operational reserve;
+- adequate storage capacity;
+- valid software, firmware, FPGA, radio, and calibration configuration;
+- valid IMU, barometric, GNSS, navigation, and time-synchronization status;
+- an operational NB telemetry and command link;
+- successful checks of required cameras and WB video channels;
+- active vehicle and ground data recording;
+- ready autonomous recovery electronics; and
+- an operational ground GUI with visible warnings and stale-data indications.
+
+A failed mandatory condition results in `HOLD`. The reason is displayed and recorded.
+
+### Post-Touchdown NB Recovery Beacon
+
+After touchdown, the NB link transmits the latest valid position, touchdown status, position validity and age, battery state, and essential vehicle-health status. Transmission continues without a software-defined timeout until authorized recovery personnel command shutdown, the vehicle is physically powered off, or battery protection reaches its defined safe cutoff threshold.
+
+WB streaming and cameras may be stopped after touchdown to maximize NB beacon endurance. The minimum guaranteed beacon duration remains **TBD** and is established by the power budget and recovery-time analysis.
+
+### Off-Nominal Behavior
+
+| Condition | Required response |
+|---|---|
+| Critical failure before launch | Prevent transition to `ARMED` or return to `HOLD`; identify and record the blocking condition. |
+| Wind outside the qualified envelope | Maintain `HOLD`; require acceptable conditions or updated approved analysis. |
+| Launcher or clearance check failure | Maintain `HOLD`; do not authorize launch. |
+| WB link loss | Continue autonomous flight, local video recording, navigation, NB telemetry, and recovery; mark the outage in vehicle and ground records. |
+| NB link loss | Continue autonomous flight, local recording, navigation, and recovery; display last received values with validity and data age. |
+| GNSS loss | Continue available inertial and barometric estimation, flag degraded navigation, and retain the last valid GNSS solution. |
+| Invalid attitude solution | Do not display an apparently valid orientation; freeze or remove the 3D model and show invalidity and data age prominently. |
+| Video or experimental-payload reset | Isolate the failure from essential avionics and recovery; record the reset and restart only according to an approved automatic-recovery policy. |
+| Low power before launch | Maintain `HOLD`. |
+| Low power during flight | Preserve recovery, essential navigation, NB telemetry, and essential recording before experimental WB or video loads, according to a predefined load-shedding policy. |
+| Storage capacity or write failure | Before launch, maintain `HOLD`; during flight, report the fault and preserve essential event and navigation records where possible. |
+| Invalid, unauthorized, duplicated, stale, or out-of-window command | Reject without changing vehicle state and report the rejection reason. |
+| Lost command acknowledgement | Ground may query current state using a new request identifier; safe retries do not cause unintended repeated actions. |
+| Ground GUI restart or failure | Ground receivers and recorders continue independently where practical; the restored GUI loads current state and identifies any data gap. |
+| Time-synchronization degradation | Continue recording using a monotonic local clock, flag degraded synchronization, and preserve information needed for post-flight correlation. |
+| Recovery anomaly | Continue transmitting position and status when possible, preserve flight data, and display an unmistakable ground warning. Recovery does not depend on a ground command. |
+
+### Mission-Success Classification
+
+| Classification | Definition |
+|---|---|
+| Safe completion | All mandatory safety, containment, recovery, power, isolation, configuration, and evidence-preservation objectives pass. |
+| Full technology-demonstration success | Safe completion plus all primary technology objectives pass. |
+| Partial technology-demonstration success | Safe completion is achieved, but one or more primary technology objectives are not demonstrated. Each umbrella is reported separately. |
+| Aborted before launch | Launch is correctly prevented by a hold condition. This is a successful safety response, not a flight demonstration. |
+| Unsuccessful flight | One or more mandatory in-flight objectives fail. Primary and secondary technology evidence is still reported where available. |
