@@ -1,0 +1,65 @@
+{
+  "launch_mass_kg": 7.0,
+  "dry_vehicle_mass_kg": 5.32,
+  "dry_vehicle_cg_from_tail_m": 0.8697556390977442,
+  "module_layout": [
+    {
+      "name": "Propulsion",
+      "start_from_tail_m": 0.0,
+      "end_from_tail_m": 0.6,
+      "mass_kg": 2.17,
+      "cg_from_tail_m": 0.38,
+      "length_m": 0.6
+    },
+    {
+      "name": "Power",
+      "start_from_tail_m": 0.6,
+      "end_from_tail_m": 0.8,
+      "mass_kg": 0.55,
+      "cg_from_tail_m": 0.7,
+      "length_m": 0.2
+    },
+    {
+      "name": "Avionics",
+      "start_from_tail_m": 0.8,
+      "end_from_tail_m": 1.05,
+      "mass_kg": 0.7,
+      "cg_from_tail_m": 0.925,
+      "length_m": 0.25
+    },
+    {
+      "name": "Recovery",
+      "start_from_tail_m": 1.05,
+      "end_from_tail_m": 1.6,
+      "mass_kg": 1.4,
+      "cg_from_tail_m": 1.325,
+      "length_m": 0.55
+    },
+    {
+      "name": "Nose",
+      "start_from_tail_m": 1.6,
+      "end_from_tail_m": 2.15,
+      "mass_kg": 0.5,
+      "cg_from_tail_m": 1.83,
+      "length_m": 0.55
+    }
+  ],
+  "rail_length_m": 4.0,
+  "rail_button_span_m": 0.8,
+  "motor_initial_mass_kg": 1.6800000000000002,
+  "motor_total_impulse_ns": 2058.37,
+  "static_margin_at_ignition_cal": 2.407046704617068,
+  "rail_exit_velocity_m_s": 25.115587344023858,
+  "apogee_agl_m": 1927.8294394152967,
+  "time_to_apogee_s": 18.82956507334785,
+  "drogue_trigger_time_s": 18.830000000000002,
+  "main_trigger_time_s": 91.25,
+  "main_trigger_altitude_agl_m": 399.87972614247013,
+  "main_trigger_speed_m_s": 21.455931905433708,
+  "max_speed_m_s": 238.33062225704046,
+  "max_mach": 0.6998706098806028,
+  "max_acceleration_m_s2": 117.9435218929048,
+  "impact_speed_m_s": 7.258625139918983,
+  "impact_distance_m": 261.4226470868236,
+  "flight_time_s": 145.24572533937535
+}

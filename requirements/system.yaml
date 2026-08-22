@@ -30,6 +30,26 @@ requirements:
     verification_method: analysis_and_inspection
     status: defined
     threshold: TBD
+  - id: SYS-LAUNCH-001
+    statement: The vehicle shall use a rigid launch rail; a launch rod may be substituted only after analysis and fit testing demonstrate equivalent structural guidance, clearance, and departure-velocity performance.
+    owner: structures_mechanisms
+    verification_method: analysis_inspection_and_test
+    status: defined
+    threshold:
+      baseline_interface: rail
+      baseline_profile: 1515_or_equivalent
+      minimum_effective_guide_length_mm: 4000
+      guide_attachment_count: 2
+      minimum_guide_attachment_separation_mm: 800
+      alternate_rod_diameter_mm: TBD
+      maximum_guide_deflection_mm: TBD
+  - id: SYS-LAUNCH-002
+    statement: The qualified flight configuration shall depart the launch guide at or above the minimum controllable departure velocity.
+    owner: flight_dynamics
+    verification_method: analysis_and_test
+    status: defined
+    threshold:
+      minimum_departure_velocity_m_s: 20.0
   - id: SYS-FLIGHT-001
     statement: The complete configuration shall maintain the required flight stability margin.
     owner: flight_dynamics

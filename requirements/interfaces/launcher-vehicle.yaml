@@ -3,14 +3,28 @@ interface_id: ICD-LAUNCHER-VEHICLE
 status: draft
 owners: [structures_mechanisms, flight_dynamics]
 vehicle:
-  diameter_mm: TBD
-  launch_mass_kg: TBD
+  diameter_mm: 120
+  launch_mass_kg: 7.0
+  values_status: provisional
 launcher:
   interface_type: rail
-  rail_profile: TBD
-  rail_length_mm: TBD
+  rail_profile: 1515_or_equivalent
+  rail_length_mm: 4000
+  alternate_rod:
+    status: not_baseline
+    diameter_mm: TBD
+    minimum_usable_length_mm: 4000
+    acceptance: equivalent_stiffness_clearance_fit_and_departure_velocity_verification
+guide_attachments:
+  type: rail_buttons
+  count: 2
+  separation_mm: 800
+  lower_position_from_tail_mm: 450
+  upper_position_from_tail_mm: 1250
+  angular_position_deg: 45
 clearances:
   minimum_fin_clearance_mm: TBD
+  rail_button_to_profile_clearance_mm: TBD
 launch:
   maximum_angle_deg: TBD
-  minimum_departure_velocity_m_s: TBD
+  minimum_departure_velocity_m_s: 20.0

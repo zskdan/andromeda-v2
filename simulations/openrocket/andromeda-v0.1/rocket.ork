@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openrocket version="1.10" creator="OpenRocket 24.12">
+  <rocket>
+    <name>Andromeda v0.1 - Pro54-5G</name>
+    <id>1d783b58-7abf-4c8e-9932-93d7a78e18f1</id>
+    <axialoffset method="absolute">0.0</axialoffset>
+    <position type="absolute">0.0</position>
+    <comment>Preliminary sizing model. 2.15 m overall length, 120 mm airframe, 7.0 kg loaded target. Legacy-inspired recovery, avionics, power, and propulsion modules remain one powered stage. Dry mass and CG are provisional. C'Space criteria are reference-only.</comment>
+    <designer>Andromeda team</designer>
+    <designtype>original</designtype>
+    <motorconfiguration configid="17e844f0-82af-40bf-9557-27eb099afca6" default="true">
+      <stage number="0" active="true"/>
+    </motorconfiguration>
+    <referencetype>maximum</referencetype>
+    <subcomponents>
+      <stage>
+        <name>Sustainer</name>
+        <id>0995b556-b127-4c36-92b7-488290c8d4bd</id>
+        <overridemass>5.32</overridemass>
+        <overridesubcomponentsmass>true</overridesubcomponentsmass>
+        <overridecg>1.28</overridecg>
+        <overridesubcomponentscg>true</overridesubcomponentscg>
+        <subcomponents>
+          <nosecone>
+            <name>550 mm Von Karman nose</name>
+            <id>716bdd02-2287-4517-8690-d005ddc11a29</id>
+            <finish>smooth</finish>
+            <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
+            <length>0.55</length>
+            <thickness>0.0015</thickness>
+            <shape>haack</shape>
+            <shapeparameter>0.0</shapeparameter>
+            <aftradius>0.06</aftradius>
+            <aftshoulderradius>0.058</aftshoulderradius>
+            <aftshoulderlength>0.08</aftshoulderlength>
+            <aftshoulderthickness>0.0015</aftshoulderthickness>
+            <aftshouldercapped>false</aftshouldercapped>
+            <isflipped>false</isflipped>
+          </nosecone>
+          <bodytube>
+            <name>Recovery module - 550 mm</name>
+            <id>a6a8a056-41b0-42ab-89d1-f301474c9bd9</id>
+            <finish>smooth</finish>
+            <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
+            <length>0.55</length>
+            <thickness>0.0015</thickness>
+            <radius>0.06</radius>
+            <subcomponents>
+              <parachute>
+                <name>Main parachute 1.55 m</name>
+                <id>8d761783-01bd-4f1e-b3e4-7e79d97cdf73</id>
+                <axialoffset method="top">0.05</axialoffset>
+                <position type="top">0.05</position>
+                <overridemass>0.42</overridemass>
+                <overridesubcomponentsmass>false</overridesubcomponentsmass>
+                <packedlength>0.18</packedlength>
+                <packedradius>0.052</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <cd>1.0</cd>
+                <material type="surface" density="0.067" group="Fabrics">Ripstop nylon</material>
+                <deployevent>altitude</deployevent>
+                <deployaltitude>400.0</deployaltitude>
+                <deploydelay>0.0</deploydelay>
+                <diameter>1.55</diameter>
+                <linecount>12</linecount>
+                <linelength>1.55</linelength>
+                <linematerial type="line" density="0.0010" group="ThreadsLines">Nylon cord</linematerial>
+              </parachute>
+              <parachute>
+                <name>Drogue parachute 0.55 m</name>
+                <id>4c97a569-569c-4652-9c75-286635ec7bdf</id>
+                <axialoffset method="top">0.35</axialoffset>
+                <position type="top">0.35</position>
+                <overridemass>0.23</overridemass>
+                <overridesubcomponentsmass>false</overridesubcomponentsmass>
+                <packedlength>0.10</packedlength>
+                <packedradius>0.045</packedradius>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <cd>1.0</cd>
+                <material type="surface" density="0.067" group="Fabrics">Ripstop nylon</material>
+                <deployevent>apogee</deployevent>
+                <deployaltitude>400.0</deployaltitude>
+                <deploydelay>0.0</deploydelay>
+                <diameter>0.55</diameter>
+                <linecount>8</linecount>
+                <linelength>0.55</linelength>
+                <linematerial type="line" density="0.0010" group="ThreadsLines">Nylon cord</linematerial>
+              </parachute>
+              <railbutton>
+                <name>Upper rail button - recovery hardpoint</name>
+                <id>646005a4-a9f5-4be6-b0aa-186a123e1611</id>
+                <instancecount>1</instancecount>
+                <angleoffset method="relative">0.7853981633974483</angleoffset>
+                <axialoffset method="top">0.35</axialoffset>
+                <position type="top">0.35</position>
+                <finish>smooth</finish>
+                <material type="bulk" density="1420.0" group="Plastics">Delrin</material>
+                <outerdiameter>0.018</outerdiameter>
+                <innerdiameter>0.010</innerdiameter>
+                <height>0.015</height>
+                <baseheight>0.004</baseheight>
+                <flangeheight>0.003</flangeheight>
+                <screwheight>0.0</screwheight>
+              </railbutton>
+            </subcomponents>
+          </bodytube>
+          <bodytube>
+            <name>Avionics module - 250 mm</name>
+            <id>77a03a35-078b-484a-aef4-1183e3d01d01</id>
+            <finish>smooth</finish>
+            <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
+            <length>0.25</length>
+            <thickness>0.0015</thickness>
+            <radius>0.06</radius>
+          </bodytube>
+          <bodytube>
+            <name>Power module - 200 mm</name>
+            <id>9a65dbbe-083b-42e0-a52a-dce1a595bb90</id>
+            <finish>smooth</finish>
+            <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
+            <length>0.20</length>
+            <thickness>0.0015</thickness>
+            <radius>0.06</radius>
+          </bodytube>
+          <bodytube>
+            <name>Propulsion module - 600 mm</name>
+            <id>b5773337-d701-44aa-9a41-b8e5530139df</id>
+            <finish>smooth</finish>
+            <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
+            <length>0.60</length>
+            <thickness>0.0015</thickness>
+            <radius>0.06</radius>
+            <subcomponents>
+              <innertube>
+                <name>54 mm motor mount</name>
+                <id>d10827c8-57d0-46cd-9fac-94d7b228ccde</id>
+                <axialoffset method="bottom">0.0</axialoffset>
+                <position type="bottom">0.0</position>
+                <material type="bulk" density="1850.0" group="Composites">Fiberglass</material>
+                <length>0.50</length>
+                <radialposition>0.0</radialposition>
+                <radialdirection>0.0</radialdirection>
+                <outerradius>0.028</outerradius>
+                <thickness>0.001</thickness>
+                <clusterconfiguration>single</clusterconfiguration>
+                <clusterscale>1.0</clusterscale>
+                <clusterrotation>0.0</clusterrotation>
+                <motormount>
+                  <ignitionevent>automatic</ignitionevent>
+                  <ignitiondelay>0.0</ignitiondelay>
+                  <overhang>0.01</overhang>
+                  <motor configid="17e844f0-82af-40bf-9557-27eb099afca6">
+                    <type>reload</type>
+                    <manufacturer>Cesaroni Technology</manufacturer>
+                    <digest>056c445bb4abefa1c680cf0d5b5d8f76</digest>
+                    <designation>K570</designation>
+                    <diameter>0.054</diameter>
+                    <length>0.488</length>
+                    <delay>none</delay>
+                  </motor>
+                  <ignitionconfiguration configid="17e844f0-82af-40bf-9557-27eb099afca6">
+                    <ignitionevent>automatic</ignitionevent>
+                    <ignitiondelay>0.0</ignitiondelay>
+                  </ignitionconfiguration>
+                </motormount>
+              </innertube>
+              <trapezoidfinset>
+                <name>Four preliminary trapezoidal fins</name>
+                <id>6ecff2d9-0631-4539-9c84-a583508fbcc9</id>
+                <instancecount>4</instancecount>
+                <fincount>4</fincount>
+                <radiusoffset method="surface">0.0</radiusoffset>
+                <angleoffset method="relative">0.0</angleoffset>
+                <rotation>0.0</rotation>
+                <axialoffset method="bottom">-0.02</axialoffset>
+                <position type="bottom">-0.02</position>
+                <finish>smooth</finish>
+                <material type="bulk" density="1850.0" group="Composites">Fiberglass</material>
+                <thickness>0.005</thickness>
+                <crosssection>rounded</crosssection>
+                <cant>0.0</cant>
+                <tabheight>0.025</tabheight>
+                <tablength>0.25</tablength>
+                <tabposition relativeto="center">0.0</tabposition>
+                <filletradius>0.008</filletradius>
+                <filletmaterial type="bulk" density="1200.0" group="Plastics">Epoxy</filletmaterial>
+                <rootchord>0.30</rootchord>
+                <tipchord>0.12</tipchord>
+                <sweeplength>0.14</sweeplength>
+                <height>0.14</height>
+              </trapezoidfinset>
+              <railbutton>
+                <name>Lower rail button - propulsion hardpoint</name>
+                <id>cb518a89-b3c1-4862-83d4-0b9600067985</id>
+                <instancecount>1</instancecount>
+                <angleoffset method="relative">0.7853981633974483</angleoffset>
+                <axialoffset method="top">0.15</axialoffset>
+                <position type="top">0.15</position>
+                <finish>smooth</finish>
+                <material type="bulk" density="1420.0" group="Plastics">Delrin</material>
+                <outerdiameter>0.018</outerdiameter>
+                <innerdiameter>0.010</innerdiameter>
+                <height>0.015</height>
+                <baseheight>0.004</baseheight>
+                <flangeheight>0.003</flangeheight>
+                <screwheight>0.0</screwheight>
+              </railbutton>
+            </subcomponents>
+          </bodytube>
+        </subcomponents>
+      </stage>
+    </subcomponents>
+  </rocket>
+  <simulations>
+    <simulation status="notsimulated">
+      <name>UAE winter nominal - 5 m/s wind</name>
+      <simulator>RK4Simulator</simulator>
+      <calculator>BarrowmanCalculator</calculator>
+      <conditions>
+        <configid>17e844f0-82af-40bf-9557-27eb099afca6</configid>
+        <launchrodlength>4.0</launchrodlength>
+        <launchintowind>true</launchintowind>
+        <launchrodangle>0.0</launchrodangle>
+        <launchroddirection>90.0</launchroddirection>
+        <windaverage>5.0</windaverage>
+        <windturbulence>0.1</windturbulence>
+        <winddirection>1.5707963267948966</winddirection>
+        <wind model="average">
+          <speed>5.0</speed>
+          <direction>1.5707963267948966</direction>
+          <standarddeviation>0.5</standarddeviation>
+        </wind>
+        <wind model="multilevel" altituderef="msl">
+          <windlevel altitude="200.0" speed="5.0" direction="1.5707963267948966" standarddeviation="0.5"/>
+        </wind>
+        <windmodeltype>Average</windmodeltype>
+        <launchaltitude>200.0</launchaltitude>
+        <launchlatitude>24.0</launchlatitude>
+        <launchlongitude>54.0</launchlongitude>
+        <geodeticmethod>spherical</geodeticmethod>
+        <atmosphere model="isa"/>
+        <timestep>0.02</timestep>
+        <maxtime>1200.0</maxtime>
+      </conditions>
+      <flightdata maxaltitude="1857.183" maxvelocity="235.559" maxacceleration="117.799" maxmach="0.699" timetoapogee="18.456" flighttime="144.979" groundhitvelocity="8.823" launchrodvelocity="30.211" deploymentvelocity="21.25" optimumdelay="14.906">
+        <warning type="HighSpeedDeployment">
+          <id>53d7f4ac-93a0-4eab-9be7-904c5362f770</id>
+          <description>Recovery device deployment at high speed (21.3 m/s)</description>
+          <priority>NORMAL</priority>
+          <source>8d761783-01bd-4f1e-b3e4-7e79d97cdf73</source>
+          <parameter>21.25044926950007</parameter>
+          Recovery device deployment at high speed (21.3 m/s):  &quot;Main parachute 1.55 m&quot;
+        </warning>
+      </flightdata>
+    </simulation>
+  </simulations>
+</openrocket>

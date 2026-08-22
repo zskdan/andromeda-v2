@@ -1,0 +1,68 @@
+schema_version: 1
+deliverable:
+  id: FLIGHT-SIM-ANDROMEDA-V01
+  revision: 1
+  owner: flight_dynamics
+  status: preliminary
+requirements:
+  - SYS-MASS-001
+  - SYS-STRUCT-001
+  - SYS-LAUNCH-001
+  - SYS-LAUNCH-002
+  - SYS-FLIGHT-001
+inputs:
+  vehicle_length_m: 2.150
+  vehicle_diameter_m: 0.120
+  loaded_mass_kg: 7.000
+  motor: CTI_Pro54_5G_K570
+  atmosphere: provisional_UAE_winter_custom_atmosphere
+  nominal_wind_m_s: 5.0
+outputs:
+  rocketpy_model: simulations/rocketpy/andromeda_v01.py
+  rocketpy_results: simulations/rocketpy/andromeda_v01_results.json
+  openrocket_archive: simulations/openrocket/Andromeda-v0.1.ork
+interfaces:
+  launcher_vehicle: requirements/interfaces/launcher-vehicle.yaml
+budgets:
+  dry_vehicle_mass_kg: 5.320
+  loaded_motor_mass_kg: 1.680
+  loaded_vehicle_mass_kg: 7.000
+  dry_cg_from_tail_m: 0.870
+tools:
+  - name: RocketPy
+    version: 1.13.0
+    execution: terminal_only
+  - name: OpenRocket_file_format
+    version: 1.10
+    execution: direct_XML_edit_only_not_application_validated
+evidence:
+  - command: MPLCONFIGDIR=/tmp/andromeda-mpl /home/zakaria/workspace/ai-factory/andromeda-v2/simulation/bin/python simulations/rocketpy/andromeda_v01.py
+    output: simulations/rocketpy/andromeda_v01_results.json
+  - file: simulations/openrocket/andromeda-v0.1/rocket.ork
+    check: XML_well_formed_and_2.150_m_component_length_sum
+  - file: simulations/openrocket/Andromeda-v0.1.ork
+    check: ZIP_integrity_passed_and_internal_XML_matches_source
+verification:
+  SYS-LAUNCH-001:
+    result: NOT_VERIFIED
+    note: Actual rail profile, clearances, hardpoint strength, and launcher fit require inspection and test.
+  SYS-LAUNCH-002:
+    result: PRELIMINARY_ANALYSIS_PASS
+    threshold_m_s: 20.0
+    nominal_result_m_s: 25.116
+    note: Must be repeated over qualified mass, motor, atmosphere, wind, and launch-angle envelopes and confirmed by test.
+  SYS-FLIGHT-001:
+    result: NOT_VERIFIED
+    nominal_static_margin_calibres: 2.407
+    note: Requirement threshold and dispersion envelope are not yet baselined.
+  SYS-MASS-001:
+    result: NOT_VERIFIED
+    note: Module values are allocations, not measured component masses.
+open_issues:
+  - Measure component masses and integrated CG; reconcile the 55 g OpenRocket motor-database discrepancy.
+  - Select and inspect the actual rail profile, rail-button hardware, fit clearances, and reinforced hardpoints.
+  - Define rod diameter and allowable guide deflection only if a rod alternative remains desired.
+  - Reduce or qualify the approximately 21.46 m/s main-parachute opening speed and calculate opening loads.
+  - Resolve the Mach 1 mission target because the current Pro54 K570 nominal case reaches only Mach 0.700.
+  - Replace assumed drag, inertia, parachute Cd, UAE atmosphere, elevation, and wind with validated inputs.
+  - Verify module joints, fin strength and flutter margin, motor retention, recovery harness, and pressure/ejection paths.
