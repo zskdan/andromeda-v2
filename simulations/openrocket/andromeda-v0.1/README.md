@@ -11,7 +11,8 @@ Preliminary model inputs:
 - four 300/120 x 140 mm trapezoidal fins, 5 mm thick
 - 4 m rail with two separate hardpoints 800 mm apart, 5 m/s nominal wind,
   200 m provisional launch elevation
-- 0.55 m drogue at apogee and 1.55 m main at 400 m AGL
+- provisional 1.40 m drogue at apogee and 1.55 m main at 400 m AGL,
+  targeting no more than 10.0 m/s at main deployment
 
 The `.eng` thrust curve is retained beside the model for traceability. OpenRocket
 24.12 already contains the same CTI K570 motor digest used by the `.ork` file.
@@ -28,3 +29,7 @@ The modules are removable airframe sections, not powered stages. The upper rail
 button is assigned to a reinforced band on the recovery module and the lower
 button to the propulsion module. A launch rod is intentionally not used because
 the 7 kg, 120 mm vehicle requires the greater stiffness of a rail.
+
+The 1.40 m drogue diameter, 0.40 kg packed-mass assumption, packed dimensions,
+and drag coefficient are provisional. They require supplier data, packing tests,
+opening-load analysis, and trajectory dispersion before verification.

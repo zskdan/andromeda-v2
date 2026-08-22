@@ -38,6 +38,13 @@ verification_records:
     implementation: not_started
     evidence: []
     integration_result: NOT_VERIFIED
+  - requirement_id: SYS-RECOVERY-001
+    implementation: preliminary_model
+    evidence:
+      - simulations/rocketpy/andromeda_v01.py
+      - simulations/rocketpy/andromeda_v01_results.json
+      - integration/manifests/flight-simulation-v0.1.yaml
+    integration_result: NOT_VERIFIED
   - requirement_id: SYS-MASS-001
     implementation: not_started
     evidence: []

@@ -37,6 +37,13 @@ The launch guide is a 4 m rail with buttons 0.800 m apart. A rod is not used:
 the rail provides substantially better bending stiffness and directional
 control for a 7 kg, 120 mm diameter vehicle.
 
+The nominal recovery model uses a 1.40 m drogue at apogee and a 1.55 m main at
+400 m AGL. The larger drogue is sized to keep the nominal main deployment speed
+below the `SYS-RECOVERY-001` limit of 10.0 m/s. This increases descent time and
+wind-drift exposure and remains provisional pending Cd, packing, opening-load,
+and dispersion verification. In the nominal 5 m/s wind case, total flight time
+is approximately 254 s and impact distance is approximately 841 m.
+
 ## Requirements traceability
 
 - `SYS-LAUNCH-001`: preliminary 1515-or-equivalent rail interface with two
@@ -46,6 +53,8 @@ control for a 7 kg, 120 mm diameter vehicle.
   above the provisional 20.0 m/s threshold.
 - `SYS-MASS-001`: the model is exactly 7.00 kg loaded, but the component masses
   and CG remain allocations rather than measurements.
+- `SYS-RECOVERY-001`: the nominal 1.40 m drogue case reaches approximately
+  9.60 m/s at main deployment, below the 10.0 m/s preliminary limit.
 
 The mass, CG, inertia, drag curves, motor grain geometry, atmosphere, and
 recovery coefficients are preliminary engineering assumptions.

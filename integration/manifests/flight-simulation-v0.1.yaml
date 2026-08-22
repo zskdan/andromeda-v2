@@ -10,6 +10,7 @@ requirements:
   - SYS-LAUNCH-001
   - SYS-LAUNCH-002
   - SYS-FLIGHT-001
+  - SYS-RECOVERY-001
 inputs:
   vehicle_length_m: 2.150
   vehicle_diameter_m: 0.120
@@ -55,6 +56,12 @@ verification:
     result: NOT_VERIFIED
     nominal_static_margin_calibres: 2.407
     note: Requirement threshold and dispersion envelope are not yet baselined.
+  SYS-RECOVERY-001:
+    result: PRELIMINARY_ANALYSIS_PASS
+    threshold_m_s: 10.0
+    nominal_result_m_s: 9.596
+    drogue_diameter_m: 1.400
+    note: Cd, packing, opening loads, and qualified-condition dispersion are not yet verified.
   SYS-MASS-001:
     result: NOT_VERIFIED
     note: Module values are allocations, not measured component masses.
@@ -62,7 +69,8 @@ open_issues:
   - Measure component masses and integrated CG; reconcile the 55 g OpenRocket motor-database discrepancy.
   - Select and inspect the actual rail profile, rail-button hardware, fit clearances, and reinforced hardpoints.
   - Define rod diameter and allowable guide deflection only if a rod alternative remains desired.
-  - Reduce or qualify the approximately 21.46 m/s main-parachute opening speed and calculate opening loads.
+  - Validate the 1.40 m drogue Cd, packed volume and mass, opening loads, and dispersion margin against the 10.0 m/s main-deployment limit.
+  - Define the allowable recovery footprint; the provisional 5 m/s wind case drifts approximately 841 m with the larger drogue.
   - Resolve the Mach 1 mission target because the current Pro54 K570 nominal case reaches only Mach 0.700.
   - Replace assumed drag, inertia, parachute Cd, UAE atmosphere, elevation, and wind with validated inputs.
   - Verify module joints, fin strength and flutter margin, motor retention, recovery harness, and pressure/ejection paths.

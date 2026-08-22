@@ -56,6 +56,13 @@ requirements:
     verification_method: analysis
     status: defined
     threshold: TBD
+  - id: SYS-RECOVERY-001
+    statement: The recovery system shall limit vehicle speed at main-parachute deployment to the qualified maximum.
+    owner: flight_dynamics
+    verification_method: analysis_and_test
+    status: defined
+    threshold:
+      maximum_main_deployment_speed_m_s: 10.0
   - id: SYS-MASS-001
     statement: The integrated system shall maintain a controlled vehicle mass budget.
     owner: integrator

@@ -5,11 +5,29 @@ readiness prediction.
 
 The external airframe was subsequently divided directly in the `.ork` XML into
 550 mm recovery, 250 mm avionics, 200 mm power, and 600 mm propulsion modules.
-OpenRocket was not launched or rerun for that data-only edit. The saved result
-below predates the modular split; it is retained because the outer mold line,
-stage mass override, CG override, motor, fins, and recovery sizes are unchanged.
+The drogue was also increased from 0.55 m to a provisional 1.40 m to target no
+more than 10.0 m/s at main deployment. OpenRocket was not launched or rerun for
+these data-only edits, and the stale embedded flight result was removed. The
+historical result below predates the drogue change and is retained only for
+traceability; the current terminal-only RocketPy result is authoritative for
+the preliminary recovery sizing.
 
-## Nominal case
+## Current RocketPy recovery sizing
+
+| Quantity | Result |
+|---|---:|
+| Drogue diameter | 1.40 m |
+| Main deployment velocity | 9.60 m/s |
+| Main deployment limit | 10.00 m/s |
+| Main deployment altitude | 400 m AGL |
+| Ground impact velocity | 7.26 m/s |
+| Total flight time | 254.19 s |
+| Nominal impact distance in 5 m/s wind | 840.75 m |
+
+This is a preliminary analysis pass, not verification. The drogue Cd, packed
+volume and mass, opening loads, and wind-dispersion envelope remain unresolved.
+
+## Historical OpenRocket case
 
 - Pro54-5G / CTI 2060K570 Classic motor
 - 2.15 m length and 120 mm maximum diameter

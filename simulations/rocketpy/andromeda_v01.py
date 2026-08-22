@@ -38,6 +38,9 @@ RADIUS = 0.060
 RAIL_LENGTH = 4.0
 LOWER_RAIL_BUTTON_FROM_TAIL = 0.450
 UPPER_RAIL_BUTTON_FROM_TAIL = 1.250
+DROGUE_DIAMETER = 1.400
+MAIN_DIAMETER = 1.550
+MAX_MAIN_DEPLOYMENT_SPEED = 10.0
 
 
 @dataclass(frozen=True)
@@ -193,15 +196,15 @@ def build_rocket(motor: SolidMotor) -> Rocket:
         angular_position=45.0,
     )
 
-    drogue_cd_s = math.pi * 0.55**2 / 4
-    main_cd_s = math.pi * 1.55**2 / 4
+    drogue_cd_s = math.pi * DROGUE_DIAMETER**2 / 4
+    main_cd_s = math.pi * MAIN_DIAMETER**2 / 4
     rocket.add_parachute(
         "Drogue",
         cd_s=drogue_cd_s,
         trigger="apogee",
         sampling_rate=100,
         lag=0.0,
-        radius=0.55 / 2,
+        radius=DROGUE_DIAMETER / 2,
         drag_coefficient=1.0,
     )
     rocket.add_parachute(
@@ -210,7 +213,7 @@ def build_rocket(motor: SolidMotor) -> Rocket:
         trigger=main_trigger,
         sampling_rate=100,
         lag=0.0,
-        radius=1.55 / 2,
+        radius=MAIN_DIAMETER / 2,
         drag_coefficient=1.0,
     )
     return rocket
@@ -258,6 +261,9 @@ def run() -> dict[str, object]:
         "rail_button_span_m": (
             UPPER_RAIL_BUTTON_FROM_TAIL - LOWER_RAIL_BUTTON_FROM_TAIL
         ),
+        "drogue_diameter_m": DROGUE_DIAMETER,
+        "main_diameter_m": MAIN_DIAMETER,
+        "main_deployment_speed_limit_m_s": MAX_MAIN_DEPLOYMENT_SPEED,
         "motor_initial_mass_kg": scalar(motor.total_mass, 0.0),
         "motor_total_impulse_ns": float(motor.total_impulse),
         "static_margin_at_ignition_cal": scalar(rocket.static_margin, 0.0),
@@ -268,6 +274,9 @@ def run() -> dict[str, object]:
         "main_trigger_time_s": main_time,
         "main_trigger_altitude_agl_m": scalar(flight.altitude, main_time),
         "main_trigger_speed_m_s": scalar(flight.speed, main_time),
+        "main_deployment_speed_requirement_met": (
+            scalar(flight.speed, main_time) <= MAX_MAIN_DEPLOYMENT_SPEED
+        ),
         "max_speed_m_s": float(flight.max_speed),
         "max_mach": float(flight.max_mach_number),
         "max_acceleration_m_s2": float(flight.max_acceleration),
