@@ -23,6 +23,7 @@ The architect delegates by engineering capability, not by machine name. Runtime 
 7. Escalate cross-domain trades to the architect. The integrator detects and quantifies conflicts; it does not make architectural trades silently.
 8. Do not blindly retry engineering failures. Automatic retries are for infrastructure loss only.
 9. Evaluate every change against `integration/change-impact-rules.json`, perform every triggered downstream review, and commit its evidence or an explicit evidence-backed no-update disposition.
+10. Commit and push every repository modification made by an agent before declaring the task complete. Push to `origin/main` unless the user explicitly selects another branch or says not to push. Stage only the files owned by the task, preserve unrelated working-tree changes, and report a blocked push as incomplete work.
 
 ## Mandatory cross-domain change gates
 
