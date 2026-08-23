@@ -1,0 +1,155 @@
+{
+  "checks": [
+    {
+      "calculation": "120.000 - 2*2.000 = 116.000 mm",
+      "id": "PKG-GEOM-001",
+      "margin_mm": 0.0,
+      "notes": "Checks the nominal airframe ID derivation; it does not verify manufactured clear bore.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "pass"
+    },
+    {
+      "calculation": "nominal ID 116.000 - disk OD 110.000",
+      "id": "PKG-RADIAL-001",
+      "margin_mm": 6.0,
+      "notes": "Diametral margin only; couplers, ovality, LEDs, connectors and insertion clearance remain unresolved.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "K26 rectangular-envelope diagonal = 97.617 mm",
+      "id": "PKG-RADIAL-002",
+      "margin_mm": 18.383,
+      "notes": "Conservative planar bounding-box check for the SOM, excluding carrier components.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "longitudinal Pluto cross-section diagonal = 82.565 mm",
+      "id": "PKG-RADIAL-003",
+      "margin_mm": 33.435,
+      "notes": "Uses the complete published enclosure envelope with its 117 mm dimension parallel to the vehicle axis.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "Pluto interval [650.000, 767.000] within avionics [550.000, 800.000] mm",
+      "id": "PKG-AXIAL-001",
+      "margin_mm": 33.0,
+      "notes": "Body envelope only; service length for cables, mounts and removal is still TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "recovery disk station 500.000 within [0.000, 550.000] mm",
+      "id": "PKG-STATION-RECOVERY",
+      "margin_mm": 50.0,
+      "notes": "Conceptual station; no component or connector envelope has been allocated yet.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "camera disk station 565.000 within [550.000, 800.000] mm",
+      "id": "PKG-STATION-CAMERA",
+      "margin_mm": 15.0,
+      "notes": "Conceptual station; no component or connector envelope has been allocated yet.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "compute disk station 600.000 within [550.000, 800.000] mm",
+      "id": "PKG-STATION-COMPUTE",
+      "margin_mm": 50.0,
+      "notes": "Conceptual station; no component or connector envelope has been allocated yet.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "sensor disk station 630.000 within [550.000, 800.000] mm",
+      "id": "PKG-STATION-SENSOR",
+      "margin_mm": 80.0,
+      "notes": "Conceptual station; no component or connector envelope has been allocated yet.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "power disk station 900.000 within [800.000, 1000.000] mm",
+      "id": "PKG-STATION-POWER",
+      "margin_mm": 100.0,
+      "notes": "Conceptual station; no component or connector envelope has been allocated yet.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    }
+  ],
+  "configuration": {
+    "axis_convention": "+X from recovery-module forward face toward power module",
+    "module_boundaries_mm": {
+      "avionics": [
+        550.0,
+        800.0
+      ],
+      "power": [
+        800.0,
+        1000.0
+      ],
+      "recovery": [
+        0.0,
+        550.0
+      ]
+    },
+    "pluto_orientation": "117 mm enclosure dimension parallel to +X"
+  },
+  "derived_values": {
+    "disk_diametral_margin_mm": 6.0,
+    "k26_planar_bounding_diagonal_mm": 97.617,
+    "nominal_inner_diameter_mm": 116.0,
+    "pluto_body_axial_end_mm": 767.0,
+    "pluto_longitudinal_cross_section_diagonal_mm": 82.565
+  },
+  "input": {
+    "path": "subsystems/structures_mechanisms/cad/packaging-v0.1/parameters.csv",
+    "sha256": "65249cd0bdf006cefa21ff9faa99cfc651ae8435b58f64c1f9a34070f25e0cde"
+  },
+  "limitations": [
+    "No manufactured-airframe measurement is available.",
+    "No cable-bend, mounting-rail, coupler, fastener or connector keep-out is included.",
+    "No camera, sensor, recovery-actuator or power-component envelope is included.",
+    "No vibration, thermal, structural-load or assembly-sequence verification is performed."
+  ],
+  "open_parameters": [
+    {
+      "key": "minimum_verified_clear_bore_mm",
+      "notes": "Must be measured on the selected airframe including couplers and intrusions",
+      "source": "requirements/system.yaml:SYS-STRUCT-001"
+    },
+    {
+      "key": "pluto_service_length_allowance_mm",
+      "notes": "USB and RF cable bends plus mounting and removal allowance",
+      "source": "packaging-v0.1"
+    },
+    {
+      "key": "camera_component_envelope_mm",
+      "notes": "Camera bodies and optical-window geometry not yet selected",
+      "source": "packaging-v0.1"
+    },
+    {
+      "key": "sensor_component_envelope_mm",
+      "notes": "Sensor packages and ports not yet selected",
+      "source": "packaging-v0.1"
+    },
+    {
+      "key": "support_rail_envelope_mm",
+      "notes": "Tie rod or rail count diameter and angular locations not selected",
+      "source": "packaging-v0.1"
+    }
+  ],
+  "overall_status": "provisional_pass_with_open_issues",
+  "requirement_ids": [
+    "SYS-STRUCT-001"
+  ],
+  "schema_version": 1,
+  "tool": {
+    "id": "andromeda-packaging-fit-check",
+    "version": "1.0.0"
+  }
+}

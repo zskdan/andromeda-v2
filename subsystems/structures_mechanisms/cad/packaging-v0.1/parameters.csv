@@ -1,0 +1,27 @@
+key,value,unit,status,source,notes
+airframe_outer_diameter_mm,120.0,mm,provisional,requirements/system.yaml:SYS-STRUCT-001,Vehicle outer diameter
+airframe_wall_thickness_mm,2.0,mm,provisional,requirements/system.yaml:SYS-STRUCT-001,Design wall thickness pending airframe selection
+airframe_nominal_inner_diameter_mm,116.0,mm,derived,requirements/system.yaml:SYS-STRUCT-001,Outer diameter minus twice the wall thickness
+minimum_verified_clear_bore_mm,TBD,mm,open,requirements/system.yaml:SYS-STRUCT-001,Must be measured on the selected airframe including couplers and intrusions
+recovery_module_length_mm,550.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Current packaging input only
+avionics_module_length_mm,250.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Current packaging input only
+power_module_length_mm,200.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Current packaging input only
+flight_disk_outer_diameter_mm,110.0,mm,conceptual,architecture_review,Initial disk envelope; not a released PCB outline
+flight_disk_thickness_mm,1.6,mm,conceptual,architecture_review,Generic PCB thickness for envelope visualization
+recovery_disk_station_mm,500.0,mm,conceptual,packaging-v0.1,Measured from the forward face of the modeled recovery module
+camera_disk_station_mm,565.0,mm,conceptual,packaging-v0.1,Measured from the forward face of the modeled recovery module
+compute_disk_station_mm,600.0,mm,conceptual,packaging-v0.1,Measured from the forward face of the modeled recovery module
+sensor_disk_station_mm,630.0,mm,conceptual,packaging-v0.1,Measured from the forward face of the modeled recovery module
+power_disk_station_mm,900.0,mm,conceptual,packaging-v0.1,Measured from the forward face of the modeled recovery module
+k26_length_mm,77.0,mm,published,AMD DS987,K26 SOM planar dimension
+k26_width_mm,60.0,mm,published,AMD DS987,K26 SOM planar dimension
+k26_height_mm,10.9,mm,published,AMD DS987,K26 SOM maximum published height envelope
+pluto_enclosure_length_mm,117.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Long dimension placed parallel to the vehicle axis
+pluto_enclosure_width_mm,79.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Transverse envelope dimension
+pluto_enclosure_height_mm,24.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Transverse envelope dimension
+pluto_axial_start_mm,650.0,mm,conceptual,packaging-v0.1,Forward face of the enclosed Pluto envelope
+pluto_service_length_allowance_mm,TBD,mm,open,packaging-v0.1,USB and RF cable bends plus mounting and removal allowance
+camera_component_envelope_mm,TBD,mm,open,packaging-v0.1,Camera bodies and optical-window geometry not yet selected
+sensor_component_envelope_mm,TBD,mm,open,packaging-v0.1,Sensor packages and ports not yet selected
+support_rail_envelope_mm,TBD,mm,open,packaging-v0.1,Tie rod or rail count diameter and angular locations not selected
+breakout_disk_flight_mounted,0,boolean,defined,user_architecture,Breakout disk is a ground-only prototype article

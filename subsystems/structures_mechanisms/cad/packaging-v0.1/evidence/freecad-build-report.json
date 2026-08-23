@@ -1,0 +1,196 @@
+{
+  "all_exported_shapes_valid": true,
+  "fit_check_status": "provisional_pass_with_open_issues",
+  "model_revision": "0.1",
+  "objects": {
+    "Avionics_Module": {
+      "bounding_box_mm": {
+        "x_length": 250.0,
+        "x_max": 800.0,
+        "x_min": 550.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true
+    },
+    "Camera_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 565.8,
+        "x_min": 564.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true
+    },
+    "Compute_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 600.8,
+        "x_min": 599.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true
+    },
+    "K26_SOM_Envelope": {
+      "bounding_box_mm": {
+        "x_length": 10.9,
+        "x_max": 605.45,
+        "x_min": 594.55,
+        "y_length": 77.0,
+        "z_length": 60.0
+      },
+      "shape_valid": true
+    },
+    "PlutoSDR_Envelope": {
+      "bounding_box_mm": {
+        "x_length": 117.0,
+        "x_max": 767.0,
+        "x_min": 650.0,
+        "y_length": 79.0,
+        "z_length": 24.0
+      },
+      "shape_valid": true
+    },
+    "Power_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 900.8,
+        "x_min": 899.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true
+    },
+    "Power_Module": {
+      "bounding_box_mm": {
+        "x_length": 200.0,
+        "x_max": 1000.0,
+        "x_min": 800.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true
+    },
+    "Recovery_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 500.8,
+        "x_min": 499.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true
+    },
+    "Recovery_Module": {
+      "bounding_box_mm": {
+        "x_length": 550.0,
+        "x_max": 550.0,
+        "x_min": 0.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true
+    },
+    "Sensor_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 630.8,
+        "x_min": 629.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true
+    }
+  },
+  "outputs": {
+    "fcstd": {
+      "bytes": 9963,
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.1/exports/andromeda-packaging-v0.1.FCStd",
+      "sha256": "784a93eb88e40d84a92e397a7d4a33ed5b944c500631f01ef82565e671c39be2"
+    },
+    "step": {
+      "bytes": 33069,
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.1/exports/andromeda-packaging-v0.1.step",
+      "sha256": "d19340068b5e8c5dfca2e7db6299887b4523b1318fe7fed71eb17cedf6fc29f8"
+    }
+  },
+  "overall_status": "pass",
+  "requirement_ids": [
+    "SYS-STRUCT-001"
+  ],
+  "schema_version": 1,
+  "step_round_trip": {
+    "all_bounds_finite": true,
+    "all_shapes_valid": true,
+    "bounded_object_count": 11,
+    "bounding_box_mm": {
+      "x_length": 1000.0,
+      "y_length": 120.0,
+      "z_length": 120.0
+    },
+    "object_count": 11,
+    "objects": {
+      "Open_CASCADE_STEP_translator_7_8_1": {
+        "finite_bounds": true,
+        "shape_type": "Compound",
+        "shape_valid": true
+      },
+      "Part__Feature": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature001": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature002": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature003": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature004": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature005": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature006": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature007": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature008": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature009": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      }
+    }
+  },
+  "tool": {
+    "name": "FreeCAD",
+    "version": "1.1.3"
+  }
+}
