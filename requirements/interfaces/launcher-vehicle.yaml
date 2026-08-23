@@ -3,9 +3,13 @@ interface_id: ICD-LAUNCHER-VEHICLE
 status: draft
 owners: [structures_mechanisms, flight_dynamics]
 vehicle:
-  diameter_mm: 120
+  outer_diameter_mm: 120.0
+  provisional_design_wall_thickness_mm: 2.0
+  derived_nominal_inner_diameter_mm: 116.0
+  minimum_verified_clear_bore_mm: TBD
+  wall_thickness_margin_over_prior_model_mm: 0.5
   launch_mass_kg: 7.0
-  values_status: provisional
+  values_status: provisional_pending_airframe_selection_and_measurement
 launcher:
   interface_type: rail
   rail_profile: 1515_or_equivalent

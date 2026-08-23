@@ -1,0 +1,66 @@
+key,value,unit,status,source,notes
+airframe_outer_diameter_mm,120.0,mm,provisional,requirements/system.yaml:SYS-STRUCT-001,Vehicle maximum body diameter
+airframe_wall_thickness_mm,2.0,mm,provisional,requirements/system.yaml:SYS-STRUCT-001,Design wall thickness pending airframe selection
+airframe_nominal_inner_diameter_mm,116.0,mm,derived,requirements/system.yaml:SYS-STRUCT-001,Outer diameter minus twice the wall thickness
+minimum_verified_clear_bore_mm,TBD,mm,open,requirements/system.yaml:SYS-STRUCT-001,Must be measured including couplers fasteners and local intrusions
+nose_ogive_length_mm,550.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Von Karman ogive length
+nose_wall_thickness_mm,1.5,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket carbon-fiber nose input
+nose_shoulder_radius_mm,58.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket nose shoulder radius
+nose_shoulder_length_mm,80.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Also used as conceptual separation-module allocation
+separation_module_inner_diameter_mm,100.0,mm,conceptual,packaging-v0.2,Internal passage placeholder pending separation mechanism and harness design
+avionics_section_length_mm,1000.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Groups the former 550 mm recovery 250 mm avionics and 200 mm power tubes
+motor_section_length_mm,600.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket propulsion-module length
+overall_vehicle_length_mm,2150.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Nose plus avionics plus motor sections
+separation_interface_station_mm,550.0,mm,derived,user_architecture,Interface between nose recovery section and avionics section
+motor_interface_station_mm,1550.0,mm,derived,user_architecture,Interface between avionics and motor sections
+flight_disk_outer_diameter_mm,110.0,mm,conceptual,architecture_review,Initial disk envelope not a released PCB outline
+flight_disk_thickness_mm,1.6,mm,conceptual,architecture_review,Generic PCB thickness for envelope visualization
+recovery_control_disk_station_mm,650.0,mm,conceptual,user_architecture,Uppermost avionics disk immediately aft of separation module
+recovery_power_disk_station_mm,695.0,mm,conceptual,user_architecture,Dedicated recovery power and isolation disk
+battery_bay_start_mm,730.0,mm,conceptual,user_architecture,Allocated bay forward face; battery configuration remains TBD
+battery_bay_length_mm,180.0,mm,conceptual,packaging-v0.2,Allocation only pending battery selection and endurance budget
+battery_bay_diameter_mm,100.0,mm,conceptual,packaging-v0.2,Generic internal keep-out allocation
+avionics_power_disk_station_mm,940.0,mm,conceptual,user_architecture,Experimental avionics power distribution disk
+camera_disk_station_mm,985.0,mm,conceptual,user_architecture,Four-camera disk
+compute_disk_station_mm,1030.0,mm,conceptual,user_architecture,K26 compute disk
+sensor_disk_station_mm,1080.0,mm,conceptual,user_architecture,GNSS IMU environmental and acoustic sensor disk
+rf_disk_station_mm,1130.0,mm,conceptual,user_architecture,PlutoSDR support and RF interface disk
+k26_length_mm,77.0,mm,published,AMD DS987,K26 SOM planar dimension
+k26_width_mm,60.0,mm,published,AMD DS987,K26 SOM planar dimension
+k26_height_mm,10.9,mm,published,AMD DS987,K26 SOM maximum height envelope
+pluto_enclosure_length_mm,117.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Long dimension parallel to vehicle axis
+pluto_enclosure_width_mm,79.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Transverse envelope dimension
+pluto_enclosure_height_mm,24.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Transverse envelope dimension
+pluto_axial_start_mm,1180.0,mm,conceptual,packaging-v0.2,Forward face of longitudinal enclosed Pluto envelope
+pluto_service_length_allowance_mm,TBD,mm,open,packaging-v0.2,USB RF cable bends mounts thermal path and removal allowance
+antenna_bay_start_mm,1350.0,mm,conceptual,user_architecture,RF-transparent bay immediately forward of motor interface
+antenna_bay_total_length_mm,200.0,mm,conceptual,packaging-v0.2,Two generic axial antenna zones ending at motor interface
+antenna_bay_gap_mm,20.0,mm,conceptual,packaging-v0.2,Axial isolation allocation between generic antenna zones
+antenna_element_envelopes_mm,TBD,mm,open,rf_system,Antenna type dimensions polarization and keep-outs are not selected
+aluminum_interface_rail_count,4,count,conceptual,packaging-v0.2,Interrupted longitudinal rails avoid a continuous RF-shielding sleeve
+aluminum_interface_rail_start_mm,1350.0,mm,conceptual,packaging-v0.2,Rails cross the avionics-to-motor interface
+aluminum_interface_rail_length_mm,250.0,mm,conceptual,packaging-v0.2,Extends 50 mm aft of motor interface
+aluminum_interface_rail_width_mm,6.0,mm,conceptual,packaging-v0.2,Placeholder pending structural loads and joint design
+aluminum_interface_rail_height_mm,6.0,mm,conceptual,packaging-v0.2,Placeholder pending structural loads and joint design
+aluminum_interface_rail_center_radius_mm,52.0,mm,conceptual,packaging-v0.2,Places rails inside nominal clear bore
+main_parachute_packed_length_mm,180.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Existing OpenRocket main packed envelope
+main_parachute_packed_diameter_mm,104.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Twice the existing 52 mm packed radius
+main_parachute_axial_start_mm,370.0,mm,conceptual,packaging-v0.2,Aft-aligned trial placement inside ogive
+drogue_parachute_location_mm,TBD,mm,open,recovery_system,New architecture has not allocated the existing drogue pack
+motor_mount_outer_diameter_mm,56.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Twice OpenRocket 28 mm outer radius
+motor_mount_wall_thickness_mm,1.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket motor-mount wall
+motor_mount_length_mm,500.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Aft-aligned motor mount
+pro54_motor_diameter_mm,54.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.1/rocket.ork,Configured CTI K570 motor diameter
+pro54_motor_length_mm,488.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.1/rocket.ork,Configured CTI K570 motor length
+pro54_motor_aft_overhang_mm,10.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Motor aft-end projection beyond body
+fin_count,4,count,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Four equally spaced fins
+fin_root_chord_mm,300.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket trapezoidal fin root chord
+fin_tip_chord_mm,120.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket trapezoidal fin tip chord
+fin_sweep_length_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket leading-edge sweep
+fin_span_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket fin height
+fin_thickness_mm,5.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket fin thickness
+fin_aft_clearance_mm,20.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Interprets bottom axial offset minus 20 mm as trailing-edge clearance
+camera_component_envelope_mm,TBD,mm,open,video_system,Camera bodies optical windows and reinforcements are not selected
+sensor_component_envelope_mm,TBD,mm,open,electronics,Sensor packages and pressure acoustic ports are not selected
+support_and_fastener_envelope_mm,TBD,mm,open,structures_mechanisms,Joint fasteners tie rods and local reinforcements are not selected
+breakout_disk_flight_mounted,0,boolean,defined,user_architecture,Breakout disk is a ground-only prototype article

@@ -35,7 +35,7 @@ be replaced by a measured component-level mass budget.
 
 The launch guide is a 4 m rail with buttons 0.800 m apart. A rod is not used:
 the rail provides substantially better bending stiffness and directional
-control for a 7 kg, 120 mm diameter vehicle.
+control for a 7 kg, 120 mm outer-diameter vehicle.
 
 The nominal recovery model uses a 1.40 m drogue at apogee and a 1.55 m main at
 400 m AGL. The larger drogue is sized to keep the nominal main deployment speed

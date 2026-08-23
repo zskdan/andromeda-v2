@@ -1,7 +1,7 @@
 schema_version: 1
 deliverable:
   id: FLIGHT-SIM-ANDROMEDA-V01
-  revision: 1
+  revision: 2
   owner: flight_dynamics
   status: preliminary
 requirements:
@@ -13,7 +13,11 @@ requirements:
   - SYS-RECOVERY-001
 inputs:
   vehicle_length_m: 2.150
-  vehicle_diameter_m: 0.120
+  vehicle_outer_diameter_m: 0.120
+  provisional_design_wall_thickness_m: 0.002
+  derived_nominal_inner_diameter_m: 0.116
+  wall_thickness_margin_over_prior_model_m: 0.0005
+  minimum_verified_clear_bore_m: TBD
   loaded_mass_kg: 7.000
   motor: CTI_Pro54_5G_K570
   atmosphere: provisional_UAE_winter_custom_atmosphere
@@ -46,7 +50,7 @@ evidence:
 verification:
   SYS-LAUNCH-001:
     result: NOT_VERIFIED
-    note: Actual rail profile, clearances, hardpoint strength, and launcher fit require inspection and test.
+    note: Actual airframe wall and clear bore, rail profile, clearances, hardpoint strength, and launcher fit require inspection and test.
   SYS-LAUNCH-002:
     result: PRELIMINARY_ANALYSIS_PASS
     threshold_m_s: 20.0
@@ -66,6 +70,7 @@ verification:
     result: NOT_VERIFIED
     note: Module values are allocations, not measured component masses.
 open_issues:
+  - Select the actual airframe construction and measure outer diameter, wall thickness, ovality, coupler intrusions, and minimum clear bore; 120 mm OD, 2.0 mm wall, and 116 mm nominal ID are provisional design values.
   - Measure component masses and integrated CG; reconcile the 55 g OpenRocket motor-database discrepancy.
   - Select and inspect the actual rail profile, rail-button hardware, fit clearances, and reinforced hardpoints.
   - Define rod diameter and allowable guide deflection only if a rod alternative remains desired.

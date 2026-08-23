@@ -4,7 +4,8 @@ Run with OpenRocket 24.12 on 2026-08-20. This is a sizing result, not a flight
 readiness prediction.
 
 The external airframe was subsequently divided directly in the `.ork` XML into
-550 mm recovery, 250 mm avionics, 200 mm power, and 600 mm propulsion modules.
+550 mm recovery, 250 mm avionics, 200 mm power, and 600 mm propulsion modules,
+and its provisional body-tube wall was increased from 1.5 mm to 2.0 mm.
 The drogue was also increased from 0.55 m to a provisional 1.40 m to target no
 more than 10.0 m/s at main deployment. OpenRocket was not launched or rerun for
 these data-only edits, and the stale embedded flight result was removed. The
@@ -30,7 +31,7 @@ volume and mass, opening loads, and wind-dispersion envelope remain unresolved.
 ## Historical OpenRocket case
 
 - Pro54-5G / CTI 2060K570 Classic motor
-- 2.15 m length and 120 mm maximum diameter
+- 2.15 m length and 120 mm maximum outer diameter
 - 7.055 kg OpenRocket launch mass (see motor-mass discrepancy below)
 - provisional dry CG: 1.280 m from the nose
 - 4 m vertical rail
@@ -74,5 +75,7 @@ Sciences Barasinga handbook specifies 1.68 kg. Therefore, the current run is
 7.055 kg instead of exactly 7.000 kg. The archived `.eng` curve integrates to
 2,058.4 Ns, close to the handbook's 2,062 Ns, and carries the handbook masses.
 
+The 2.0 mm body-tube wall and derived 116 mm nominal inner diameter are
+provisional packaging inputs. The manufactured minimum clear bore remains TBD.
 The dry CG, component packaging, parachute drag coefficients, fin stiffness,
 surface finish, launch elevation, and UAE atmospheric profile are provisional.

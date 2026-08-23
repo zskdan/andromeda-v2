@@ -1,0 +1,128 @@
+schema_version: 1
+deliverable:
+  id: MECH-PACKAGING-001
+  revision: 2
+  owner: structures_mechanisms
+  status: preliminary_with_open_recovery_conflict
+requirements:
+  - SYS-STRUCT-001
+inputs:
+  parameters: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+  system_requirements: requirements/system.yaml
+  launcher_vehicle_interface: requirements/interfaces/launcher-vehicle.yaml
+  external_geometry_and_motor: simulations/openrocket/andromeda-v0.1/rocket.ork
+  architecture_direction: >-
+    User-selected three-section arrangement: nose/recovery, avionics+batteries,
+    and motor+fins, with separation at interface 1-2 and fiberglass RF structure
+    plus internal aluminum at interface 2-3.
+  vendor_sources:
+    plutosdr: https://wiki.analog.com/university/tools/pluto/hacking/hardware
+    k26: https://docs.amd.com/r/en-US/ds987-k26-som/K26-SOM-Mechanical-Dimensions
+outputs:
+  freecad_source: subsystems/structures_mechanisms/cad/packaging-v0.2/model/build_freecad.py
+  native_freecad_document:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.FCStd
+    status: generated
+  neutral_step_export:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.step
+    status: generated
+  fit_report: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
+  openrocket_transfer_report: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
+  freecad_build_report:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/freecad-build-report.json
+    status: generated
+interfaces:
+  coordinate_system:
+    axis: X
+    origin: nose_tip
+    positive_direction: toward_motor_nozzle
+  section_1_nose_recovery:
+    interval_mm: [0.0, 550.0]
+    aft_interface: separation_module
+  interface_1_2:
+    station_mm: 550.0
+    separation_module_allocation_mm: [550.0, 630.0]
+    status: conceptual
+  section_2_avionics_batteries:
+    interval_mm: [550.0, 1550.0]
+    antenna_bay_interval_mm: [1350.0, 1550.0]
+  interface_2_3:
+    station_mm: 1550.0
+    external_structure: fiberglass_rf_transparent_bay
+    internal_structure: four_interrupted_longitudinal_aluminum_rails
+    continuous_aluminum_sleeve_under_antennas: prohibited_by_current_concept
+    status: conceptual_pending_structural_and_rf_analysis
+  section_3_motor_fins:
+    interval_mm: [1550.0, 2150.0]
+    motor_aft_end_with_overhang_mm: 2160.0
+  onshape_handoff:
+    geometry_format: STEP
+    parameter_format: CSV
+    native_feature_rebuild_required: true
+budgets:
+  external_geometry_mm:
+    body_outer_diameter: 120.0
+    provisional_wall_thickness: 2.0
+    nominal_inner_diameter: 116.0
+    overall_body_length: 2150.0
+    fin_tip_to_tip_maximum: 400.0
+  disk_stack_nose_to_tail_mm:
+    recovery_control: 650.0
+    recovery_power: 695.0
+    battery_bay: [730.0, 910.0]
+    avionics_power: 940.0
+    camera: 985.0
+    compute: 1030.0
+    sensor: 1080.0
+    rf: 1130.0
+    plutosdr: [1180.0, 1297.0]
+    antenna_bays: [1350.0, 1550.0]
+  pro54_motor_envelope_mm:
+    diameter: 54.0
+    length: 488.0
+    interval: [1672.0, 2160.0]
+tools:
+  - name: Python
+    version: 3.12.3
+    purpose: deterministic geometry and allocation checks
+  - name: FreeCAD
+    version: 1.1.3
+    purpose: native geometry generation and STEP round-trip validation
+evidence:
+  - id: PKG-FIT-REPORT-002
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
+    command: >-
+      python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_fit.py
+      --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+      --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
+  - id: PKG-FREECAD-BUILD-002
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/freecad-build-report.json
+    command: >-
+      FreeCADCmd
+      subsystems/structures_mechanisms/cad/packaging-v0.2/model/build_freecad.py
+  - id: PKG-OPENROCKET-TRANSFER-002
+    path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
+    command: >-
+      python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_openrocket_transfer.py
+      --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+      --openrocket simulations/openrocket/andromeda-v0.1/rocket.ork
+      --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
+verification:
+  deterministic_fit_check: provisional_with_packaging_conflict
+  freecad_recompute: pass
+  source_shape_validity: pass
+  step_export_round_trip: pass
+  external_openrocket_geometry_transfer: pass
+  requirement_verification_status: not_verified
+  validation_status: not_validated
+open_issues:
+  - The existing 104 x 180 mm main-parachute packed cylinder has a 2.749 mm radial conflict at the trial ogive station.
+  - Drogue parachute, lines, harness, deployment mechanism and backup recovery electronics are not allocated.
+  - Minimum manufactured clear bore and coupler geometry are TBD.
+  - Separation mechanics and structural load path are TBD.
+  - Aluminum rails are not structurally sized and their RF interaction is not analyzed.
+  - Antenna elements, polarization, spacing, feeds, cable keep-outs and radome effects are TBD.
+  - Battery cells, restraint, isolation, protection, venting and energy budget are TBD.
+  - Pluto connector service volumes, supports and thermal path are TBD.
+  - Camera windows and component envelopes remain TBD.
+  - Motor retention, fin flutter, vibration, shock, thermal and assembly sequence are not verified.

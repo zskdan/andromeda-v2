@@ -1,0 +1,244 @@
+{
+  "checks": [
+    {
+      "calculation": "120.000 - 2*2.000 = 116.000 mm",
+      "id": "PKG-GEOM-001",
+      "margin_mm": 0.0,
+      "notes": "Nominal derivation only; manufactured clear bore is still unverified.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "pass"
+    },
+    {
+      "calculation": "550.0 + 1000.0 + 600.0 = 2150.0 mm",
+      "id": "PKG-GEOM-002",
+      "margin_mm": 0.0,
+      "notes": "Checks the three-section grouping against the 2.15 m OpenRocket outer mold line.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "pass"
+    },
+    {
+      "calculation": "nominal ID 116.000 - disk OD 110.000",
+      "id": "PKG-RADIAL-001",
+      "margin_mm": 6.0,
+      "notes": "Diametral margin excludes couplers, LEDs, connectors, rails, fasteners and insertion clearance.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "K26 rectangular-envelope diagonal = 97.617 mm",
+      "id": "PKG-RADIAL-002",
+      "margin_mm": 18.383,
+      "notes": "Published SOM envelope only; carrier and connectors are not modeled.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "longitudinal Pluto cross-section diagonal = 82.565 mm",
+      "id": "PKG-RADIAL-003",
+      "margin_mm": 33.435,
+      "notes": "Complete enclosure envelope; USB and coax service volumes remain TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "recovery_control disk at 650.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-RECOVERY_CONTROL",
+      "margin_mm": 20.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "recovery_power disk at 695.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-RECOVERY_POWER",
+      "margin_mm": 65.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "avionics_power disk at 940.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-AVIONICS_POWER",
+      "margin_mm": 310.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "camera disk at 985.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-CAMERA",
+      "margin_mm": 355.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "compute disk at 1030.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-COMPUTE",
+      "margin_mm": 320.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "sensor disk at 1080.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-SENSOR",
+      "margin_mm": 270.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "rf disk at 1130.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-RF",
+      "margin_mm": 220.0,
+      "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "battery allocation [730.0, 910.0] mm, OD 100.0 mm",
+      "id": "PKG-BATTERY-001",
+      "margin_mm": 16.0,
+      "notes": "Allocation volume only; cell chemistry, count, restraints, protection and venting are TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "Pluto interval [1180.0, 1297.0] within [630.0, 1350.0] mm",
+      "id": "PKG-AXIAL-PLUTO",
+      "margin_mm": 53.0,
+      "notes": "Body envelope only; service length for cables, thermal path, mounts and removal is TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "antenna bay [1350.0, 1550.0] ends at motor interface 1550.0 mm",
+      "id": "PKG-RF-BAY-001",
+      "margin_mm": 0.0,
+      "notes": "Two generic fiberglass RF zones; antenna elements and RF keep-outs remain TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "four interrupted rails [1350.0, 1600.0] cross x=1550.0; outer radius 55.0 mm",
+      "id": "PKG-STRUCT-INTERFACE-001",
+      "margin_mm": 3.0,
+      "notes": "Rails are a packaging concept, not a sized load path. A continuous aluminum sleeve is intentionally excluded from the RF bay.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "Pro54 interval [1672.0, 2160.0] mm in aft-aligned 500 mm mount with 10 mm overhang",
+      "id": "PKG-MOTOR-001",
+      "margin_mm": 2.0,
+      "notes": "Envelope is from the configured OpenRocket K570 record; retention and nozzle clearance are TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "four fins, root [1830.0, 2130.0] mm, tip ends 2090.0 mm",
+      "id": "PKG-FIN-001",
+      "margin_mm": 40.0,
+      "notes": "Matches the provisional OpenRocket trapezoidal planform and axial interpretation.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "pass"
+    },
+    {
+      "calculation": "main pack [370.0, 550.0] mm, radius 52.0 mm; ogive inner radius at forward face 49.251 mm",
+      "id": "PKG-RECOVERY-001",
+      "margin_mm": -2.749,
+      "notes": "The existing OpenRocket cylindrical pack does not fit wholly inside the ogive at this trial station. Repacking or an aft cylindrical recovery volume is required.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "open_conflict"
+    }
+  ],
+  "configuration": {
+    "axis_convention": "+X from nose tip toward motor nozzle",
+    "interfaces_mm": {
+      "fiberglass_rf_and_aluminum_rails": 1550.0,
+      "separation_module": 550.0
+    },
+    "pluto_orientation": "117 mm enclosure dimension parallel to +X",
+    "section_boundaries_mm": {
+      "avionics_batteries": [
+        550.0,
+        1550.0
+      ],
+      "motor_fins": [
+        1550.0,
+        2150.0
+      ],
+      "nose_recovery": [
+        0.0,
+        550.0
+      ]
+    }
+  },
+  "derived_values": {
+    "disk_diametral_margin_mm": 6.0,
+    "fin_tip_to_body_aft_margin_mm": 40.0,
+    "k26_planar_bounding_diagonal_mm": 97.617,
+    "main_parachute_trial_margin_mm": -2.749,
+    "motor_forward_station_mm": 1672.0,
+    "nominal_inner_diameter_mm": 116.0,
+    "pluto_longitudinal_cross_section_diagonal_mm": 82.565
+  },
+  "input": {
+    "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
+    "sha256": "e47c13e82f363b666d69394e13da1d319ab83d63246ad6db0fb234a9a7f3a726"
+  },
+  "limitations": [
+    "The current main-parachute packed cylinder conflicts with the ogive trial placement; the drogue is unallocated.",
+    "Antenna elements, patterns, cable keep-outs and RF interaction with the aluminum rails are not modeled.",
+    "No manufactured-airframe or coupler measurements are available.",
+    "No loads, joint sizing, flutter, vibration, thermal or assembly-sequence verification is performed.",
+    "Battery and most electronic component envelopes remain allocations rather than selected hardware."
+  ],
+  "open_parameters": [
+    {
+      "key": "minimum_verified_clear_bore_mm",
+      "notes": "Must be measured including couplers fasteners and local intrusions",
+      "source": "requirements/system.yaml:SYS-STRUCT-001"
+    },
+    {
+      "key": "pluto_service_length_allowance_mm",
+      "notes": "USB RF cable bends mounts thermal path and removal allowance",
+      "source": "packaging-v0.2"
+    },
+    {
+      "key": "antenna_element_envelopes_mm",
+      "notes": "Antenna type dimensions polarization and keep-outs are not selected",
+      "source": "rf_system"
+    },
+    {
+      "key": "drogue_parachute_location_mm",
+      "notes": "New architecture has not allocated the existing drogue pack",
+      "source": "recovery_system"
+    },
+    {
+      "key": "camera_component_envelope_mm",
+      "notes": "Camera bodies optical windows and reinforcements are not selected",
+      "source": "video_system"
+    },
+    {
+      "key": "sensor_component_envelope_mm",
+      "notes": "Sensor packages and pressure acoustic ports are not selected",
+      "source": "electronics"
+    },
+    {
+      "key": "support_and_fastener_envelope_mm",
+      "notes": "Joint fasteners tie rods and local reinforcements are not selected",
+      "source": "structures_mechanisms"
+    }
+  ],
+  "overall_status": "provisional_with_packaging_conflict",
+  "requirement_ids": [
+    "SYS-STRUCT-001"
+  ],
+  "schema_version": 1,
+  "tool": {
+    "id": "andromeda-packaging-fit-check",
+    "version": "2.0.0"
+  }
+}

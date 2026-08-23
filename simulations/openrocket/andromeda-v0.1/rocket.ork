@@ -5,7 +5,7 @@
     <id>1d783b58-7abf-4c8e-9932-93d7a78e18f1</id>
     <axialoffset method="absolute">0.0</axialoffset>
     <position type="absolute">0.0</position>
-    <comment>Preliminary sizing model. 2.15 m overall length, 120 mm airframe, 7.0 kg loaded target. Legacy-inspired recovery, avionics, power, and propulsion modules remain one powered stage. Dry mass and CG are provisional. C'Space criteria are reference-only.</comment>
+    <comment>Preliminary sizing model. 2.15 m overall length, 120 mm outer-diameter airframe with a provisional 2.0 mm body-tube wall, and 7.0 kg loaded target. Legacy-inspired recovery, avionics, power, and propulsion modules remain one powered stage. Dry mass and CG are provisional. C'Space criteria are reference-only.</comment>
     <designer>Andromeda team</designer>
     <designtype>original</designtype>
     <motorconfiguration configid="17e844f0-82af-40bf-9557-27eb099afca6" default="true">
@@ -43,7 +43,7 @@
             <finish>smooth</finish>
             <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
             <length>0.55</length>
-            <thickness>0.0015</thickness>
+            <thickness>0.002</thickness>
             <radius>0.06</radius>
             <subcomponents>
               <parachute>
@@ -112,7 +112,7 @@
             <finish>smooth</finish>
             <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
             <length>0.25</length>
-            <thickness>0.0015</thickness>
+            <thickness>0.002</thickness>
             <radius>0.06</radius>
           </bodytube>
           <bodytube>
@@ -121,7 +121,7 @@
             <finish>smooth</finish>
             <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
             <length>0.20</length>
-            <thickness>0.0015</thickness>
+            <thickness>0.002</thickness>
             <radius>0.06</radius>
           </bodytube>
           <bodytube>
@@ -130,7 +130,7 @@
             <finish>smooth</finish>
             <material type="bulk" density="1550.0" group="Composites">Carbon fiber</material>
             <length>0.60</length>
-            <thickness>0.0015</thickness>
+            <thickness>0.002</thickness>
             <radius>0.06</radius>
             <subcomponents>
               <innertube>

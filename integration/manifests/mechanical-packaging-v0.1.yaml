@@ -1,0 +1,86 @@
+schema_version: 1
+deliverable:
+  id: MECH-PACKAGING-001
+  revision: 1
+  owner: structures_mechanisms
+  status: preliminary
+requirements:
+  - SYS-STRUCT-001
+inputs:
+  parameters: subsystems/structures_mechanisms/cad/packaging-v0.1/parameters.csv
+  system_requirements: requirements/system.yaml
+  launcher_vehicle_interface: requirements/interfaces/launcher-vehicle.yaml
+  provisional_module_geometry: simulations/openrocket/andromeda-v0.1/rocket.ork
+  vendor_sources:
+    plutosdr: https://wiki.analog.com/university/tools/pluto/hacking/hardware
+    k26: https://docs.amd.com/r/en-US/ds987-k26-som/K26-SOM-Mechanical-Dimensions
+outputs:
+  freecad_source: subsystems/structures_mechanisms/cad/packaging-v0.1/model/build_freecad.py
+  native_freecad_document:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.1/exports/andromeda-packaging-v0.1.FCStd
+    status: generated
+  neutral_step_export:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.1/exports/andromeda-packaging-v0.1.step
+    status: generated
+  fit_report: subsystems/structures_mechanisms/cad/packaging-v0.1/evidence/fit-report.json
+  freecad_build_report:
+    path: subsystems/structures_mechanisms/cad/packaging-v0.1/evidence/freecad-build-report.json
+    status: generated
+interfaces:
+  airframe:
+    outer_diameter_mm: 120.0
+    provisional_wall_thickness_mm: 2.0
+    nominal_inner_diameter_mm: 116.0
+    minimum_verified_clear_bore_mm: TBD
+  coordinate_system:
+    axis: X
+    origin: forward_face_of_modeled_recovery_module
+    positive_direction: toward_power_module
+  onshape_handoff:
+    geometry_format: STEP
+    parameter_format: CSV
+    native_feature_rebuild_required: true
+budgets:
+  current_module_lengths_mm:
+    recovery: 550.0
+    avionics: 250.0
+    power: 200.0
+    status: provisional_openrocket_inputs
+  flight_disk_outer_diameter_mm:
+    value: 110.0
+    status: conceptual
+  plutosdr_orientation:
+    configuration: enclosed_longitudinal
+    envelope_mm: [117.0, 79.0, 24.0]
+tools:
+  - name: Python
+    version: 3.12.3
+    purpose: deterministic envelope checks
+  - name: FreeCAD
+    version: 1.1.3
+    purpose: native parametric envelope and STEP export
+evidence:
+  - id: PKG-FIT-REPORT-001
+    path: subsystems/structures_mechanisms/cad/packaging-v0.1/evidence/fit-report.json
+    command: >-
+      python3 subsystems/structures_mechanisms/cad/packaging-v0.1/tools/check_fit.py
+      --parameters subsystems/structures_mechanisms/cad/packaging-v0.1/parameters.csv
+      --output subsystems/structures_mechanisms/cad/packaging-v0.1/evidence/fit-report.json
+  - id: PKG-FREECAD-BUILD-001
+    path: subsystems/structures_mechanisms/cad/packaging-v0.1/evidence/freecad-build-report.json
+    command: >-
+      FreeCADCmd
+      subsystems/structures_mechanisms/cad/packaging-v0.1/model/build_freecad.py
+verification:
+  deterministic_fit_check: provisional_pass_with_open_issues
+  freecad_recompute: pass
+  source_shape_validity: pass
+  step_export_round_trip: pass
+  requirement_verification_status: not_verified
+  validation_status: not_validated
+open_issues:
+  - Minimum manufactured clear bore is TBD and must include ovality, couplers, fasteners, LEDs and other intrusions.
+  - Pluto USB/coax service length, cable bend radii, supports, thermal path and removal sequence are TBD.
+  - Camera, sensor, recovery-actuator and power-component envelopes are TBD.
+  - Tie-rod or rail geometry and load path are TBD.
+  - The 250 mm avionics-module allocation is a provisional OpenRocket input, not a frozen packaging requirement.

@@ -2,7 +2,7 @@
 
 ## Project Definition
 
-**Andromeda-v2** is a **120 mm diameter experimental sounding rocket and technology demonstrator**, designed for a nominal altitude of approximately **3 km**, with a design and operational envelope extending up to **10 km**.
+**Andromeda-v2** is a **120 mm outer-diameter experimental sounding rocket and technology demonstrator**, designed for a nominal altitude of approximately **3 km**, with a design and operational envelope extending up to **10 km**. The preliminary airframe packaging model uses a **2.0 mm design wall thickness**, giving a derived **116 mm nominal inner diameter**; the manufactured minimum clear bore remains **TBD** pending airframe selection and measurement.
 
 Its primary purpose is not only to reach altitude, but to provide a **reusable flight-test platform for advanced onboard avionics, communication, navigation, and embedded-processing technologies** under real rocket flight conditions.
 

@@ -2,7 +2,10 @@
 
 Preliminary model inputs:
 
-- 2.15 m total length, 120 mm diameter
+- 2.15 m total length, 120 mm outer diameter
+- provisional 2.0 mm body-tube design wall (including 0.5 mm margin over the
+  prior model), giving a derived 116 mm nominal inner diameter; manufactured
+  minimum clear bore remains TBD
 - 550 mm Von Karman/Haack-series nose
 - single-stage modular body: 550 mm recovery, 250 mm avionics, 200 mm
   power, and 600 mm propulsion sections
@@ -28,7 +31,7 @@ site atmosphere, and wind profiles replace the provisional values.
 The modules are removable airframe sections, not powered stages. The upper rail
 button is assigned to a reinforced band on the recovery module and the lower
 button to the propulsion module. A launch rod is intentionally not used because
-the 7 kg, 120 mm vehicle requires the greater stiffness of a rail.
+the 7 kg, 120 mm outer-diameter vehicle requires the greater stiffness of a rail.
 
 The 1.40 m drogue diameter, 0.40 kg packed-mass assumption, packed dimensions,
 and drag coefficient are provisional. They require supplier data, packing tests,
