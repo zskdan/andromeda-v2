@@ -10,7 +10,7 @@ inputs:
   parameters: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
   system_requirements: requirements/system.yaml
   launcher_vehicle_interface: requirements/interfaces/launcher-vehicle.yaml
-  external_geometry_and_motor: simulations/openrocket/andromeda-v0.1/rocket.ork
+  external_geometry_and_motor: simulations/openrocket/andromeda-v0.2/rocket.ork
   architecture_direction: >-
     User-selected three-section arrangement: nose/recovery, avionics+batteries,
     and motor+fins, with separation at interface 1-2 and fiberglass RF structure
@@ -81,6 +81,16 @@ budgets:
     diameter: 54.0
     length: 488.0
     interval: [1672.0, 2160.0]
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+  dispositions:
+    XDOM-MECH-SIM-001:
+      status: assessed
+      simulation_model: simulations/openrocket/andromeda-v0.2/rocket.ork
+      model_update: completed
+      numerical_rerun: not_required_for_section_regrouping
+      evidence: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 tools:
   - name: Python
     version: 3.12.3
@@ -105,14 +115,23 @@ evidence:
     command: >-
       python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_openrocket_transfer.py
       --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
-      --openrocket simulations/openrocket/andromeda-v0.1/rocket.ork
+      --openrocket simulations/openrocket/andromeda-v0.2/rocket.ork
       --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
+  - id: PKG-MECHANICAL-SIMULATION-IMPACT-002
+    path: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+    command: >-
+      python3 simulations/openrocket/andromeda-v0.2/check_equivalence.py
+      --old simulations/openrocket/andromeda-v0.1/rocket.ork
+      --new simulations/openrocket/andromeda-v0.2/rocket.ork
+      --output simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 verification:
   deterministic_fit_check: provisional_with_packaging_conflict
   freecad_recompute: pass
   source_shape_validity: pass
   step_export_round_trip: pass
   external_openrocket_geometry_transfer: pass
+  mechanical_to_simulation_impact: pass_flight_input_equivalence
+  simulation_rerun_disposition: not_required_for_section_regrouping
   requirement_verification_status: not_verified
   validation_status: not_validated
 open_issues:
@@ -126,3 +145,4 @@ open_issues:
   - Pluto connector service volumes, supports and thermal path are TBD.
   - Camera windows and component envelopes remain TBD.
   - Motor retention, fin flutter, vibration, shock, thermal and assembly sequence are not verified.
+  - The OpenRocket v0.2 embedded case is marked notsimulated; the equivalence disposition applies only while the recorded flight-driving inputs remain unchanged.

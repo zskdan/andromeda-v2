@@ -1,0 +1,222 @@
+{
+  "assessment": [
+    "The v0.2 change regroups equal-diameter contiguous tubes and moves recovery components in the hierarchy without changing external aerodynamics or overridden mass/CG.",
+    "The v0.2 embedded simulation is marked notsimulated; historical results remain preliminary and are not promoted to v0.2 verification evidence.",
+    "A rerun becomes mandatory when measured mass/CG, external geometry, fin geometry, motor, recovery drag, deployment event, or launch conditions change."
+  ],
+  "checks": [
+    {
+      "id": "SIM-IMPACT-OML-LENGTH",
+      "rationale": "Total external axial length drives the aerodynamic geometry.",
+      "status": "pass",
+      "v0.1": 2.15,
+      "v0.2": 2.15
+    },
+    {
+      "id": "SIM-IMPACT-OML-DIAMETER",
+      "rationale": "Maximum straight-body diameter is unchanged.",
+      "status": "pass",
+      "v0.1": 0.12,
+      "v0.2": 0.12
+    },
+    {
+      "id": "SIM-IMPACT-NOSE",
+      "rationale": "Nose profile and shoulder inputs are unchanged.",
+      "status": "pass",
+      "v0.1": {
+        "aftradius": "0.06",
+        "aftshoulderlength": "0.08",
+        "aftshoulderradius": "0.058",
+        "length": "0.55",
+        "shape": "haack",
+        "shapeparameter": "0.0",
+        "thickness": "0.0015"
+      },
+      "v0.2": {
+        "aftradius": "0.06",
+        "aftshoulderlength": "0.08",
+        "aftshoulderradius": "0.058",
+        "length": "0.55",
+        "shape": "haack",
+        "shapeparameter": "0.0",
+        "thickness": "0.0015"
+      }
+    },
+    {
+      "id": "SIM-IMPACT-STAGE-MASS",
+      "rationale": "The provisional dry-stage mass override is unchanged.",
+      "status": "pass",
+      "v0.1": 5.32,
+      "v0.2": 5.32
+    },
+    {
+      "id": "SIM-IMPACT-STAGE-CG",
+      "rationale": "The provisional dry-stage CG override is unchanged.",
+      "status": "pass",
+      "v0.1": 1.28,
+      "v0.2": 1.28
+    },
+    {
+      "id": "SIM-IMPACT-MASS-OVERRIDE",
+      "rationale": "The stage override prevents internal component regrouping from changing simulated mass.",
+      "status": "pass",
+      "v0.1": "true",
+      "v0.2": "true"
+    },
+    {
+      "id": "SIM-IMPACT-CG-OVERRIDE",
+      "rationale": "The stage override prevents parachute relocation from changing simulated CG.",
+      "status": "pass",
+      "v0.1": "true",
+      "v0.2": "true"
+    },
+    {
+      "id": "SIM-IMPACT-MOTOR",
+      "rationale": "Motor identity and envelope are unchanged.",
+      "status": "pass",
+      "v0.1": {
+        "delay": "none",
+        "designation": "K570",
+        "diameter": "0.054",
+        "digest": "056c445bb4abefa1c680cf0d5b5d8f76",
+        "length": "0.488",
+        "manufacturer": "Cesaroni Technology"
+      },
+      "v0.2": {
+        "delay": "none",
+        "designation": "K570",
+        "diameter": "0.054",
+        "digest": "056c445bb4abefa1c680cf0d5b5d8f76",
+        "length": "0.488",
+        "manufacturer": "Cesaroni Technology"
+      }
+    },
+    {
+      "id": "SIM-IMPACT-MOTOR-OVERHANG",
+      "rationale": "Motor aft overhang is unchanged.",
+      "status": "pass",
+      "v0.1": 0.01,
+      "v0.2": 0.01
+    },
+    {
+      "id": "SIM-IMPACT-MOTOR-STATION",
+      "rationale": "The propulsion section begins at the same global station.",
+      "status": "pass",
+      "v0.1": 1.55,
+      "v0.2": 1.55
+    },
+    {
+      "id": "SIM-IMPACT-FINS",
+      "rationale": "Fin count, planform, thickness, cant and axial offset are unchanged.",
+      "status": "pass",
+      "v0.1": {
+        "axialoffset": "-0.02",
+        "cant": "0.0",
+        "fincount": "4",
+        "height": "0.14",
+        "rootchord": "0.30",
+        "sweeplength": "0.14",
+        "thickness": "0.005",
+        "tipchord": "0.12"
+      },
+      "v0.2": {
+        "axialoffset": "-0.02",
+        "cant": "0.0",
+        "fincount": "4",
+        "height": "0.14",
+        "rootchord": "0.30",
+        "sweeplength": "0.14",
+        "thickness": "0.005",
+        "tipchord": "0.12"
+      }
+    },
+    {
+      "id": "SIM-IMPACT-RAIL",
+      "rationale": "Rail-button global stations remain unchanged after regrouping.",
+      "status": "pass",
+      "v0.1": [
+        0.9,
+        1.7
+      ],
+      "v0.2": [
+        0.9,
+        1.7
+      ]
+    },
+    {
+      "id": "SIM-IMPACT-RECOVERY",
+      "rationale": "Deployment events, drag inputs, masses and packed envelopes are unchanged; mechanical fit is assessed separately.",
+      "status": "pass",
+      "v0.1": {
+        "drogue": {
+          "cd": 1.0,
+          "deployaltitude": 400.0,
+          "deploydelay": 0.0,
+          "deployevent": "apogee",
+          "diameter": 1.4,
+          "overridemass": 0.4,
+          "packedlength": 0.16,
+          "packedradius": 0.052
+        },
+        "main": {
+          "cd": 1.0,
+          "deployaltitude": 400.0,
+          "deploydelay": 0.0,
+          "deployevent": "altitude",
+          "diameter": 1.55,
+          "overridemass": 0.42,
+          "packedlength": 0.18,
+          "packedradius": 0.052
+        }
+      },
+      "v0.2": {
+        "drogue": {
+          "cd": 1.0,
+          "deployaltitude": 400.0,
+          "deploydelay": 0.0,
+          "deployevent": "apogee",
+          "diameter": 1.4,
+          "overridemass": 0.4,
+          "packedlength": 0.16,
+          "packedradius": 0.052
+        },
+        "main": {
+          "cd": 1.0,
+          "deployaltitude": 400.0,
+          "deploydelay": 0.0,
+          "deployevent": "altitude",
+          "diameter": 1.55,
+          "overridemass": 0.42,
+          "packedlength": 0.18,
+          "packedradius": 0.052
+        }
+      }
+    },
+    {
+      "id": "SIM-IMPACT-CONDITIONS",
+      "rationale": "Launch, atmosphere and wind inputs are semantically equivalent after ignoring XML formatting whitespace.",
+      "status": "pass",
+      "v0.1": "ccb820e8fd7ed7851c85fcda2cd3adf641c3bd5050030a3034453344cb29e204",
+      "v0.2": "ccb820e8fd7ed7851c85fcda2cd3adf641c3bd5050030a3034453344cb29e204"
+    }
+  ],
+  "inputs": {
+    "v0.1": {
+      "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
+      "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
+    },
+    "v0.2": {
+      "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
+      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
+    }
+  },
+  "mechanical_open_issue": "Parachute hierarchy matches the architecture, but ogive packing remains mechanically unresolved.",
+  "overall_status": "pass_flight_input_equivalence",
+  "schema_version": 1,
+  "simulation_rerun_disposition": "not_required_for_section_regrouping",
+  "tool": {
+    "id": "andromeda-openrocket-mechanical-impact-check",
+    "version": "1.0.0"
+  },
+  "triggered_rule": "XDOM-MECH-SIM-001"
+}

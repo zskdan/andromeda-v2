@@ -1,0 +1,88 @@
+schema_version: 1
+deliverable:
+  id: FLIGHT-SIM-001
+  revision: 2
+  owner: flight_dynamics
+  status: preliminary_model_synchronized
+requirements:
+  - SYS-STRUCT-001
+  - SYS-FLIGHT-001
+  - SYS-MASS-001
+inputs:
+  prior_model: simulations/openrocket/andromeda-v0.1/rocket.ork
+  mechanical_model: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+  change_impact_rules: integration/change-impact-rules.json
+  motor_curve: simulations/openrocket/andromeda-v0.2/Pro54-5G-K570.eng
+outputs:
+  readable_openrocket_model: simulations/openrocket/andromeda-v0.2/rocket.ork
+  packaged_openrocket_model: simulations/openrocket/Andromeda-v0.2.ork
+  model_build_report: simulations/openrocket/andromeda-v0.2/evidence/model-build-report.json
+  mechanical_impact_report: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+interfaces:
+  mechanical_sections_mm:
+    nose_recovery: [0.0, 550.0]
+    avionics_batteries: [550.0, 1550.0]
+    motor_fins: [1550.0, 2150.0]
+  openrocket_section_2_representation_mm:
+    avionics_forward_tube: [550.0, 1350.0]
+    fiberglass_rf_bay: [1350.0, 1550.0]
+  recovery_hierarchy:
+    main_and_drogue_parent: nosecone
+    mechanical_fit_status: open_conflict
+budgets:
+  external_geometry:
+    overall_body_length_mm: 2150.0
+    maximum_body_diameter_mm: 120.0
+    maximum_fin_tip_to_tip_mm: 400.0
+  provisional_dry_mass_kg: 5.32
+  provisional_dry_cg_m_from_nose: 1.28
+  pro54_motor:
+    designation: K570
+    diameter_mm: 54.0
+    length_mm: 488.0
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+  dispositions:
+    XDOM-MECH-SIM-001:
+      mechanical_change: three_section_regrouping_and_rf_material_zone
+      model_update: completed
+      numerical_rerun: not_required_for_section_regrouping
+      basis: >-
+        External mold line, stage mass and CG overrides, motor, fins, global
+        rail-button stations, recovery aerodynamic inputs, deployment events,
+        and simulation conditions are equivalent to v0.1.
+      evidence: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+tools:
+  - name: Python
+    version: 3.12.3
+    purpose: deterministic OpenRocket XML transformation, packaging, and comparison
+  - name: OpenRocket
+    version: 24.12
+    purpose: target model format; numerical solver not rerun for this equivalence-only revision
+evidence:
+  - id: OR-MODEL-BUILD-002
+    path: simulations/openrocket/andromeda-v0.2/evidence/model-build-report.json
+    command: python3 simulations/openrocket/andromeda-v0.2/build_model.py
+  - id: OR-MECHANICAL-IMPACT-002
+    path: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+    command: >-
+      python3 simulations/openrocket/andromeda-v0.2/check_equivalence.py
+      --old simulations/openrocket/andromeda-v0.1/rocket.ork
+      --new simulations/openrocket/andromeda-v0.2/rocket.ork
+      --output simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+verification:
+  xml_generation: pass
+  packaged_model_payload: pass
+  mechanical_section_mapping: pass
+  flight_driving_input_equivalence: pass
+  numerical_simulation_rerun: not_required_for_section_regrouping
+  embedded_simulation_status: notsimulated
+  requirement_verification_status: not_verified
+  validation_status: not_validated
+open_issues:
+  - Main parachute cylindrical pack conflicts with the ogive by 2.749 mm at the mechanical trial station.
+  - Drogue pack, lines, harness and deployment free volume are not mechanically verified.
+  - Historical v0.1 numerical results are not promoted to v0.2 verification evidence.
+  - Rerun OpenRocket after any change to measured mass/CG, external geometry, fins, motor, recovery drag/deployment inputs, or launch conditions.
+  - Fin structural stiffness, flutter, separation loads and launcher clearances remain unverified.

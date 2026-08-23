@@ -8,3 +8,7 @@
 - Added initial worker/resource definitions and runnable smoke tasks.
 - Added ChatGPT control-console and named Codex engineering-agent guidance.
 - Added validation tests and ZIP/TAR.GZ release tooling.
+- Added mandatory mechanical-to-simulation and electronics-to-mechanical
+  change-impact gates with a repository diff checker.
+- Added the synchronized three-section OpenRocket v0.2 model and deterministic
+  mechanical/simulation equivalence evidence.

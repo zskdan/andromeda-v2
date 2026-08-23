@@ -1,0 +1,65 @@
+{
+  "components": [
+    {
+      "length_m": 0.55,
+      "name": "550 mm Von Karman nose",
+      "type": "nosecone"
+    },
+    {
+      "length_m": 0.8,
+      "name": "SECTION 2A - avionics and batteries - 800 mm",
+      "type": "bodytube"
+    },
+    {
+      "length_m": 0.2,
+      "name": "SECTION 2B - fiberglass RF antenna bay - 200 mm",
+      "type": "bodytube"
+    },
+    {
+      "length_m": 0.6,
+      "name": "SECTION 3 - motor and fins - 600 mm",
+      "type": "bodytube"
+    }
+  ],
+  "input": {
+    "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
+    "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
+  },
+  "nose_parachutes": [
+    {
+      "name": "Main parachute 1.55 m - ogive packing conflict open",
+      "packed_length_m": 0.18,
+      "packed_radius_m": 0.052,
+      "position_m": 0.37
+    },
+    {
+      "name": "Drogue parachute 1.40 m - ogive allocation TBD",
+      "packed_length_m": 0.16,
+      "packed_radius_m": 0.052,
+      "position_m": 0.21
+    }
+  ],
+  "outputs": {
+    "package": {
+      "bytes": 3026,
+      "path": "simulations/openrocket/Andromeda-v0.2.ork",
+      "sha256": "a1264d595254fbd41ddda4da90394e1b4aeb9c097882993cf55f68381fb590d9"
+    },
+    "xml": {
+      "bytes": 12116,
+      "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
+      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
+    }
+  },
+  "overall_status": "pass",
+  "package_payload_matches_xml": true,
+  "schema_version": 1,
+  "simulation_statuses": [
+    "notsimulated"
+  ],
+  "tool": {
+    "id": "andromeda-openrocket-v0.2-model-builder",
+    "python": "3.12.3",
+    "version": "1.0.0"
+  }
+}

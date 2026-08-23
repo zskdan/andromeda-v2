@@ -248,14 +248,14 @@
   },
   "outputs": {
     "fcstd": {
-      "bytes": 58799,
+      "bytes": 58798,
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.FCStd",
-      "sha256": "6685ebfc4614e8c993f436831ef47fc2667f92b4ee467e9b31b0b7cda0fc4bf1"
+      "sha256": "f804e26b1c5b4b3b71d4f6bf9085b527906ca936c2517595c68382f3f9ced6b5"
     },
     "step": {
       "bytes": 323261,
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.step",
-      "sha256": "3b5751747c3a9925340dda932d43b8ab5dc1569185628a19c808956d301c95b2"
+      "sha256": "eafe81f7d4bea0c0e7e67b58a99d65562466a2bc662d753104628fb2b2a2ab25"
     }
   },
   "overall_status": "pass",

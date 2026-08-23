@@ -186,7 +186,7 @@
   },
   "input": {
     "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
-    "sha256": "e47c13e82f363b666d69394e13da1d319ab83d63246ad6db0fb234a9a7f3a726"
+    "sha256": "13eed068220dd267aeba44b7ba4d4073713cbcf06a2d46bc05b7110f5f43dc79"
   },
   "limitations": [
     "The current main-parachute packed cylinder conflicts with the ogive trial placement; the drogue is unallocated.",

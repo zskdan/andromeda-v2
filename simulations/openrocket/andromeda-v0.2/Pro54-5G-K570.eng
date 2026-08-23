@@ -1,0 +1,14 @@
+; Andromeda reference curve from Planete Sciences motor handbook v1.7.
+; Pro54-5G Classic / Barasinga, ejection charge not used.
+K570 54 488 0 0.65 1.68 PlaneteSciences
+0.00 0
+0.05 893
+0.50 798
+1.00 739
+1.50 659
+2.00 586
+2.50 513
+2.97 417
+3.20 225
+3.47 67
+3.59 0

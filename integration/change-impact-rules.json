@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "rules": [
+    {
+      "id": "XDOM-MECH-SIM-001",
+      "statement": "Every mechanical or structural change shall trigger a flight-simulation impact assessment and shall update the applicable OpenRocket or RocketPy model when a flight-driving input changes.",
+      "trigger_owner": "structures_mechanisms",
+      "review_owner": "flight_dynamics",
+      "trigger_paths": [
+        "subsystems/structures_mechanisms/**",
+        "requirements/interfaces/launcher-vehicle.yaml",
+        "integration/manifests/mechanical-packaging-*.yaml"
+      ],
+      "acceptable_evidence_paths": [
+        "simulations/openrocket/**",
+        "simulations/rocketpy/**",
+        "integration/manifests/flight-simulation-*.yaml",
+        "integration/change-impact/*.yaml",
+        "integration/change-impact/*.json"
+      ],
+      "required_assessment": [
+        "external geometry and surface discontinuities",
+        "mass and center of gravity",
+        "fin and stability geometry",
+        "motor and retention envelope",
+        "recovery geometry, drag, deployment events, and deployment loads",
+        "launcher interfaces and rail departure",
+        "whether numerical simulations must be rerun"
+      ],
+      "no_update_rule": "A no-update disposition requires a committed change-impact record with deterministic comparison evidence and explicit rerun criteria."
+    },
+    {
+      "id": "XDOM-ELEC-MECH-001",
+      "statement": "Every electronics hardware change shall trigger a mechanical packaging and interface impact assessment and shall update the CAD model, allocations, or mechanical interface records when an envelope changes.",
+      "trigger_owner": "electronics",
+      "review_owner": "structures_mechanisms",
+      "trigger_paths": [
+        "subsystems/electronics/**",
+        "subsystems/fpga/**",
+        "hardware/electronics/**",
+        "electronics/**",
+        "pcbs/**",
+        "requirements/interfaces/electrical-*.yaml",
+        "integration/manifests/electronics-*.yaml"
+      ],
+      "acceptable_evidence_paths": [
+        "subsystems/structures_mechanisms/cad/**",
+        "integration/manifests/mechanical-packaging-*.yaml",
+        "integration/change-impact/*.yaml",
+        "integration/change-impact/*.json"
+      ],
+      "required_assessment": [
+        "PCB and component envelope",
+        "mounting holes, supports, fasteners, and stack interfaces",
+        "mass and center of gravity contribution",
+        "connector access, cable routing, and bend radii",
+        "power dissipation, cooling path, and insulation",
+        "antenna, RF keep-out, sensor port, and optical window constraints",
+        "assembly, removal, vibration, and shock clearances"
+      ],
+      "no_update_rule": "A no-update disposition requires a committed change-impact record identifying the reviewed electronic revision and the mechanical clearance evidence."
+    }
+  ]
+}

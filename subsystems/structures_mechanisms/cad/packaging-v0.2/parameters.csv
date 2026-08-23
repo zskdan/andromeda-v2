@@ -3,14 +3,14 @@ airframe_outer_diameter_mm,120.0,mm,provisional,requirements/system.yaml:SYS-STR
 airframe_wall_thickness_mm,2.0,mm,provisional,requirements/system.yaml:SYS-STRUCT-001,Design wall thickness pending airframe selection
 airframe_nominal_inner_diameter_mm,116.0,mm,derived,requirements/system.yaml:SYS-STRUCT-001,Outer diameter minus twice the wall thickness
 minimum_verified_clear_bore_mm,TBD,mm,open,requirements/system.yaml:SYS-STRUCT-001,Must be measured including couplers fasteners and local intrusions
-nose_ogive_length_mm,550.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Von Karman ogive length
-nose_wall_thickness_mm,1.5,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket carbon-fiber nose input
-nose_shoulder_radius_mm,58.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket nose shoulder radius
-nose_shoulder_length_mm,80.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Also used as conceptual separation-module allocation
+nose_ogive_length_mm,550.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Von Karman ogive length
+nose_wall_thickness_mm,1.5,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket carbon-fiber nose input
+nose_shoulder_radius_mm,58.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket nose shoulder radius
+nose_shoulder_length_mm,80.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Also used as conceptual separation-module allocation
 separation_module_inner_diameter_mm,100.0,mm,conceptual,packaging-v0.2,Internal passage placeholder pending separation mechanism and harness design
-avionics_section_length_mm,1000.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Groups the former 550 mm recovery 250 mm avionics and 200 mm power tubes
-motor_section_length_mm,600.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket propulsion-module length
-overall_vehicle_length_mm,2150.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Nose plus avionics plus motor sections
+avionics_section_length_mm,1000.0,mm,derived,simulations/openrocket/andromeda-v0.2/rocket.ork,Sum of 800 mm avionics tube and 200 mm fiberglass RF bay
+motor_section_length_mm,600.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket propulsion-module length
+overall_vehicle_length_mm,2150.0,mm,derived,simulations/openrocket/andromeda-v0.2/rocket.ork,Nose plus avionics plus motor sections
 separation_interface_station_mm,550.0,mm,derived,user_architecture,Interface between nose recovery section and avionics section
 motor_interface_station_mm,1550.0,mm,derived,user_architecture,Interface between avionics and motor sections
 flight_disk_outer_diameter_mm,110.0,mm,conceptual,architecture_review,Initial disk envelope not a released PCB outline
@@ -43,23 +43,23 @@ aluminum_interface_rail_length_mm,250.0,mm,conceptual,packaging-v0.2,Extends 50 
 aluminum_interface_rail_width_mm,6.0,mm,conceptual,packaging-v0.2,Placeholder pending structural loads and joint design
 aluminum_interface_rail_height_mm,6.0,mm,conceptual,packaging-v0.2,Placeholder pending structural loads and joint design
 aluminum_interface_rail_center_radius_mm,52.0,mm,conceptual,packaging-v0.2,Places rails inside nominal clear bore
-main_parachute_packed_length_mm,180.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Existing OpenRocket main packed envelope
-main_parachute_packed_diameter_mm,104.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Twice the existing 52 mm packed radius
+main_parachute_packed_length_mm,180.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Existing OpenRocket main packed envelope
+main_parachute_packed_diameter_mm,104.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Twice the existing 52 mm packed radius
 main_parachute_axial_start_mm,370.0,mm,conceptual,packaging-v0.2,Aft-aligned trial placement inside ogive
 drogue_parachute_location_mm,TBD,mm,open,recovery_system,New architecture has not allocated the existing drogue pack
-motor_mount_outer_diameter_mm,56.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Twice OpenRocket 28 mm outer radius
-motor_mount_wall_thickness_mm,1.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket motor-mount wall
-motor_mount_length_mm,500.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Aft-aligned motor mount
-pro54_motor_diameter_mm,54.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.1/rocket.ork,Configured CTI K570 motor diameter
-pro54_motor_length_mm,488.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.1/rocket.ork,Configured CTI K570 motor length
-pro54_motor_aft_overhang_mm,10.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Motor aft-end projection beyond body
-fin_count,4,count,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,Four equally spaced fins
-fin_root_chord_mm,300.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket trapezoidal fin root chord
-fin_tip_chord_mm,120.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket trapezoidal fin tip chord
-fin_sweep_length_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket leading-edge sweep
-fin_span_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket fin height
-fin_thickness_mm,5.0,mm,provisional,simulations/openrocket/andromeda-v0.1/rocket.ork,OpenRocket fin thickness
-fin_aft_clearance_mm,20.0,mm,derived,simulations/openrocket/andromeda-v0.1/rocket.ork,Interprets bottom axial offset minus 20 mm as trailing-edge clearance
+motor_mount_outer_diameter_mm,56.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Twice OpenRocket 28 mm outer radius
+motor_mount_wall_thickness_mm,1.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket motor-mount wall
+motor_mount_length_mm,500.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Aft-aligned motor mount
+pro54_motor_diameter_mm,54.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.2/rocket.ork,Configured CTI K570 motor diameter
+pro54_motor_length_mm,488.0,mm,published_openrocket,simulations/openrocket/andromeda-v0.2/rocket.ork,Configured CTI K570 motor length
+pro54_motor_aft_overhang_mm,10.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Motor aft-end projection beyond body
+fin_count,4,count,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,Four equally spaced fins
+fin_root_chord_mm,300.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket trapezoidal fin root chord
+fin_tip_chord_mm,120.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket trapezoidal fin tip chord
+fin_sweep_length_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket leading-edge sweep
+fin_span_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket fin height
+fin_thickness_mm,5.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket fin thickness
+fin_aft_clearance_mm,20.0,mm,derived,simulations/openrocket/andromeda-v0.2/rocket.ork,Interprets bottom axial offset minus 20 mm as trailing-edge clearance
 camera_component_envelope_mm,TBD,mm,open,video_system,Camera bodies optical windows and reinforcements are not selected
 sensor_component_envelope_mm,TBD,mm,open,electronics,Sensor packages and pressure acoustic ports are not selected
 support_and_fastener_envelope_mm,TBD,mm,open,structures_mechanisms,Joint fasteners tie rods and local reinforcements are not selected

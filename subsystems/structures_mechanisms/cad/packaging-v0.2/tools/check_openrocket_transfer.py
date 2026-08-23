@@ -12,7 +12,7 @@ from check_fit import load_parameters, require_number, sha256
 
 
 TOOL_ID = "andromeda-openrocket-geometry-transfer-check"
-TOOL_VERSION = "1.0.0"
+TOOL_VERSION = "2.0.0"
 
 
 def millimeters(element, tag):
@@ -29,25 +29,37 @@ def compare(parameters_path: Path, openrocket_path: Path):
     motor = root.find(".//motormount/motor")
     mount = root.find(".//innertube")
     motormount = root.find(".//motormount")
-    if None in (nose, fins, motor, mount, motormount) or len(bodies) != 4:
-        raise ValueError("Unexpected OpenRocket v0.1 component structure")
+    main_parachute = next(
+        (
+            item
+            for item in root.findall(".//nosecone/subcomponents/parachute")
+            if "main" in item.findtext("name", "").lower()
+        ),
+        None,
+    )
+    if None in (nose, fins, motor, mount, motormount, main_parachute) or len(bodies) != 3:
+        raise ValueError("Unexpected OpenRocket v0.2 component structure")
 
     body_by_name = {body.findtext("name"): body for body in bodies}
-    recovery = body_by_name["Recovery module - 550 mm"]
-    avionics = body_by_name["Avionics module - 250 mm"]
-    power = body_by_name["Power module - 200 mm"]
-    propulsion = body_by_name["Propulsion module - 600 mm"]
+    avionics = body_by_name["SECTION 2A - avionics and batteries - 800 mm"]
+    antenna_bay = body_by_name["SECTION 2B - fiberglass RF antenna bay - 200 mm"]
+    propulsion = body_by_name["SECTION 3 - motor and fins - 600 mm"]
 
     source_values = {
-        "airframe_outer_diameter_mm": millimeters(recovery, "radius") * 2.0,
+        "airframe_outer_diameter_mm": millimeters(avionics, "radius") * 2.0,
         "nose_ogive_length_mm": millimeters(nose, "length"),
         "nose_wall_thickness_mm": millimeters(nose, "thickness"),
         "nose_shoulder_radius_mm": millimeters(nose, "aftshoulderradius"),
         "nose_shoulder_length_mm": millimeters(nose, "aftshoulderlength"),
-        "avionics_section_length_mm": sum(
-            millimeters(item, "length") for item in (recovery, avionics, power)
-        ),
+        "avionics_section_length_mm": millimeters(avionics, "length")
+        + millimeters(antenna_bay, "length"),
+        "antenna_bay_start_mm": millimeters(nose, "length")
+        + millimeters(avionics, "length"),
+        "antenna_bay_total_length_mm": millimeters(antenna_bay, "length"),
         "motor_section_length_mm": millimeters(propulsion, "length"),
+        "main_parachute_axial_start_mm": millimeters(main_parachute, "position"),
+        "main_parachute_packed_length_mm": millimeters(main_parachute, "packedlength"),
+        "main_parachute_packed_diameter_mm": millimeters(main_parachute, "packedradius") * 2.0,
         "motor_mount_outer_diameter_mm": millimeters(mount, "outerradius") * 2.0,
         "motor_mount_wall_thickness_mm": millimeters(mount, "thickness"),
         "motor_mount_length_mm": millimeters(mount, "length"),
@@ -93,7 +105,8 @@ def compare(parameters_path: Path, openrocket_path: Path):
         "overall_status": overall,
         "checks": checks,
         "notes": [
-            "The 1000 mm avionics section deliberately groups the former recovery, avionics and power body tubes.",
+            "The 1000 mm mechanical avionics section is represented by an 800 mm avionics tube and a 200 mm fiberglass RF bay.",
+            "The OpenRocket parachute hierarchy matches the nose/recovery section, but the mechanical packing conflict remains open.",
             "This check transfers geometry only; it does not establish structural adequacy or flight stability.",
         ],
     }

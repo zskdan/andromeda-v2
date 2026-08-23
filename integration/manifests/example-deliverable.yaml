@@ -9,6 +9,9 @@ inputs: {}
 outputs: {}
 interfaces: {}
 budgets: {}
+change_impact:
+  assessed_rules: []
+  dispositions: {}
 tools: []
 evidence: []
 verification: {}

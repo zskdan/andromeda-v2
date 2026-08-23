@@ -19,6 +19,7 @@ REQUIRED = [
     "control/schemas/resource.schema.json", "control/schemas/heartbeat.schema.json",
     "control/policies/scheduler.json", "control/policies/retry.json",
     "prompts/chatgpt-control-console.md", "tests/test_service_e2e.py",
+    "integration/change-impact-rules.json", "scripts/check_change_impact.py",
 ]
 
 
@@ -31,6 +32,33 @@ def main() -> int:
     for path in sorted(ROOT.rglob("*.json")):
         with path.open(encoding="utf-8") as handle:
             json.load(handle)
+
+    impact_rules = json.loads(
+        (ROOT / "integration/change-impact-rules.json").read_text(encoding="utf-8")
+    )
+    required_rule_fields = {
+        "id",
+        "statement",
+        "trigger_owner",
+        "review_owner",
+        "trigger_paths",
+        "acceptable_evidence_paths",
+        "required_assessment",
+        "no_update_rule",
+    }
+    rules = impact_rules.get("rules", [])
+    if not rules:
+        raise ValueError("change-impact rule set is empty")
+    rule_ids = [rule.get("id") for rule in rules]
+    if len(rule_ids) != len(set(rule_ids)):
+        raise ValueError("duplicate change-impact rule ID")
+    for rule in rules:
+        missing_fields = required_rule_fields - set(rule)
+        if missing_fields:
+            raise ValueError(
+                f"change-impact rule {rule.get('id', '<unknown>')} missing: "
+                f"{sorted(missing_fields)}"
+            )
     for path in sorted(ROOT.rglob("*.toml")):
         with path.open("rb") as handle:
             tomllib.load(handle)

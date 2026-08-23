@@ -44,9 +44,44 @@
     },
     {
       "error": 0.0,
+      "key": "antenna_bay_start_mm",
+      "openrocket_value": 1350.0,
+      "parameter_value": 1350.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "antenna_bay_total_length_mm",
+      "openrocket_value": 200.0,
+      "parameter_value": 200.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
       "key": "motor_section_length_mm",
       "openrocket_value": 600.0,
       "parameter_value": 600.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "main_parachute_axial_start_mm",
+      "openrocket_value": 370.0,
+      "parameter_value": 370.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "main_parachute_packed_length_mm",
+      "openrocket_value": 180.0,
+      "parameter_value": 180.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "main_parachute_packed_diameter_mm",
+      "openrocket_value": 104.0,
+      "parameter_value": 104.0,
       "status": "pass"
     },
     {
@@ -150,22 +185,23 @@
   ],
   "inputs": {
     "openrocket": {
-      "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
-      "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
+      "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
+      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
     },
     "parameters": {
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
-      "sha256": "e47c13e82f363b666d69394e13da1d319ab83d63246ad6db0fb234a9a7f3a726"
+      "sha256": "13eed068220dd267aeba44b7ba4d4073713cbcf06a2d46bc05b7110f5f43dc79"
     }
   },
   "notes": [
-    "The 1000 mm avionics section deliberately groups the former recovery, avionics and power body tubes.",
+    "The 1000 mm mechanical avionics section is represented by an 800 mm avionics tube and a 200 mm fiberglass RF bay.",
+    "The OpenRocket parachute hierarchy matches the nose/recovery section, but the mechanical packing conflict remains open.",
     "This check transfers geometry only; it does not establish structural adequacy or flight stability."
   ],
   "overall_status": "pass",
   "schema_version": 1,
   "tool": {
     "id": "andromeda-openrocket-geometry-transfer-check",
-    "version": "1.0.0"
+    "version": "2.0.0"
   }
 }

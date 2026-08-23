@@ -22,10 +22,32 @@ The architect delegates by engineering capability, not by machine name. Runtime 
 6. Distinguish implemented, verified, and validated. An agent assertion is not verification evidence.
 7. Escalate cross-domain trades to the architect. The integrator detects and quantifies conflicts; it does not make architectural trades silently.
 8. Do not blindly retry engineering failures. Automatic retries are for infrastructure loss only.
+9. Evaluate every change against `integration/change-impact-rules.json`, perform every triggered downstream review, and commit its evidence or an explicit evidence-backed no-update disposition.
+
+## Mandatory cross-domain change gates
+
+- **Mechanical to simulation (`XDOM-MECH-SIM-001`):** every structures,
+  mechanisms, packaging, airframe, recovery-installation, fin, launcher-interface,
+  mass, or CG change triggers a flight-dynamics review. Check OpenRocket and
+  RocketPy inputs and update and rerun the affected model when a flight-driving
+  value changes. If no model update or rerun is required, commit deterministic
+  equivalence evidence and the criteria that would require a rerun.
+- **Electronics to mechanical (`XDOM-ELEC-MECH-001`):** every electronics
+  hardware, PCB, connector, component, cable, antenna, power-dissipation, or
+  sensor-interface change triggers a structures/mechanisms review. Check and
+  update packaging CAD, keep-outs, mass/CG allocation, mounting, thermal path,
+  assembly access, and interface records whenever affected. If no mechanical
+  update is required, commit the reviewed revision and clearance evidence.
+
+An unsupported statement that a downstream domain is unaffected is not evidence.
+Use `python3 scripts/check_change_impact.py --working-tree` before committing and
+`python3 scripts/check_change_impact.py --base HEAD~1 --head HEAD` after committing.
+The path triggers are the minimum automatic gate; engineers must also invoke a
+rule when semantic impact exists outside the listed paths.
 
 ## Deliverable minimum
 
-Each integration-ready deliverable must identify its ID, revision, owner, requirements, inputs, outputs, interfaces, budgets, evidence, verification result, tool versions, and open issues. Use `integration/manifests/example-deliverable.yaml` as the starting form.
+Each integration-ready deliverable must identify its ID, revision, owner, requirements, inputs, outputs, interfaces, budgets, change-impact dispositions, evidence, verification result, tool versions, and open issues. Use `integration/manifests/example-deliverable.yaml` as the starting form.
 
 ## Safety
 

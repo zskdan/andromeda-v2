@@ -1,8 +1,8 @@
 # Andromeda three-section packaging model v0.2
 
 This revision turns the original cylindrical packaging envelope into a recognizable
-rocket while keeping the external geometry traceable to the committed OpenRocket
-v0.1 model. It remains a preliminary allocation model, not a released airframe,
+rocket while keeping the external geometry traceable to the synchronized OpenRocket
+v0.2 model. It remains a preliminary allocation model, not a released airframe,
 joint, antenna installation, PCB, recovery deployment system, or motor-retention
 design.
 
@@ -96,7 +96,7 @@ Verify the OpenRocket geometry transfer:
 ```bash
 python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_openrocket_transfer.py \
   --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv \
-  --openrocket simulations/openrocket/andromeda-v0.1/rocket.ork \
+  --openrocket simulations/openrocket/andromeda-v0.2/rocket.ork \
   --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
 ```
 
