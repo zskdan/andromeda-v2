@@ -1,0 +1,428 @@
+{
+  "all_exported_shapes_valid": true,
+  "fit_check_status": "provisional_with_packaging_conflict",
+  "model_revision": "0.2",
+  "objects": {
+    "Aluminum_Interface_Rails": {
+      "bounding_box_mm": {
+        "x_length": 250.0,
+        "x_max": 1600.0,
+        "x_min": 1350.0,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 4
+    },
+    "Antenna_Bay_Spacer": {
+      "bounding_box_mm": {
+        "x_length": 20.0,
+        "x_max": 1460.0,
+        "x_min": 1440.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Avionics_Power_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 940.8,
+        "x_min": 939.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Avionics_Section": {
+      "bounding_box_mm": {
+        "x_length": 800.0,
+        "x_max": 1350.0,
+        "x_min": 550.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Battery_Bay_Allocation": {
+      "bounding_box_mm": {
+        "x_length": 180.0,
+        "x_max": 910.0,
+        "x_min": 730.0,
+        "y_length": 100.0,
+        "z_length": 100.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Camera_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 985.8,
+        "x_min": 984.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Compute_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 1030.8,
+        "x_min": 1029.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Four_Trapezoidal_Fins": {
+      "bounding_box_mm": {
+        "x_length": 300.0,
+        "x_max": 2130.0,
+        "x_min": 1830.0,
+        "y_length": 400.0,
+        "z_length": 400.0
+      },
+      "shape_valid": true,
+      "solid_count": 4
+    },
+    "K26_SOM_Envelope": {
+      "bounding_box_mm": {
+        "x_length": 10.9,
+        "x_max": 1035.45,
+        "x_min": 1024.55,
+        "y_length": 77.0,
+        "z_length": 60.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Lower_Antenna_Bay": {
+      "bounding_box_mm": {
+        "x_length": 90.0,
+        "x_max": 1550.0,
+        "x_min": 1460.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Main_Parachute_Trial_Envelope": {
+      "bounding_box_mm": {
+        "x_length": 180.0,
+        "x_max": 550.0,
+        "x_min": 370.0,
+        "y_length": 104.0,
+        "z_length": 104.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Motor_Mount": {
+      "bounding_box_mm": {
+        "x_length": 500.0,
+        "x_max": 2150.0,
+        "x_min": 1650.0,
+        "y_length": 56.0,
+        "z_length": 56.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Motor_Section": {
+      "bounding_box_mm": {
+        "x_length": 600.0,
+        "x_max": 2150.0,
+        "x_min": 1550.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Nose_Recovery_Section": {
+      "bounding_box_mm": {
+        "x_length": 550.0,
+        "x_max": 550.0,
+        "x_min": 0.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "PlutoSDR_Envelope": {
+      "bounding_box_mm": {
+        "x_length": 117.0,
+        "x_max": 1297.0,
+        "x_min": 1180.0,
+        "y_length": 79.0,
+        "z_length": 24.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Pro54_K570_Motor": {
+      "bounding_box_mm": {
+        "x_length": 488.0,
+        "x_max": 2160.0,
+        "x_min": 1672.0,
+        "y_length": 54.0,
+        "z_length": 54.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "RF_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 1130.8,
+        "x_min": 1129.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Recovery_Control_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 650.8,
+        "x_min": 649.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Recovery_Power_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 695.8,
+        "x_min": 694.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Sensor_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 1080.8,
+        "x_min": 1079.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Separation_Module": {
+      "bounding_box_mm": {
+        "x_length": 80.0,
+        "x_max": 630.0,
+        "x_min": 550.0,
+        "y_length": 116.0,
+        "z_length": 116.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
+    "Upper_Antenna_Bay": {
+      "bounding_box_mm": {
+        "x_length": 90.0,
+        "x_max": 1440.0,
+        "x_min": 1350.0,
+        "y_length": 120.0,
+        "z_length": 120.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    }
+  },
+  "outputs": {
+    "fcstd": {
+      "bytes": 58799,
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.FCStd",
+      "sha256": "6685ebfc4614e8c993f436831ef47fc2667f92b4ee467e9b31b0b7cda0fc4bf1"
+    },
+    "step": {
+      "bytes": 323261,
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.step",
+      "sha256": "3b5751747c3a9925340dda932d43b8ab5dc1569185628a19c808956d301c95b2"
+    }
+  },
+  "overall_status": "pass",
+  "requirement_ids": [
+    "SYS-STRUCT-001"
+  ],
+  "schema_version": 1,
+  "step_round_trip": {
+    "all_bounds_finite": true,
+    "all_shapes_valid": true,
+    "bounded_object_count": 29,
+    "bounding_box_mm": {
+      "x_length": 2160.0,
+      "y_length": 400.0,
+      "z_length": 400.0
+    },
+    "object_count": 29,
+    "objects": {
+      "Open_CASCADE_STEP_translator_7_8_1": {
+        "finite_bounds": true,
+        "shape_type": "Compound",
+        "shape_valid": true
+      },
+      "Part__Feature": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature001": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature002": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature003": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature004": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature005": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature006": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature007": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature008": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature009": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature010": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature011": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature012": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature013": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature014": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature015": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature016": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature017": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature018": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature019": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature020": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature021": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature022": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature023": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature024": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature025": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature026": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      },
+      "Part__Feature027": {
+        "finite_bounds": true,
+        "shape_type": "Solid",
+        "shape_valid": true
+      }
+    }
+  },
+  "tool": {
+    "name": "FreeCAD",
+    "version": "1.1.3"
+  }
+}

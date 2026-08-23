@@ -1,0 +1,171 @@
+{
+  "checks": [
+    {
+      "error": 0.0,
+      "key": "airframe_outer_diameter_mm",
+      "openrocket_value": 120.0,
+      "parameter_value": 120.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "nose_ogive_length_mm",
+      "openrocket_value": 550.0,
+      "parameter_value": 550.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "nose_wall_thickness_mm",
+      "openrocket_value": 1.5,
+      "parameter_value": 1.5,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "nose_shoulder_radius_mm",
+      "openrocket_value": 58.0,
+      "parameter_value": 58.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "nose_shoulder_length_mm",
+      "openrocket_value": 80.0,
+      "parameter_value": 80.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "avionics_section_length_mm",
+      "openrocket_value": 1000.0,
+      "parameter_value": 1000.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "motor_section_length_mm",
+      "openrocket_value": 600.0,
+      "parameter_value": 600.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "motor_mount_outer_diameter_mm",
+      "openrocket_value": 56.0,
+      "parameter_value": 56.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "motor_mount_wall_thickness_mm",
+      "openrocket_value": 1.0,
+      "parameter_value": 1.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "motor_mount_length_mm",
+      "openrocket_value": 500.0,
+      "parameter_value": 500.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "pro54_motor_diameter_mm",
+      "openrocket_value": 54.0,
+      "parameter_value": 54.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "pro54_motor_length_mm",
+      "openrocket_value": 488.0,
+      "parameter_value": 488.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "pro54_motor_aft_overhang_mm",
+      "openrocket_value": 10.0,
+      "parameter_value": 10.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_count",
+      "openrocket_value": 4.0,
+      "parameter_value": 4.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_root_chord_mm",
+      "openrocket_value": 300.0,
+      "parameter_value": 300.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_tip_chord_mm",
+      "openrocket_value": 120.0,
+      "parameter_value": 120.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_sweep_length_mm",
+      "openrocket_value": 140.0,
+      "parameter_value": 140.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_span_mm",
+      "openrocket_value": 140.0,
+      "parameter_value": 140.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_thickness_mm",
+      "openrocket_value": 5.0,
+      "parameter_value": 5.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "fin_aft_clearance_mm",
+      "openrocket_value": 20.0,
+      "parameter_value": 20.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
+      "key": "overall_vehicle_length_mm",
+      "openrocket_value": 2150.0,
+      "parameter_value": 2150.0,
+      "status": "pass"
+    }
+  ],
+  "inputs": {
+    "openrocket": {
+      "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
+      "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
+    },
+    "parameters": {
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
+      "sha256": "e47c13e82f363b666d69394e13da1d319ab83d63246ad6db0fb234a9a7f3a726"
+    }
+  },
+  "notes": [
+    "The 1000 mm avionics section deliberately groups the former recovery, avionics and power body tubes.",
+    "This check transfers geometry only; it does not establish structural adequacy or flight stability."
+  ],
+  "overall_status": "pass",
+  "schema_version": 1,
+  "tool": {
+    "id": "andromeda-openrocket-geometry-transfer-check",
+    "version": "1.0.0"
+  }
+}
