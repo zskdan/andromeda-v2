@@ -23,7 +23,6 @@ battery_bay_diameter_mm,100.0,mm,conceptual,packaging-v0.2,Generic internal keep
 avionics_power_disk_station_mm,940.0,mm,conceptual,user_architecture,Experimental avionics power distribution disk
 camera_disk_station_mm,985.0,mm,conceptual,user_architecture,Four-camera disk
 compute_disk_station_mm,1030.0,mm,conceptual,user_architecture,K26 compute disk
-sensor_disk_station_mm,1080.0,mm,conceptual,user_architecture,GNSS IMU environmental and acoustic sensor disk
 rf_disk_station_mm,1130.0,mm,conceptual,user_architecture,PlutoSDR support and RF interface disk
 k26_length_mm,77.0,mm,published,AMD DS987,K26 SOM planar dimension
 k26_width_mm,60.0,mm,published,AMD DS987,K26 SOM planar dimension
@@ -33,9 +32,18 @@ pluto_enclosure_width_mm,79.0,mm,published,Analog Devices ADALM-PLUTO product hi
 pluto_enclosure_height_mm,24.0,mm,published,Analog Devices ADALM-PLUTO product highlight,Transverse envelope dimension
 pluto_axial_start_mm,1180.0,mm,conceptual,packaging-v0.2,Forward face of longitudinal enclosed Pluto envelope
 pluto_service_length_allowance_mm,TBD,mm,open,packaging-v0.2,USB RF cable bends mounts thermal path and removal allowance
+ins_navigation_disk_station_mm,1320.0,mm,conceptual,user_architecture,Complete dual-GNSS INS navigation environmental and acoustic sensor disk immediately forward of the antenna bay
+ins_navigation_disk_assembly_depth_mm,TBD,mm,open,electronics,PCB components shields connectors harness bends and mounting depth
+ins_navigation_disk_mass_kg,TBD,kg,open,electronics,Required before updating the integrated mass CG budget and rerunning flight simulation
+ins_navigation_power_dissipation_w,TBD,W,open,electronics,Required for local thermal path and GNSS receiver self-heating review
+navigation_link_physical_layer,TBD,text,open,electronics,Long compute link shall use a qualified differential physical layer rather than raw single-ended UART
 antenna_bay_start_mm,1350.0,mm,conceptual,user_architecture,RF-transparent bay immediately forward of motor interface
 antenna_bay_total_length_mm,200.0,mm,conceptual,packaging-v0.2,Two generic axial antenna zones ending at motor interface
 antenna_bay_gap_mm,20.0,mm,conceptual,packaging-v0.2,Axial isolation allocation between generic antenna zones
+gnss_upper_ring_feed_station_mm,1395.0,mm,conceptual,packaging-v0.2,Center of the forward 90 mm antenna zone pending antenna definition
+gnss_lower_ring_feed_station_mm,1505.0,mm,conceptual,packaging-v0.2,Center of the aft 90 mm antenna zone pending antenna definition
+gnss_coax_routed_lengths_mm,TBD,mm,open,rf_system,Final routed lengths require antenna feed azimuth connector selection bend radii and supports
+gnss_coax_insertion_loss_db,TBD,dB,open,rf_system,Must be measured or calculated at each installed GNSS band with connector losses
 antenna_element_envelopes_mm,TBD,mm,open,rf_system,Antenna type dimensions polarization and keep-outs are not selected
 aluminum_interface_rail_count,4,count,conceptual,packaging-v0.2,Interrupted longitudinal rails avoid a continuous RF-shielding sleeve
 aluminum_interface_rail_start_mm,1350.0,mm,conceptual,packaging-v0.2,Rails cross the avionics-to-motor interface
@@ -61,6 +69,6 @@ fin_span_mm,140.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.or
 fin_thickness_mm,5.0,mm,provisional,simulations/openrocket/andromeda-v0.2/rocket.ork,OpenRocket fin thickness
 fin_aft_clearance_mm,20.0,mm,derived,simulations/openrocket/andromeda-v0.2/rocket.ork,Interprets bottom axial offset minus 20 mm as trailing-edge clearance
 camera_component_envelope_mm,TBD,mm,open,video_system,Camera bodies optical windows and reinforcements are not selected
-sensor_component_envelope_mm,TBD,mm,open,electronics,Sensor packages and pressure acoustic ports are not selected
+ins_navigation_component_envelope_mm,TBD,mm,open,electronics,Dual GNSS IMU processor environmental and acoustic sensors shielding connectors and pressure acoustic ports are not selected
 support_and_fastener_envelope_mm,TBD,mm,open,structures_mechanisms,Joint fasteners tie rods and local reinforcements are not selected
 breakout_disk_flight_mounted,0,boolean,defined,user_architecture,Breakout disk is a ground-only prototype article

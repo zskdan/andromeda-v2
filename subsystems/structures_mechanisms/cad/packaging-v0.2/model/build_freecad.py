@@ -176,7 +176,7 @@ def build_document(
     metadata.addProperty("App::PropertyString", "ModelRevision", "Traceability")
     metadata.ModelRevision = MODEL_REVISION
     metadata.addProperty("App::PropertyString", "RequirementIDs", "Traceability")
-    metadata.RequirementIDs = "SYS-STRUCT-001"
+    metadata.RequirementIDs = "SYS-STRUCT-001; SYS-MASS-001; TDO-NAV-001; TDO-TIME-001; TDO-RF-001"
     metadata.addProperty("App::PropertyString", "ParameterSource", "Traceability")
     metadata.ParameterSource = portable_path(parameters_path)
     metadata.addProperty("App::PropertyString", "VerificationStatus", "Traceability")
@@ -352,8 +352,13 @@ def build_document(
         ("Avionics_Power_Disk", "03 Avionics power-distribution disk", "avionics_power_disk_station_mm", (0.95, 0.72, 0.16)),
         ("Camera_Disk", "04 Four-camera disk", "camera_disk_station_mm", (0.22, 0.52, 0.92)),
         ("Compute_Disk", "05 K26 compute disk", "compute_disk_station_mm", (0.18, 0.72, 0.38)),
-        ("Sensor_Disk", "06 Navigation and sensor disk", "sensor_disk_station_mm", (0.66, 0.35, 0.82)),
-        ("RF_Disk", "07 PlutoSDR support / RF disk", "rf_disk_station_mm", (0.15, 0.66, 0.78)),
+        ("RF_Disk", "06 PlutoSDR support / RF disk", "rf_disk_station_mm", (0.15, 0.66, 0.78)),
+        (
+            "INS_Navigation_Disk",
+            "07 Dual-GNSS INS navigation disk - component depth TBD",
+            "ins_navigation_disk_station_mm",
+            (0.66, 0.35, 0.82),
+        ),
     )
     for name, label, station_key, color in disk_specs:
         station = n(station_key)
@@ -582,7 +587,13 @@ def build_document(
             "version": ".".join(str(item) for item in App.Version()[:3]),
         },
         "model_revision": MODEL_REVISION,
-        "requirement_ids": ["SYS-STRUCT-001"],
+        "requirement_ids": [
+            "SYS-STRUCT-001",
+            "SYS-MASS-001",
+            "TDO-NAV-001",
+            "TDO-TIME-001",
+            "TDO-RF-001",
+        ],
         "fit_check_status": fit["overall_status"],
         "all_exported_shapes_valid": all_shapes_valid,
         "step_round_trip": step_round_trip,

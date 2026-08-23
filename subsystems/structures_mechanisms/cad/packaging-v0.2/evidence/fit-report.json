@@ -81,17 +81,17 @@
       "status": "provisional_pass"
     },
     {
-      "calculation": "sensor disk at 1080.0 within equipment interval [630.0, 1350.0] mm",
-      "id": "PKG-STATION-SENSOR",
-      "margin_mm": 270.0,
+      "calculation": "rf disk at 1130.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-RF",
+      "margin_mm": 220.0,
       "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
       "requirement": "SYS-STRUCT-001",
       "status": "provisional_pass"
     },
     {
-      "calculation": "rf disk at 1130.0 within equipment interval [630.0, 1350.0] mm",
-      "id": "PKG-STATION-RF",
-      "margin_mm": 220.0,
+      "calculation": "ins_navigation disk at 1320.0 within equipment interval [630.0, 1350.0] mm",
+      "id": "PKG-STATION-INS_NAVIGATION",
+      "margin_mm": 30.0,
       "notes": "Conceptual station; connector and service envelopes are not yet allocated.",
       "requirement": "SYS-STRUCT-001",
       "status": "provisional_pass"
@@ -109,6 +109,22 @@
       "id": "PKG-AXIAL-PLUTO",
       "margin_mm": 53.0,
       "notes": "Body envelope only; service length for cables, thermal path, mounts and removal is TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "INS disk [1319.2, 1320.8] mm between Pluto body ending 1297.0 mm and antenna/rail region starting 1350.0 mm",
+      "id": "PKG-INS-AXIAL-001",
+      "margin_mm": 22.2,
+      "notes": "Bare 1.6 mm disk only; the INS assembly depth and Pluto service envelope remain TBD.",
+      "requirement": "SYS-STRUCT-001",
+      "status": "provisional_pass"
+    },
+    {
+      "calculation": "GNSS candidate feed stations 1395.0 and 1505.0 mm at the centers of the two 90 mm antenna zones",
+      "id": "PKG-GNSS-FEEDS-001",
+      "margin_mm": 0.0,
+      "notes": "Feed stations are allocation centers, not released antenna phase centers or routed cable lengths.",
       "requirement": "SYS-STRUCT-001",
       "status": "provisional_pass"
     },
@@ -178,6 +194,10 @@
   "derived_values": {
     "disk_diametral_margin_mm": 6.0,
     "fin_tip_to_body_aft_margin_mm": 40.0,
+    "gnss_lower_feed_minimum_axial_coax_span_mm": 185.0,
+    "gnss_upper_feed_minimum_axial_coax_span_mm": 75.0,
+    "ins_disk_aft_clearance_to_antenna_bay_mm": 29.2,
+    "ins_disk_forward_clearance_to_pluto_body_mm": 22.2,
     "k26_planar_bounding_diagonal_mm": 97.617,
     "main_parachute_trial_margin_mm": -2.749,
     "motor_forward_station_mm": 1672.0,
@@ -186,11 +206,14 @@
   },
   "input": {
     "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
-    "sha256": "13eed068220dd267aeba44b7ba4d4073713cbcf06a2d46bc05b7110f5f43dc79"
+    "sha256": "8470ca6f19a46c517087406a4155b72288949c1754dcad1f00d48bf616bf642b"
   },
   "limitations": [
     "The current main-parachute packed cylinder conflicts with the ogive trial placement; the drogue is unallocated.",
     "Antenna elements, patterns, cable keep-outs and RF interaction with the aluminum rails are not modeled.",
+    "The relocated INS disk is represented as a bare PCB plane; component, shield, connector, harness and mounting depth remain TBD.",
+    "The 22.2 mm Pluto-body clearance does not include its TBD service envelope, so assembly fit is not verified.",
+    "INS disk mass is TBD; this fit check does not update or verify vehicle mass, CG or stability.",
     "No manufactured-airframe or coupler measurements are available.",
     "No loads, joint sizing, flutter, vibration, thermal or assembly-sequence verification is performed.",
     "Battery and most electronic component envelopes remain allocations rather than selected hardware."
@@ -205,6 +228,36 @@
       "key": "pluto_service_length_allowance_mm",
       "notes": "USB RF cable bends mounts thermal path and removal allowance",
       "source": "packaging-v0.2"
+    },
+    {
+      "key": "ins_navigation_disk_assembly_depth_mm",
+      "notes": "PCB components shields connectors harness bends and mounting depth",
+      "source": "electronics"
+    },
+    {
+      "key": "ins_navigation_disk_mass_kg",
+      "notes": "Required before updating the integrated mass CG budget and rerunning flight simulation",
+      "source": "electronics"
+    },
+    {
+      "key": "ins_navigation_power_dissipation_w",
+      "notes": "Required for local thermal path and GNSS receiver self-heating review",
+      "source": "electronics"
+    },
+    {
+      "key": "navigation_link_physical_layer",
+      "notes": "Long compute link shall use a qualified differential physical layer rather than raw single-ended UART",
+      "source": "electronics"
+    },
+    {
+      "key": "gnss_coax_routed_lengths_mm",
+      "notes": "Final routed lengths require antenna feed azimuth connector selection bend radii and supports",
+      "source": "rf_system"
+    },
+    {
+      "key": "gnss_coax_insertion_loss_db",
+      "notes": "Must be measured or calculated at each installed GNSS band with connector losses",
+      "source": "rf_system"
     },
     {
       "key": "antenna_element_envelopes_mm",
@@ -222,8 +275,8 @@
       "source": "video_system"
     },
     {
-      "key": "sensor_component_envelope_mm",
-      "notes": "Sensor packages and pressure acoustic ports are not selected",
+      "key": "ins_navigation_component_envelope_mm",
+      "notes": "Dual GNSS IMU processor environmental and acoustic sensors shielding connectors and pressure acoustic ports are not selected",
       "source": "electronics"
     },
     {
@@ -234,11 +287,15 @@
   ],
   "overall_status": "provisional_with_packaging_conflict",
   "requirement_ids": [
-    "SYS-STRUCT-001"
+    "SYS-STRUCT-001",
+    "SYS-MASS-001",
+    "TDO-NAV-001",
+    "TDO-TIME-001",
+    "TDO-RF-001"
   ],
   "schema_version": 1,
   "tool": {
     "id": "andromeda-packaging-fit-check",
-    "version": "2.0.0"
+    "version": "2.1.0"
   }
 }

@@ -3,6 +3,7 @@
 
 from __future__ import annotations
 
+import csv
 import hashlib
 import json
 import platform
@@ -16,6 +17,14 @@ SOURCE = HERE.parent / "andromeda-v0.1" / "rocket.ork"
 OUTPUT = HERE / "rocket.ork"
 PACKAGE = HERE.parent / "Andromeda-v0.2.ork"
 REPORT = HERE / "evidence" / "model-build-report.json"
+PARAMETERS = (
+    HERE.parents[2]
+    / "subsystems"
+    / "structures_mechanisms"
+    / "cad"
+    / "packaging-v0.2"
+    / "parameters.csv"
+)
 
 
 def sha256(path):
@@ -33,7 +42,15 @@ def set_text(parent, path, value):
     require(parent, path).text = str(value)
 
 
+def load_parameter_records(path):
+    with path.open(newline="", encoding="utf-8") as stream:
+        return {row["key"]: row for row in csv.DictReader(stream)}
+
+
 def build():
+    parameters = load_parameter_records(PARAMETERS)
+    ins_station_mm = float(parameters["ins_navigation_disk_station_mm"]["value"])
+    ins_mass = parameters["ins_navigation_disk_mass_kg"]["value"]
     tree = ET.parse(SOURCE)
     root = tree.getroot()
     rocket = require(root, "rocket")
@@ -44,10 +61,13 @@ def build():
         "Preliminary three-section model synchronized with mechanical packaging v0.2. "
         "Section 1 is the 550 mm nose/recovery ogive; section 2 is 1000 mm of "
         "avionics, batteries, and a 200 mm fiberglass RF bay; section 3 is the "
-        "600 mm motor/fin assembly. The external mold line, stage mass/CG override, "
+        "600 mm motor/fin assembly. Internal allocation "
+        f"INS_NAVIGATION_DISK_STATION_M={ins_station_mm / 1000.0:.6f}; "
+        f"INS_NAVIGATION_DISK_MASS_KG={ins_mass}. The external mold line, stage mass/CG override, "
         "motor, fins, rail-button stations, and recovery deployment inputs are "
         "unchanged from v0.1. Main and drogue cylindrical packing inside the ogive "
-        "is not mechanically verified.",
+        "is not mechanically verified. The INS relocation is not applied to the "
+        "stage CG until its mass and integrated CG are available.",
     )
 
     stage_components = require(rocket, "subcomponents/stage/subcomponents")
@@ -143,16 +163,24 @@ def build():
         package_valid = archive.namelist() == ["rocket.ork"] and archive.read(
             "rocket.ork"
         ) == payload
+    allocation_marker = (
+        f"INS_NAVIGATION_DISK_STATION_M={ins_station_mm / 1000.0:.6f}"
+        in generated_root.findtext("rocket/comment", "")
+    )
     report = {
         "schema_version": 1,
         "tool": {
             "id": "andromeda-openrocket-v0.2-model-builder",
-            "version": "1.0.0",
+            "version": "1.1.0",
             "python": platform.python_version(),
         },
         "input": {
             "path": SOURCE.relative_to(HERE.parents[2]).as_posix(),
             "sha256": sha256(SOURCE),
+        },
+        "mechanical_parameters": {
+            "path": PARAMETERS.relative_to(HERE.parents[2]).as_posix(),
+            "sha256": sha256(PARAMETERS),
         },
         "outputs": {
             "xml": {
@@ -168,12 +196,22 @@ def build():
         },
         "components": component_summary,
         "nose_parachutes": parachute_summary,
+        "internal_allocations": {
+            "ins_navigation_disk": {
+                "station_mm_from_nose": ins_station_mm,
+                "mass_kg": ins_mass,
+                "representation": "traceable OpenRocket rocket-comment metadata; geometry is in FreeCAD",
+                "stage_mass_cg_effect": "deferred_pending_mass_and_integrated_cg",
+            }
+        },
         "simulation_statuses": [
             item.get("status") for item in generated_root.findall(".//simulation")
         ],
         "package_payload_matches_xml": package_valid,
+        "ins_navigation_allocation_marker_present": allocation_marker,
         "overall_status": "pass"
         if package_valid
+        and allocation_marker
         and len(component_summary) == 4
         and len(parachute_summary) == 2
         and all(item.get("status") == "notsimulated" for item in generated_root.findall(".//simulation"))

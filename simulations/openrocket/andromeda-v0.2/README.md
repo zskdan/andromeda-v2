@@ -20,6 +20,22 @@ rail button, motor, fins, 120 mm body diameter, 2.15 m body length, stage mass/C
 override, recovery deployment events and parachute aerodynamic inputs are carried
 over unchanged from v0.1.
 
+## INS/navigation internal allocation
+
+The complete dual-GNSS INS/navigation disk is allocated at x=1320 mm from the
+nose, immediately forward of the fiberglass antenna bay. OpenRocket stores this
+station in traceable rocket-comment metadata generated from the mechanical CSV;
+the detailed disk and antenna-feed geometry remains in FreeCAD.
+
+The INS disk moved aft by 240 mm from the preceding x=1080 mm allocation. Its
+mass is TBD, so this model does not invent a mass or silently modify the existing
+5.32 kg, x=1.28 m provisional dry-stage overrides. The physical CG change is:
+
+`delta_CG = INS_disk_mass * 0.240 m / 5.32 kg`
+
+Allocate or measure the installed disk mass, update the integrated mass/CG, and
+rerun the numerical flight model before treating this relocation as verified.
+
 ## Recovery-model limitation
 
 Both parachutes remain in the OpenRocket model because they are required for the
@@ -50,10 +66,17 @@ Regenerate from the repository root:
 
 ```bash
 python3 simulations/openrocket/andromeda-v0.2/build_model.py
+
+python3 simulations/openrocket/andromeda-v0.2/check_equivalence.py \
+  --old simulations/openrocket/andromeda-v0.1/rocket.ork \
+  --new simulations/openrocket/andromeda-v0.2/rocket.ork \
+  --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv \
+  --output simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 ```
 
 The embedded simulation is intentionally marked `notsimulated`. The mechanical
-change-impact report establishes flight-input equivalence for this regrouping;
-it does not turn historical v0.1 results into v0.2 verification evidence. Rerun
-OpenRocket when mass, CG, external geometry, fin geometry, motor, recovery drag or
-deployment settings change.
+change-impact report establishes that the currently encoded flight inputs remain
+equivalent while explicitly deferring the INS mass/CG update. It does not turn
+historical v0.1 results into v0.2 verification evidence. Rerun OpenRocket after
+allocating the relocated INS mass and integrated CG, or when external geometry,
+fin geometry, motor, recovery drag or deployment settings change.

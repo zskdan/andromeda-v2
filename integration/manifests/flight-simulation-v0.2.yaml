@@ -1,16 +1,20 @@
 schema_version: 1
 deliverable:
   id: FLIGHT-SIM-001
-  revision: 2
+  revision: 3
   owner: flight_dynamics
   status: preliminary_model_synchronized
 requirements:
   - SYS-STRUCT-001
   - SYS-FLIGHT-001
   - SYS-MASS-001
+  - TDO-NAV-001
+  - TDO-TIME-001
 inputs:
   prior_model: simulations/openrocket/andromeda-v0.1/rocket.ork
   mechanical_model: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+  system_requirements: requirements/system.yaml
+  conops_requirements: docs/requirements/CONOPS.md
   change_impact_rules: integration/change-impact-rules.json
   motor_curve: simulations/openrocket/andromeda-v0.2/Pro54-5G-K570.eng
 outputs:
@@ -26,6 +30,12 @@ interfaces:
   openrocket_section_2_representation_mm:
     avionics_forward_tube: [550.0, 1350.0]
     fiberglass_rf_bay: [1350.0, 1550.0]
+  internal_allocation_metadata:
+    ins_navigation_disk_station_mm_from_nose: 1320.0
+    previous_station_mm_from_nose: 1080.0
+    aft_shift_mm: 240.0
+    disk_mass_kg: TBD
+    detailed_geometry_owner: structures_mechanisms
   recovery_hierarchy:
     main_and_drogue_parent: nosecone
     mechanical_fit_status: open_conflict
@@ -36,6 +46,10 @@ budgets:
     maximum_fin_tip_to_tip_mm: 400.0
   provisional_dry_mass_kg: 5.32
   provisional_dry_cg_m_from_nose: 1.28
+  ins_navigation_relocation:
+    disk_mass_kg: TBD
+    dry_cg_shift_m: TBD
+    dry_cg_shift_formula: INS_disk_mass_kg_times_0.240_m_divided_by_5.32_kg
   pro54_motor:
     designation: K570
     diameter_mm: 54.0
@@ -45,13 +59,15 @@ change_impact:
     - XDOM-MECH-SIM-001
   dispositions:
     XDOM-MECH-SIM-001:
-      mechanical_change: three_section_regrouping_and_rf_material_zone
+      mechanical_change: three_section_regrouping_RF_material_zone_and_INS_disk_relocation
       model_update: completed
-      numerical_rerun: not_required_for_section_regrouping
+      numerical_rerun: deferred_pending_INS_disk_mass_and_integrated_CG
       basis: >-
         External mold line, stage mass and CG overrides, motor, fins, global
         rail-button stations, recovery aerodynamic inputs, deployment events,
-        and simulation conditions are equivalent to v0.1.
+        and simulation conditions remain equivalent to v0.1. The new x=1320 mm
+        INS station is synchronized as internal-allocation metadata, but its mass
+        is TBD and the physical CG delta cannot yet be applied.
       evidence: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 tools:
   - name: Python
@@ -59,24 +75,26 @@ tools:
     purpose: deterministic OpenRocket XML transformation, packaging, and comparison
   - name: OpenRocket
     version: 24.12
-    purpose: target model format; numerical solver not rerun for this equivalence-only revision
+    purpose: target model format; numerical solver rerun deferred pending INS mass and integrated CG
 evidence:
-  - id: OR-MODEL-BUILD-002
+  - id: OR-MODEL-BUILD-003
     path: simulations/openrocket/andromeda-v0.2/evidence/model-build-report.json
     command: python3 simulations/openrocket/andromeda-v0.2/build_model.py
-  - id: OR-MECHANICAL-IMPACT-002
+  - id: OR-MECHANICAL-IMPACT-003
     path: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
     command: >-
       python3 simulations/openrocket/andromeda-v0.2/check_equivalence.py
       --old simulations/openrocket/andromeda-v0.1/rocket.ork
       --new simulations/openrocket/andromeda-v0.2/rocket.ork
+      --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
       --output simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 verification:
   xml_generation: pass
   packaged_model_payload: pass
   mechanical_section_mapping: pass
-  flight_driving_input_equivalence: pass
-  numerical_simulation_rerun: not_required_for_section_regrouping
+  current_encoded_flight_input_equivalence: pass
+  INS_relocation_mass_CG_update: pending_TBD_mass
+  numerical_simulation_rerun: deferred_pending_INS_disk_mass_and_integrated_CG
   embedded_simulation_status: notsimulated
   requirement_verification_status: not_verified
   validation_status: not_validated
@@ -84,5 +102,7 @@ open_issues:
   - Main parachute cylindrical pack conflicts with the ogive by 2.749 mm at the mechanical trial station.
   - Drogue pack, lines, harness and deployment free volume are not mechanically verified.
   - Historical v0.1 numerical results are not promoted to v0.2 verification evidence.
+  - The relocated INS/navigation disk mass is TBD, so the physical dry-CG shift and updated stability margin are not yet calculated.
+  - No committed RocketPy source model is present; synchronize and rerun it when restored and when the INS mass/integrated CG are available.
   - Rerun OpenRocket after any change to measured mass/CG, external geometry, fins, motor, recovery drag/deployment inputs, or launch conditions.
   - Fin structural stiffness, flutter, separation loads and launcher clearances remain unverified.

@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import csv
 import hashlib
 import json
 import xml.etree.ElementTree as ET
@@ -11,7 +12,7 @@ from pathlib import Path
 
 
 TOOL_ID = "andromeda-openrocket-mechanical-impact-check"
-TOOL_VERSION = "1.0.0"
+TOOL_VERSION = "1.1.0"
 
 
 def number(element, path):
@@ -23,6 +24,11 @@ def number(element, path):
 
 def sha256(path):
     return hashlib.sha256(path.read_bytes()).hexdigest()
+
+
+def parameter_records(path):
+    with path.open(newline="", encoding="utf-8") as stream:
+        return {row["key"]: row for row in csv.DictReader(stream)}
 
 
 def component_key(parachute):
@@ -140,9 +146,16 @@ def extract(path):
     }
 
 
-def compare(old_path, new_path):
+def compare(old_path, new_path, parameters_path, previous_ins_station_mm):
     old = extract(old_path)
     new = extract(new_path)
+    parameters = parameter_records(parameters_path)
+    ins_station_mm = float(parameters["ins_navigation_disk_station_mm"]["value"])
+    ins_mass_raw = parameters["ins_navigation_disk_mass_kg"]["value"]
+    ins_delta_m = (ins_station_mm - previous_ins_station_mm) / 1000.0
+    repository_root = new_path.resolve().parents[3]
+    rocketpy_directory = repository_root / "simulations" / "rocketpy"
+    rocketpy_sources = sorted(rocketpy_directory.glob("*.py"))
     checks = []
 
     def add(check_id, old_value, new_value, rationale):
@@ -172,21 +185,69 @@ def compare(old_path, new_path):
     add("SIM-IMPACT-CONDITIONS", old["simulation_conditions_sha256"], new["simulation_conditions_sha256"], "Launch, atmosphere and wind inputs are semantically equivalent after ignoring XML formatting whitespace.")
 
     passed = all(check["status"] == "pass" for check in checks)
+    mass_is_tbd = ins_mass_raw.strip().upper() == "TBD"
+    if mass_is_tbd:
+        cg_delta_m = "TBD"
+        rerun_disposition = "deferred_pending_ins_disk_mass_and_integrated_cg"
+        overall_status = (
+            "pass_current_openrocket_inputs_equivalent_with_ins_mass_tbd"
+            if passed
+            else "fail"
+        )
+    else:
+        ins_mass_kg = float(ins_mass_raw)
+        cg_delta_m = ins_mass_kg * ins_delta_m / old["stage_mass_kg"]
+        rerun_disposition = "required_after_ins_disk_relocation"
+        overall_status = "fail_requires_mass_cg_model_update"
     return {
         "schema_version": 1,
         "tool": {"id": TOOL_ID, "version": TOOL_VERSION},
         "inputs": {
             "v0.1": {"path": old_path.as_posix(), "sha256": sha256(old_path)},
             "v0.2": {"path": new_path.as_posix(), "sha256": sha256(new_path)},
+            "mechanical_parameters": {
+                "path": parameters_path.as_posix(),
+                "sha256": sha256(parameters_path),
+            },
         },
         "triggered_rule": "XDOM-MECH-SIM-001",
-        "overall_status": "pass_flight_input_equivalence" if passed else "fail",
-        "simulation_rerun_disposition": "not_required_for_section_regrouping" if passed else "required",
+        "overall_status": overall_status,
+        "simulation_rerun_disposition": rerun_disposition,
+        "ins_navigation_relocation": {
+            "previous_station_mm_from_nose": previous_ins_station_mm,
+            "new_station_mm_from_nose": ins_station_mm,
+            "aft_shift_mm": ins_station_mm - previous_ins_station_mm,
+            "disk_mass_kg": ins_mass_raw,
+            "dry_cg_shift_m": cg_delta_m,
+            "dry_cg_shift_formula": (
+                f"ins_disk_mass_kg * {ins_delta_m:.6f} m / "
+                f"{old['stage_mass_kg']:.6f} kg"
+            ),
+        },
+        "rocketpy_review": {
+            "source_model_present": bool(rocketpy_sources),
+            "source_paths": [
+                path.relative_to(repository_root).as_posix()
+                for path in rocketpy_sources
+            ],
+            "disposition": (
+                "review_and_update_after_ins_mass_and_integrated_cg_are_available"
+                if rocketpy_sources
+                else "no_authoritative_source_model_present; update_when_restored"
+            ),
+        },
         "checks": checks,
         "assessment": [
             "The v0.2 change regroups equal-diameter contiguous tubes and moves recovery components in the hierarchy without changing external aerodynamics or overridden mass/CG.",
+            (
+                f"The complete INS/navigation disk allocation moves aft by "
+                f"{ins_station_mm - previous_ins_station_mm:.1f} mm; its mass is "
+                f"{ins_mass_raw}, so the physical dry-CG delta cannot yet be calculated."
+            ),
+            "OpenRocket records the new internal station, while the existing 5.32 kg and x=1.28 m dry-stage overrides remain explicitly provisional.",
             "The v0.2 embedded simulation is marked notsimulated; historical results remain preliminary and are not promoted to v0.2 verification evidence.",
-            "A rerun becomes mandatory when measured mass/CG, external geometry, fin geometry, motor, recovery drag, deployment event, or launch conditions change.",
+            "Allocate or measure the INS disk mass, update the integrated dry mass/CG, and rerun OpenRocket before this relocation can be flight-verified.",
+            "No authoritative RocketPy source model is currently present; compiled cache files are not used as engineering inputs.",
         ],
         "mechanical_open_issue": "Parachute hierarchy matches the architecture, but ogive packing remains mechanically unresolved.",
     }
@@ -196,12 +257,19 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--old", required=True, type=Path)
     parser.add_argument("--new", required=True, type=Path)
+    parser.add_argument("--parameters", required=True, type=Path)
+    parser.add_argument("--previous-ins-station-mm", type=float, default=1080.0)
     parser.add_argument("--output", required=True, type=Path)
     args = parser.parse_args()
-    result = compare(args.old, args.new)
+    result = compare(
+        args.old,
+        args.new,
+        args.parameters,
+        args.previous_ins_station_mm,
+    )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(result, indent=2, sort_keys=True) + "\n", encoding="utf-8")
-    return 0 if result["overall_status"] != "fail" else 1
+    return 1 if result["overall_status"].startswith("fail") else 0
 
 
 if __name__ == "__main__":

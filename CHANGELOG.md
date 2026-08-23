@@ -12,3 +12,6 @@
   change-impact gates with a repository diff checker.
 - Added the synchronized three-section OpenRocket v0.2 model and deterministic
   mechanical/simulation equivalence evidence.
+- Relocated the complete dual-GNSS INS/navigation disk from x=1080 to x=1320 mm,
+  synchronized the FreeCAD/OpenRocket allocation, and recorded the pending
+  disk-mass, integrated-CG, coax, timing-link and RF-coexistence verification.

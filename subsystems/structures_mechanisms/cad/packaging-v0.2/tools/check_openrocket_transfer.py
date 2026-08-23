@@ -5,6 +5,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import xml.etree.ElementTree as ET
 from pathlib import Path
 
@@ -12,7 +13,7 @@ from check_fit import load_parameters, require_number, sha256
 
 
 TOOL_ID = "andromeda-openrocket-geometry-transfer-check"
-TOOL_VERSION = "2.0.0"
+TOOL_VERSION = "2.1.0"
 
 
 def millimeters(element, tag):
@@ -23,6 +24,11 @@ def compare(parameters_path: Path, openrocket_path: Path):
     values, _records = load_parameters(parameters_path)
     n = lambda key: require_number(values, key)
     root = ET.parse(openrocket_path).getroot()
+    rocket_comment = root.findtext("rocket/comment", "")
+    ins_station_match = re.search(
+        r"INS_NAVIGATION_DISK_STATION_M=([0-9]+(?:\.[0-9]+)?)",
+        rocket_comment,
+    )
     nose = root.find(".//nosecone")
     bodies = root.findall(".//stage/subcomponents/bodytube")
     fins = root.find(".//trapezoidfinset")
@@ -37,7 +43,11 @@ def compare(parameters_path: Path, openrocket_path: Path):
         ),
         None,
     )
-    if None in (nose, fins, motor, mount, motormount, main_parachute) or len(bodies) != 3:
+    if (
+        None in (nose, fins, motor, mount, motormount, main_parachute)
+        or len(bodies) != 3
+        or ins_station_match is None
+    ):
         raise ValueError("Unexpected OpenRocket v0.2 component structure")
 
     body_by_name = {body.findtext("name"): body for body in bodies}
@@ -56,6 +66,7 @@ def compare(parameters_path: Path, openrocket_path: Path):
         "antenna_bay_start_mm": millimeters(nose, "length")
         + millimeters(avionics, "length"),
         "antenna_bay_total_length_mm": millimeters(antenna_bay, "length"),
+        "ins_navigation_disk_station_mm": float(ins_station_match.group(1)) * 1000.0,
         "motor_section_length_mm": millimeters(propulsion, "length"),
         "main_parachute_axial_start_mm": millimeters(main_parachute, "position"),
         "main_parachute_packed_length_mm": millimeters(main_parachute, "packedlength"),
@@ -107,6 +118,7 @@ def compare(parameters_path: Path, openrocket_path: Path):
         "notes": [
             "The 1000 mm mechanical avionics section is represented by an 800 mm avionics tube and a 200 mm fiberglass RF bay.",
             "The OpenRocket parachute hierarchy matches the nose/recovery section, but the mechanical packing conflict remains open.",
+            "The INS/navigation station is synchronized as traceable internal-allocation metadata because its mass and component envelope remain TBD.",
             "This check transfers geometry only; it does not establish structural adequacy or flight stability.",
         ],
     }

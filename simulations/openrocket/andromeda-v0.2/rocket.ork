@@ -5,7 +5,7 @@
     <id>1d783b58-7abf-4c8e-9932-93d7a78e18f1</id>
     <axialoffset method="absolute">0.0</axialoffset>
     <position type="absolute">0.0</position>
-    <comment>Preliminary three-section model synchronized with mechanical packaging v0.2. Section 1 is the 550 mm nose/recovery ogive; section 2 is 1000 mm of avionics, batteries, and a 200 mm fiberglass RF bay; section 3 is the 600 mm motor/fin assembly. The external mold line, stage mass/CG override, motor, fins, rail-button stations, and recovery deployment inputs are unchanged from v0.1. Main and drogue cylindrical packing inside the ogive is not mechanically verified.</comment>
+    <comment>Preliminary three-section model synchronized with mechanical packaging v0.2. Section 1 is the 550 mm nose/recovery ogive; section 2 is 1000 mm of avionics, batteries, and a 200 mm fiberglass RF bay; section 3 is the 600 mm motor/fin assembly. Internal allocation INS_NAVIGATION_DISK_STATION_M=1.320000; INS_NAVIGATION_DISK_MASS_KG=TBD. The external mold line, stage mass/CG override, motor, fins, rail-button stations, and recovery deployment inputs are unchanged from v0.1. Main and drogue cylindrical packing inside the ogive is not mechanically verified. The INS relocation is not applied to the stage CG until its mass and integrated CG are available.</comment>
     <designer>Andromeda team</designer>
     <designtype>original</designtype>
     <motorconfiguration configid="17e844f0-82af-40bf-9557-27eb099afca6" default="true">

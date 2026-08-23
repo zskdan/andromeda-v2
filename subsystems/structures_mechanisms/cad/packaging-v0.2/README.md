@@ -42,10 +42,27 @@ The conceptual disk and bay order from nose to tail is:
 4. avionics power-distribution disk at x=940 mm;
 5. camera disk at x=985 mm;
 6. K26 compute disk at x=1030 mm;
-7. navigation and sensor disk at x=1080 mm;
-8. PlutoSDR support/RF disk at x=1130 mm;
-9. longitudinal enclosed PlutoSDR from x=1180 to 1297 mm;
-10. two generic fiberglass antenna zones from x=1350 to 1550 mm.
+7. PlutoSDR support/RF disk at x=1130 mm;
+8. longitudinal enclosed PlutoSDR from x=1180 to 1297 mm;
+9. complete dual-GNSS INS/navigation disk at x=1320 mm;
+10. two 90 mm fiberglass antenna zones from x=1350 to 1440 mm and x=1460
+    to 1550 mm, with conceptual GNSS ring-feed stations at x=1395 and 1505 mm.
+
+The INS/navigation disk was moved aft from x=1080 to 1320 mm so both GNSS
+receiver modules, the IMU and the navigation processor can share one local
+carrier with the environmental/acoustic sensors close to the antenna feeds. The
+resulting minimum axial spans from the
+disk plane to the two candidate ring-feed centers are 75 and 185 mm; actual coax
+routing, bend radii and insertion losses remain TBD. Long communication and
+timing links toward the compute disk require a qualified differential physical
+layer; raw single-ended UART is not allocated as the vehicle-level interface.
+
+The new station is immediately forward of the RF bay rather than inside it. A
+bare 1.6 mm disk has 22.2 mm clearance to the modeled Pluto enclosure and 29.2 mm
+to the antenna/rail region. Those values do not establish assembly fit because
+the INS component depth, Pluto connector/service volume, mounts and harness bends
+are still TBD. The INS disk mass is also TBD, so the physical CG shift cannot yet
+be applied to the provisional OpenRocket mass/CG override.
 
 Interface 2–3 is the fiberglass antenna region plus four conceptual 6 × 6 mm
 longitudinal aluminum rails running from x=1350 to 1600 mm. The rails cross the
@@ -124,6 +141,10 @@ snapshot and comparison reference; it does not preserve FreeCAD feature history.
 - battery selection, restraint, protection, isolation and venting;
 - camera bodies, windows and window reinforcement;
 - exact Pluto PCB/connectors, USB and coax service volumes and thermal path;
+- INS disk component, shield, connector, mounting and harness envelope, mass,
+  power dissipation and vibration qualification;
+- GNSS coax routed lengths, insertion losses, connector retention and separation
+  from Pluto/NB/WB transmit paths;
 - antenna elements, polarization, spacing, feed routing and RF interaction with
   the aluminum rails, motor case and other electronics;
 - rail load path, joint sizing, fin flutter, motor retention, thermal, vibration,

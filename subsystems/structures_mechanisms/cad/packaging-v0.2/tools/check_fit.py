@@ -13,8 +13,15 @@ from typing import Any
 
 
 TOOL_ID = "andromeda-packaging-fit-check"
-TOOL_VERSION = "2.0.0"
+TOOL_VERSION = "2.1.0"
 REQUIREMENT_ID = "SYS-STRUCT-001"
+REQUIREMENT_IDS = [
+    REQUIREMENT_ID,
+    "SYS-MASS-001",
+    "TDO-NAV-001",
+    "TDO-TIME-001",
+    "TDO-RF-001",
+]
 
 
 def load_parameters(path: Path) -> tuple[dict[str, Any], list[dict[str, str]]]:
@@ -122,6 +129,7 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
     )
 
     disk_od = n("flight_disk_outer_diameter_mm")
+    disk_thickness = n("flight_disk_thickness_mm")
     add_check(
         "PKG-RADIAL-001",
         "provisional_pass" if disk_od < nominal_id else "fail",
@@ -158,8 +166,8 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
         ("avionics_power", "avionics_power_disk_station_mm"),
         ("camera", "camera_disk_station_mm"),
         ("compute", "compute_disk_station_mm"),
-        ("sensor", "sensor_disk_station_mm"),
         ("rf", "rf_disk_station_mm"),
+        ("ins_navigation", "ins_navigation_disk_station_mm"),
     )
     for name, key in disk_specs:
         station = n(key)
@@ -195,6 +203,52 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
         f"Pluto interval [{pluto_start:.1f}, {pluto_end:.1f}] within [{equipment_start:.1f}, {equipment_end:.1f}] mm",
         pluto_axial_margin,
         "Body envelope only; service length for cables, thermal path, mounts and removal is TBD.",
+    )
+
+    ins_station = n("ins_navigation_disk_station_mm")
+    ins_forward_face = ins_station - disk_thickness / 2.0
+    ins_aft_face = ins_station + disk_thickness / 2.0
+    ins_pluto_body_clearance = ins_forward_face - pluto_end
+    ins_antenna_bay_clearance = antenna_start - ins_aft_face
+    add_check(
+        "PKG-INS-AXIAL-001",
+        "provisional_pass"
+        if min(ins_pluto_body_clearance, ins_antenna_bay_clearance) >= 0
+        else "fail",
+        (
+            f"INS disk [{ins_forward_face:.1f}, {ins_aft_face:.1f}] mm between "
+            f"Pluto body ending {pluto_end:.1f} mm and antenna/rail region starting "
+            f"{antenna_start:.1f} mm"
+        ),
+        min(ins_pluto_body_clearance, ins_antenna_bay_clearance),
+        "Bare 1.6 mm disk only; the INS assembly depth and Pluto service envelope remain TBD.",
+    )
+
+    antenna_zone_length = (
+        n("antenna_bay_total_length_mm") - n("antenna_bay_gap_mm")
+    ) / 2.0
+    expected_upper_feed = antenna_start + antenna_zone_length / 2.0
+    expected_lower_feed = (
+        antenna_start
+        + antenna_zone_length
+        + n("antenna_bay_gap_mm")
+        + antenna_zone_length / 2.0
+    )
+    upper_feed = n("gnss_upper_ring_feed_station_mm")
+    lower_feed = n("gnss_lower_ring_feed_station_mm")
+    feed_station_error = max(
+        abs(upper_feed - expected_upper_feed),
+        abs(lower_feed - expected_lower_feed),
+    )
+    add_check(
+        "PKG-GNSS-FEEDS-001",
+        "provisional_pass" if feed_station_error < 1.0e-9 else "fail",
+        (
+            f"GNSS candidate feed stations {upper_feed:.1f} and {lower_feed:.1f} mm "
+            f"at the centers of the two 90 mm antenna zones"
+        ),
+        0.0 if feed_station_error < 1.0e-9 else -feed_station_error,
+        "Feed stations are allocation centers, not released antenna phase centers or routed cable lengths.",
     )
 
     antenna_error = abs(antenna_end - motor_interface)
@@ -284,7 +338,7 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
         "schema_version": 1,
         "tool": {"id": TOOL_ID, "version": TOOL_VERSION},
         "input": {"path": parameters_path.as_posix(), "sha256": sha256(parameters_path)},
-        "requirement_ids": [REQUIREMENT_ID],
+        "requirement_ids": REQUIREMENT_IDS,
         "configuration": {
             "axis_convention": "+X from nose tip toward motor nozzle",
             "section_boundaries_mm": {
@@ -303,6 +357,18 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
             "disk_diametral_margin_mm": round(nominal_id - disk_od, 3),
             "k26_planar_bounding_diagonal_mm": round(k26_diagonal, 3),
             "pluto_longitudinal_cross_section_diagonal_mm": round(pluto_diagonal, 3),
+            "ins_disk_forward_clearance_to_pluto_body_mm": round(
+                ins_pluto_body_clearance, 3
+            ),
+            "ins_disk_aft_clearance_to_antenna_bay_mm": round(
+                ins_antenna_bay_clearance, 3
+            ),
+            "gnss_upper_feed_minimum_axial_coax_span_mm": round(
+                upper_feed - ins_station, 3
+            ),
+            "gnss_lower_feed_minimum_axial_coax_span_mm": round(
+                lower_feed - ins_station, 3
+            ),
             "main_parachute_trial_margin_mm": round(chute_margin, 3),
             "fin_tip_to_body_aft_margin_mm": round(fin_axial_margin, 3),
             "motor_forward_station_mm": round(motor_forward, 3),
@@ -313,6 +379,9 @@ def check_fit(parameters_path: Path) -> dict[str, Any]:
         "limitations": [
             "The current main-parachute packed cylinder conflicts with the ogive trial placement; the drogue is unallocated.",
             "Antenna elements, patterns, cable keep-outs and RF interaction with the aluminum rails are not modeled.",
+            "The relocated INS disk is represented as a bare PCB plane; component, shield, connector, harness and mounting depth remain TBD.",
+            "The 22.2 mm Pluto-body clearance does not include its TBD service envelope, so assembly fit is not verified.",
+            "INS disk mass is TBD; this fit check does not update or verify vehicle mass, CG or stability.",
             "No manufactured-airframe or coupler measurements are available.",
             "No loads, joint sizing, flutter, vibration, thermal or assembly-sequence verification is performed.",
             "Battery and most electronic component envelopes remain allocations rather than selected hardware.",

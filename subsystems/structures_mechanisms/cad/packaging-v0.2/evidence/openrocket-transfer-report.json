@@ -58,6 +58,13 @@
     },
     {
       "error": 0.0,
+      "key": "ins_navigation_disk_station_mm",
+      "openrocket_value": 1320.0,
+      "parameter_value": 1320.0,
+      "status": "pass"
+    },
+    {
+      "error": 0.0,
       "key": "motor_section_length_mm",
       "openrocket_value": 600.0,
       "parameter_value": 600.0,
@@ -186,22 +193,23 @@
   "inputs": {
     "openrocket": {
       "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
-      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
+      "sha256": "039005095b7038b7597f97fc44daecf81e83a3cedf01e5b09dd4a75adbde18cc"
     },
     "parameters": {
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
-      "sha256": "13eed068220dd267aeba44b7ba4d4073713cbcf06a2d46bc05b7110f5f43dc79"
+      "sha256": "8470ca6f19a46c517087406a4155b72288949c1754dcad1f00d48bf616bf642b"
     }
   },
   "notes": [
     "The 1000 mm mechanical avionics section is represented by an 800 mm avionics tube and a 200 mm fiberglass RF bay.",
     "The OpenRocket parachute hierarchy matches the nose/recovery section, but the mechanical packing conflict remains open.",
+    "The INS/navigation station is synchronized as traceable internal-allocation metadata because its mass and component envelope remain TBD.",
     "This check transfers geometry only; it does not establish structural adequacy or flight stability."
   ],
   "overall_status": "pass",
   "schema_version": 1,
   "tool": {
     "id": "andromeda-openrocket-geometry-transfer-check",
-    "version": "2.0.0"
+    "version": "2.1.0"
   }
 }

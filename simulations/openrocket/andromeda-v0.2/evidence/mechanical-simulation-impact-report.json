@@ -1,8 +1,11 @@
 {
   "assessment": [
     "The v0.2 change regroups equal-diameter contiguous tubes and moves recovery components in the hierarchy without changing external aerodynamics or overridden mass/CG.",
+    "The complete INS/navigation disk allocation moves aft by 240.0 mm; its mass is TBD, so the physical dry-CG delta cannot yet be calculated.",
+    "OpenRocket records the new internal station, while the existing 5.32 kg and x=1.28 m dry-stage overrides remain explicitly provisional.",
     "The v0.2 embedded simulation is marked notsimulated; historical results remain preliminary and are not promoted to v0.2 verification evidence.",
-    "A rerun becomes mandatory when measured mass/CG, external geometry, fin geometry, motor, recovery drag, deployment event, or launch conditions change."
+    "Allocate or measure the INS disk mass, update the integrated dry mass/CG, and rerun OpenRocket before this relocation can be flight-verified.",
+    "No authoritative RocketPy source model is currently present; compiled cache files are not used as engineering inputs."
   ],
   "checks": [
     {
@@ -201,22 +204,39 @@
     }
   ],
   "inputs": {
+    "mechanical_parameters": {
+      "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
+      "sha256": "8470ca6f19a46c517087406a4155b72288949c1754dcad1f00d48bf616bf642b"
+    },
     "v0.1": {
       "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
       "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
     },
     "v0.2": {
       "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
-      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
+      "sha256": "039005095b7038b7597f97fc44daecf81e83a3cedf01e5b09dd4a75adbde18cc"
     }
   },
+  "ins_navigation_relocation": {
+    "aft_shift_mm": 240.0,
+    "disk_mass_kg": "TBD",
+    "dry_cg_shift_formula": "ins_disk_mass_kg * 0.240000 m / 5.320000 kg",
+    "dry_cg_shift_m": "TBD",
+    "new_station_mm_from_nose": 1320.0,
+    "previous_station_mm_from_nose": 1080.0
+  },
   "mechanical_open_issue": "Parachute hierarchy matches the architecture, but ogive packing remains mechanically unresolved.",
-  "overall_status": "pass_flight_input_equivalence",
+  "overall_status": "pass_current_openrocket_inputs_equivalent_with_ins_mass_tbd",
+  "rocketpy_review": {
+    "disposition": "no_authoritative_source_model_present; update_when_restored",
+    "source_model_present": false,
+    "source_paths": []
+  },
   "schema_version": 1,
-  "simulation_rerun_disposition": "not_required_for_section_regrouping",
+  "simulation_rerun_disposition": "deferred_pending_ins_disk_mass_and_integrated_cg",
   "tool": {
     "id": "andromeda-openrocket-mechanical-impact-check",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   "triggered_rule": "XDOM-MECH-SIM-001"
 }

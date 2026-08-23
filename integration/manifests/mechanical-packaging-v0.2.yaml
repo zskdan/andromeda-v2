@@ -1,20 +1,27 @@
 schema_version: 1
 deliverable:
   id: MECH-PACKAGING-001
-  revision: 2
+  revision: 3
   owner: structures_mechanisms
   status: preliminary_with_open_recovery_conflict
 requirements:
   - SYS-STRUCT-001
+  - SYS-MASS-001
+  - TDO-NAV-001
+  - TDO-TIME-001
+  - TDO-RF-001
 inputs:
   parameters: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
   system_requirements: requirements/system.yaml
+  conops_requirements: docs/requirements/CONOPS.md
   launcher_vehicle_interface: requirements/interfaces/launcher-vehicle.yaml
   external_geometry_and_motor: simulations/openrocket/andromeda-v0.2/rocket.ork
   architecture_direction: >-
     User-selected three-section arrangement: nose/recovery, avionics+batteries,
     and motor+fins, with separation at interface 1-2 and fiberglass RF structure
-    plus internal aluminum at interface 2-3.
+    plus internal aluminum at interface 2-3. Complete dual-GNSS INS/navigation
+    disk relocated from x=1080 to x=1320 mm immediately forward of the antenna
+    bay; disk mass and installed component envelope remain TBD.
   vendor_sources:
     plutosdr: https://wiki.analog.com/university/tools/pluto/hacking/hardware
     k26: https://docs.amd.com/r/en-US/ds987-k26-som/K26-SOM-Mechanical-Dimensions
@@ -46,6 +53,11 @@ interfaces:
   section_2_avionics_batteries:
     interval_mm: [550.0, 1550.0]
     antenna_bay_interval_mm: [1350.0, 1550.0]
+    ins_navigation_disk_station_mm: 1320.0
+    ins_navigation_disk_previous_station_mm: 1080.0
+    ins_navigation_disk_aft_shift_mm: 240.0
+    gnss_candidate_ring_feed_stations_mm: [1395.0, 1505.0]
+    navigation_compute_link_physical_layer: TBD_differential
   interface_2_3:
     station_mm: 1550.0
     external_structure: fiberglass_rf_transparent_bay
@@ -73,10 +85,16 @@ budgets:
     avionics_power: 940.0
     camera: 985.0
     compute: 1030.0
-    sensor: 1080.0
     rf: 1130.0
     plutosdr: [1180.0, 1297.0]
+    ins_navigation: 1320.0
     antenna_bays: [1350.0, 1550.0]
+  ins_navigation_clearances_mm:
+    bare_disk_forward_to_pluto_body: 22.2
+    bare_disk_aft_to_antenna_and_rail_region: 29.2
+    minimum_axial_span_to_forward_gnss_feed: 75.0
+    minimum_axial_span_to_aft_gnss_feed: 185.0
+    assembly_fit_status: not_verified_component_and_service_envelopes_TBD
   pro54_motor_envelope_mm:
     diameter: 54.0
     length: 488.0
@@ -84,13 +102,20 @@ budgets:
 change_impact:
   assessed_rules:
     - XDOM-MECH-SIM-001
+    - XDOM-ELEC-MECH-001
   dispositions:
     XDOM-MECH-SIM-001:
       status: assessed
       simulation_model: simulations/openrocket/andromeda-v0.2/rocket.ork
       model_update: completed
-      numerical_rerun: not_required_for_section_regrouping
+      numerical_rerun: deferred_pending_INS_disk_mass_and_integrated_CG
       evidence: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+    XDOM-ELEC-MECH-001:
+      status: assessed
+      electronics_change: complete_dual_GNSS_INS_node_relocated_to_x1320_mm
+      mechanical_update: completed
+      clearance_status: provisional_bare_disk_only
+      evidence: integration/change-impact/ins-navigation-relocation-v0.2.yaml
 tools:
   - name: Python
     version: 3.12.3
@@ -99,30 +124,31 @@ tools:
     version: 1.1.3
     purpose: native geometry generation and STEP round-trip validation
 evidence:
-  - id: PKG-FIT-REPORT-002
+  - id: PKG-FIT-REPORT-003
     path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
     command: >-
       python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_fit.py
       --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
       --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
-  - id: PKG-FREECAD-BUILD-002
+  - id: PKG-FREECAD-BUILD-003
     path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/freecad-build-report.json
     command: >-
       FreeCADCmd
       subsystems/structures_mechanisms/cad/packaging-v0.2/model/build_freecad.py
-  - id: PKG-OPENROCKET-TRANSFER-002
+  - id: PKG-OPENROCKET-TRANSFER-003
     path: subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
     command: >-
       python3 subsystems/structures_mechanisms/cad/packaging-v0.2/tools/check_openrocket_transfer.py
       --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
       --openrocket simulations/openrocket/andromeda-v0.2/rocket.ork
       --output subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
-  - id: PKG-MECHANICAL-SIMULATION-IMPACT-002
+  - id: PKG-MECHANICAL-SIMULATION-IMPACT-003
     path: simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
     command: >-
       python3 simulations/openrocket/andromeda-v0.2/check_equivalence.py
       --old simulations/openrocket/andromeda-v0.1/rocket.ork
       --new simulations/openrocket/andromeda-v0.2/rocket.ork
+      --parameters subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
       --output simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
 verification:
   deterministic_fit_check: provisional_with_packaging_conflict
@@ -130,8 +156,9 @@ verification:
   source_shape_validity: pass
   step_export_round_trip: pass
   external_openrocket_geometry_transfer: pass
-  mechanical_to_simulation_impact: pass_flight_input_equivalence
-  simulation_rerun_disposition: not_required_for_section_regrouping
+  mechanical_to_simulation_impact: pass_current_inputs_equivalent_with_INS_mass_TBD
+  simulation_rerun_disposition: deferred_pending_INS_disk_mass_and_integrated_CG
+  electronics_to_mechanical_review: provisional_pass_bare_disk_only
   requirement_verification_status: not_verified
   validation_status: not_validated
 open_issues:
@@ -143,6 +170,11 @@ open_issues:
   - Antenna elements, polarization, spacing, feeds, cable keep-outs and radome effects are TBD.
   - Battery cells, restraint, isolation, protection, venting and energy budget are TBD.
   - Pluto connector service volumes, supports and thermal path are TBD.
+  - The x=1320 mm INS disk has only 22.2 mm bare-disk clearance to the Pluto body; both assemblies' connector, shield, mount and harness envelopes are TBD.
+  - INS disk mass and power dissipation are TBD; integrated CG and thermal impacts are not verified.
+  - GNSS antenna geometry, routed coax lengths/losses, receiver shielding and simultaneous NB/WB coexistence remain TBD.
+  - The vehicle-level navigation link physical layer and PPS distribution are TBD; raw single-ended UART is not allocated for the long link.
   - Camera windows and component envelopes remain TBD.
   - Motor retention, fin flutter, vibration, shock, thermal and assembly sequence are not verified.
   - The OpenRocket v0.2 embedded case is marked notsimulated; the equivalence disposition applies only while the recorded flight-driving inputs remain unchanged.
+  - No committed RocketPy source model is present; compiled cache files are not accepted as authoritative simulation inputs.

@@ -25,6 +25,19 @@
     "path": "simulations/openrocket/andromeda-v0.1/rocket.ork",
     "sha256": "836c3ec962f0ae4c99f6855f13e94b669d11f5cc7e224c8b99e7fa605f75a780"
   },
+  "ins_navigation_allocation_marker_present": true,
+  "internal_allocations": {
+    "ins_navigation_disk": {
+      "mass_kg": "TBD",
+      "representation": "traceable OpenRocket rocket-comment metadata; geometry is in FreeCAD",
+      "stage_mass_cg_effect": "deferred_pending_mass_and_integrated_cg",
+      "station_mm_from_nose": 1320.0
+    }
+  },
+  "mechanical_parameters": {
+    "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv",
+    "sha256": "8470ca6f19a46c517087406a4155b72288949c1754dcad1f00d48bf616bf642b"
+  },
   "nose_parachutes": [
     {
       "name": "Main parachute 1.55 m - ogive packing conflict open",
@@ -41,14 +54,14 @@
   ],
   "outputs": {
     "package": {
-      "bytes": 3026,
+      "bytes": 3133,
       "path": "simulations/openrocket/Andromeda-v0.2.ork",
-      "sha256": "a1264d595254fbd41ddda4da90394e1b4aeb9c097882993cf55f68381fb590d9"
+      "sha256": "3a37bc517d3083a3fda7450b8de14edbdc46dbccfbcf41cf5b93d84253ff09dd"
     },
     "xml": {
-      "bytes": 12116,
+      "bytes": 12307,
       "path": "simulations/openrocket/andromeda-v0.2/rocket.ork",
-      "sha256": "d0038f7143b169b4de8642792efebb1925d5415825df2f70b750a161da171208"
+      "sha256": "039005095b7038b7597f97fc44daecf81e83a3cedf01e5b09dd4a75adbde18cc"
     }
   },
   "overall_status": "pass",
@@ -60,6 +73,6 @@
   "tool": {
     "id": "andromeda-openrocket-v0.2-model-builder",
     "python": "3.12.3",
-    "version": "1.0.0"
+    "version": "1.1.0"
   }
 }

@@ -91,6 +91,17 @@
       "shape_valid": true,
       "solid_count": 4
     },
+    "INS_Navigation_Disk": {
+      "bounding_box_mm": {
+        "x_length": 1.6,
+        "x_max": 1320.8,
+        "x_min": 1319.2,
+        "y_length": 110.0,
+        "z_length": 110.0
+      },
+      "shape_valid": true,
+      "solid_count": 1
+    },
     "K26_SOM_Envelope": {
       "bounding_box_mm": {
         "x_length": 10.9,
@@ -212,17 +223,6 @@
       "shape_valid": true,
       "solid_count": 1
     },
-    "Sensor_Disk": {
-      "bounding_box_mm": {
-        "x_length": 1.6,
-        "x_max": 1080.8,
-        "x_min": 1079.2,
-        "y_length": 110.0,
-        "z_length": 110.0
-      },
-      "shape_valid": true,
-      "solid_count": 1
-    },
     "Separation_Module": {
       "bounding_box_mm": {
         "x_length": 80.0,
@@ -248,19 +248,23 @@
   },
   "outputs": {
     "fcstd": {
-      "bytes": 58798,
+      "bytes": 59034,
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.FCStd",
-      "sha256": "f804e26b1c5b4b3b71d4f6bf9085b527906ca936c2517595c68382f3f9ced6b5"
+      "sha256": "3e4cfc1dff7c476cafa47e02f1a7517a1beea005482b8e9b0e7630f9af5c6e1c"
     },
     "step": {
       "bytes": 323261,
       "path": "subsystems/structures_mechanisms/cad/packaging-v0.2/exports/andromeda-packaging-v0.2.step",
-      "sha256": "eafe81f7d4bea0c0e7e67b58a99d65562466a2bc662d753104628fb2b2a2ab25"
+      "sha256": "6a0812ceaa60bb25f88aae150fe63f9f7956b0c8bac47534868396a5be8b3d94"
     }
   },
   "overall_status": "pass",
   "requirement_ids": [
-    "SYS-STRUCT-001"
+    "SYS-STRUCT-001",
+    "SYS-MASS-001",
+    "TDO-NAV-001",
+    "TDO-TIME-001",
+    "TDO-RF-001"
   ],
   "schema_version": 1,
   "step_round_trip": {

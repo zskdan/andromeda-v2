@@ -1,0 +1,91 @@
+schema_version: 1
+assessment:
+  id: IMPACT-INS-NAV-RELOCATION-001
+  revision: 1
+  owner: architect
+  reviewers:
+    - structures_mechanisms
+    - flight_dynamics
+    - rf_system
+  status: implemented_with_open_mass_CG_and_RF_verification
+requirements:
+  - SYS-STRUCT-001
+  - SYS-MASS-001
+  - TDO-NAV-001
+  - TDO-TIME-001
+  - TDO-RF-001
+authoritative_inputs:
+  mechanical_parameters: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+  freecad_source: subsystems/structures_mechanisms/cad/packaging-v0.2/model/build_freecad.py
+  openrocket_source: simulations/openrocket/andromeda-v0.2/build_model.py
+  prior_INS_station_mm_from_nose: 1080.0
+decision:
+  statement: >-
+    Relocate the complete dual-GNSS INS/navigation disk to x=1320 mm immediately
+    forward of the fiberglass antenna bay. Keep GNSS receiver, IMU, navigation
+    processor, environmental/acoustic sensors and local timing interfaces on the
+    disk; use short coax toward the
+    two candidate GNSS ring feeds and a qualified differential vehicle-level
+    navigation/timing link toward the compute disk.
+  new_INS_station_mm_from_nose: 1320.0
+  aft_shift_mm: 240.0
+  rationale:
+    - Reduces minimum axial GNSS feed spans to 75 and 185 mm before routing allowances.
+    - Keeps the full disk forward of the antenna bay and aluminum rail region.
+    - Avoids allocating long raw single-ended UART as the vehicle-level interface.
+mechanical_review:
+  rule: XDOM-ELEC-MECH-001
+  disk_representation: bare_110_mm_diameter_by_1.6_mm_plane
+  forward_clearance_to_Pluto_body_mm: 22.2
+  aft_clearance_to_antenna_and_rail_region_mm: 29.2
+  status: provisional_pass_bare_disk_only
+  unresolved:
+    - INS component, shield, connector, mount and harness depth is TBD.
+    - Pluto connector, thermal, support and removal service volume is TBD.
+    - Manufactured clear bore, couplers and fastener intrusions are TBD.
+    - Antenna ground-plane and radiation-pattern interaction is not analyzed.
+flight_dynamics_review:
+  rule: XDOM-MECH-SIM-001
+  provisional_dry_mass_kg: 5.32
+  provisional_dry_CG_m_from_nose: 1.28
+  INS_disk_mass_kg: TBD
+  physical_CG_shift_m: TBD
+  deterministic_formula: INS_disk_mass_kg_times_0.240_m_divided_by_5.32_kg
+  openrocket_update: new_internal_station_recorded_in_model_metadata
+  current_encoded_flight_inputs: equivalent
+  numerical_rerun: deferred_pending_INS_disk_mass_and_integrated_CG
+  rocketpy_review:
+    committed_source_model_present: false
+    observed_repository_content: simulations/rocketpy_contains_only_non_authoritative___pycache__
+    disposition: update_and_rerun_when_source_model_is_restored_and_INS_mass_CG_are_available
+  rerun_criteria:
+    - Allocate or measure the installed INS disk mass.
+    - Update the integrated dry mass and CG for the relocated configuration.
+    - Rerun OpenRocket and the applicable RocketPy model before flight release.
+RF_and_timing_review:
+  candidate_GNSS_ring_feed_stations_mm: [1395.0, 1505.0]
+  minimum_axial_spans_from_INS_disk_mm: [75.0, 185.0]
+  routed_coax_lengths_mm: TBD
+  coax_insertion_losses_dB: TBD
+  navigation_link_physical_layer: TBD_differential
+  PPS_distribution: TBD
+  coexistence_verification: TBD_simultaneous_GNSS_NB_WB_ground_test
+evidence:
+  - subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/fit-report.json
+  - subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/freecad-build-report.json
+  - subsystems/structures_mechanisms/cad/packaging-v0.2/evidence/openrocket-transfer-report.json
+  - simulations/openrocket/andromeda-v0.2/evidence/model-build-report.json
+  - simulations/openrocket/andromeda-v0.2/evidence/mechanical-simulation-impact-report.json
+verification:
+  implemented: true
+  deterministic_geometry_checks: pass_for_INS_allocation_with_unrelated_recovery_conflict_open
+  native_CAD_recompute: pass_FreeCAD_1.1.3
+  STEP_export_round_trip: pass
+  OpenRocket_metadata_synchronization: pass
+  numerical_flight_verification: false
+  RF_coexistence_validation: false
+open_issues:
+  - Disk mass, full installed envelope, thermal dissipation and vibration qualification are TBD.
+  - Final GNSS antenna design, feed azimuth, coax routing/loss and connector retention are TBD.
+  - Differential data and PPS electrical interfaces are TBD.
+  - No committed RocketPy source model is currently available to synchronize; compiled cache files are not authoritative engineering inputs.
