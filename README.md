@@ -16,6 +16,20 @@ This is a safe starting skeleton, not a production remote-execution service. It 
 - ChatGPT control-console and Codex agent guidance;
 - structural, unit, and controller-service end-to-end validation;
 - reproducible ZIP and TAR.GZ packaging script.
+- offline-capable 3D ground-station visualization with simulation, replay, live
+  telemetry ingest, and NDJSON recording (`ground_station/`).
+
+## 3D flight visualization
+
+Run the visibly labelled synthetic display exercise:
+
+```bash
+python3 -m ground_station.server --mode demo
+```
+
+Then open `http://127.0.0.1:8765`. Simulation/replay and recorded live-ingest
+commands, the telemetry contract, operational limitations, and flight-readiness
+TBDs are documented in `ground_station/README.md`.
 
 ## Quick start
 

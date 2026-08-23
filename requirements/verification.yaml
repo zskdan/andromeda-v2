@@ -9,9 +9,11 @@ verification_records:
     evidence: []
     integration_result: NOT_VERIFIED
   - requirement_id: SYS-TC-001
-    implementation: not_started
-    evidence: []
-    integration_result: NOT_VERIFIED
+    implementation: visualization_prototype_implemented
+    evidence:
+      - tests/test_ground_station.py
+      - integration/manifests/ground-station-visualization-v0.1.yaml
+    integration_result: PARTIALLY_VERIFIED
   - requirement_id: SYS-TC-002
     implementation: not_started
     evidence: []

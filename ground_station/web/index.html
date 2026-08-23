@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#060a10">
+  <title>Andromeda Flight View</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <noscript><div class="fatal-banner">JavaScript is required to display flight telemetry.</div></noscript>
+
+  <header class="topbar">
+    <div class="identity">
+      <div class="mark" aria-hidden="true"><span></span></div>
+      <div>
+        <h1>ANDROMEDA</h1>
+        <p>FLIGHT VIEW <span>01</span></p>
+      </div>
+    </div>
+
+    <section class="mission-clock" aria-label="Mission time">
+      <span class="eyebrow">MISSION ELAPSED TIME</span>
+      <strong id="mission-time">T− 00:00:00.000</strong>
+    </section>
+
+    <div class="top-status">
+      <div class="source-lockup">
+        <span id="source-badge" class="badge neutral">WAITING</span>
+        <span id="phase" class="phase">PRELAUNCH</span>
+      </div>
+      <div class="connection" id="connection-state" data-state="offline">
+        <i></i><span>OFFLINE</span>
+      </div>
+    </div>
+  </header>
+
+  <div id="critical-banner" class="critical-banner" role="alert" aria-live="assertive">
+    <span class="critical-icon">!</span>
+    <div><strong id="critical-title">TELEMETRY UNAVAILABLE</strong><span id="critical-detail">Waiting for the first valid frame</span></div>
+  </div>
+
+  <main class="dashboard">
+    <section class="panel vehicle-panel" aria-labelledby="vehicle-title">
+      <div class="panel-heading overlay-heading">
+        <div><span class="index">01</span><h2 id="vehicle-title">VEHICLE ATTITUDE</h2></div>
+        <div class="validity" id="attitude-validity" data-state="unknown"><i></i><span>NO SOLUTION</span></div>
+      </div>
+      <canvas id="vehicle-canvas" aria-label="Three-dimensional rocket attitude view"></canvas>
+      <div class="scene-vignette" aria-hidden="true"></div>
+      <div class="scene-data scene-data-left">
+        <span>ATTITUDE AGE</span><strong id="attitude-age">—</strong>
+        <span>QUATERNION WXYZ</span><code id="quaternion">—</code>
+      </div>
+      <div class="scene-data scene-data-right">
+        <span>ROLL</span><strong id="roll">—</strong>
+        <span>PITCH</span><strong id="pitch">—</strong>
+        <span>YAW</span><strong id="yaw">—</strong>
+      </div>
+      <div class="axis-legend" aria-label="Body axes"><span class="axis-x">X</span><span class="axis-y">Y</span><span class="axis-z">Z</span></div>
+      <p class="scene-help">DRAG TO ORBIT · WHEEL TO ZOOM · DOUBLE-CLICK TO RESET</p>
+      <div id="webgl-fallback" class="webgl-fallback" hidden>3D RENDERER UNAVAILABLE</div>
+    </section>
+
+    <aside class="metrics-stack" aria-label="Primary flight metrics">
+      <section class="metric hero-metric">
+        <div class="metric-label"><span>ALTITUDE</span><small>AGL</small></div>
+        <div class="metric-value"><strong id="altitude">—</strong><span>m</span></div>
+        <canvas id="altitude-sparkline" class="sparkline" aria-label="Recent altitude history"></canvas>
+        <div class="metric-footer"><span>MAX <b id="max-altitude">—</b></span><span id="position-validity" class="mini-validity">NO FIX</span></div>
+      </section>
+
+      <section class="metric">
+        <div class="metric-label"><span>VERTICAL SPEED</span><small>UP +</small></div>
+        <div class="metric-value compact"><strong id="vertical-speed">—</strong><span>m/s</span></div>
+        <div class="bar-scale"><i id="vertical-speed-bar"></i><b></b></div>
+      </section>
+
+      <section class="vector-card">
+        <div class="vector-heading"><span>BODY ACCELERATION</span><small>m/s²</small></div>
+        <div class="vector-row"><span class="axis-x">X</span><strong id="accel-x">—</strong><i><b id="accel-x-bar"></b></i></div>
+        <div class="vector-row"><span class="axis-y">Y</span><strong id="accel-y">—</strong><i><b id="accel-y-bar"></b></i></div>
+        <div class="vector-row"><span class="axis-z">Z</span><strong id="accel-z">—</strong><i><b id="accel-z-bar"></b></i></div>
+      </section>
+
+      <section class="vector-card">
+        <div class="vector-heading"><span>VELOCITY NED</span><small>m/s</small></div>
+        <div class="vector-row"><span>N</span><strong id="velocity-n">—</strong><i><b id="velocity-n-bar"></b></i></div>
+        <div class="vector-row"><span>E</span><strong id="velocity-e">—</strong><i><b id="velocity-e-bar"></b></i></div>
+        <div class="vector-row"><span>D</span><strong id="velocity-d">—</strong><i><b id="velocity-d-bar"></b></i></div>
+      </section>
+    </aside>
+
+    <section class="panel track-panel" aria-labelledby="track-title">
+      <div class="panel-heading">
+        <div><span class="index">02</span><h2 id="track-title">LOCAL GROUND TRACK</h2></div>
+        <span id="position-age" class="data-age">AGE —</span>
+      </div>
+      <div class="track-wrap">
+        <canvas id="track-canvas" aria-label="Local vehicle trajectory plot"></canvas>
+        <div class="track-compass" aria-hidden="true"><b>N</b><i></i></div>
+        <div class="track-scale"><i></i><span id="track-scale">— m</span></div>
+        <div id="track-invalid" class="track-invalid"><strong>POSITION INVALID</strong><span>Showing last valid location</span></div>
+      </div>
+      <div class="coordinates">
+        <div><span>LATITUDE</span><strong id="latitude">—</strong></div>
+        <div><span>LONGITUDE</span><strong id="longitude">—</strong></div>
+        <div><span>GROUND SPEED</span><strong id="ground-speed">—</strong></div>
+        <div><span>HEADING</span><strong id="heading">—</strong></div>
+      </div>
+    </section>
+
+    <aside class="status-panel" aria-label="System status">
+      <section class="status-block">
+        <div class="status-heading"><span>LINK &amp; RECORDING</span><small id="packet-count">0 RX</small></div>
+        <div class="status-grid">
+          <div class="status-item"><span>TELEMETRY</span><strong id="link-health" data-state="unknown">WAITING</strong></div>
+          <div class="status-item"><span>RSSI</span><strong id="rssi">—</strong></div>
+          <div class="status-item"><span>PACKET RATE</span><strong id="packet-rate">—</strong></div>
+          <div class="status-item"><span>DROPPED / OOO</span><strong id="packet-errors">0 / 0</strong></div>
+          <div class="status-item wide"><span>GROUND RECORDING</span><strong id="recording" data-state="unknown"><i></i>UNKNOWN</strong></div>
+        </div>
+      </section>
+
+      <section class="status-block">
+        <div class="status-heading"><span>AVIONICS HEALTH</span><strong id="health-overall" data-state="unknown">UNKNOWN</strong></div>
+        <div class="health-list">
+          <div><span>BUS VOLTAGE</span><strong id="bus-voltage">—</strong></div>
+          <div><span>BOARD TEMP</span><strong id="board-temp">—</strong></div>
+          <div><span>CPU LOAD</span><strong id="cpu-load">—</strong></div>
+          <div><span>STORAGE FREE</span><strong id="storage-free">—</strong></div>
+          <div><span>RESET COUNT</span><strong id="reset-count">—</strong></div>
+        </div>
+      </section>
+
+      <section class="status-block compact-block">
+        <div class="status-heading"><span>MISSION SERVICES</span></div>
+        <div class="service-list">
+          <div><i id="video-dot"></i><span>VIDEO</span><strong id="video-state">UNKNOWN</strong></div>
+          <div><i id="ack-dot"></i><span>LAST COMMAND ACK</span><strong id="command-ack">NONE</strong></div>
+          <div class="monitor-only"><i></i><span>OPERATOR MODE</span><strong>MONITOR ONLY</strong></div>
+        </div>
+      </section>
+    </aside>
+
+    <section class="panel timeline-panel" aria-labelledby="timeline-title">
+      <div class="panel-heading">
+        <div><span class="index">03</span><h2 id="timeline-title">FLIGHT EVENTS</h2></div>
+        <span id="event-count" class="data-age">0 EVENTS</span>
+      </div>
+      <ol id="event-timeline" class="event-timeline">
+        <li class="empty-event"><time>—</time><i></i><div><strong>WAITING FOR MISSION EVENTS</strong><span>Events received with telemetry appear here</span></div></li>
+      </ol>
+    </section>
+
+    <section class="panel warnings-panel" aria-labelledby="warnings-title">
+      <div class="panel-heading">
+        <div><span class="index">04</span><h2 id="warnings-title">ACTIVE WARNINGS</h2></div>
+        <span id="warning-count" class="warning-count">0</span>
+      </div>
+      <div id="warnings-list" class="warnings-list"><p class="empty-state">NO ACTIVE WARNINGS</p></div>
+    </section>
+  </main>
+
+  <footer>
+    <div><span>SCHEMA</span><strong id="schema-version">—</strong></div>
+    <div><span>SEQUENCE</span><strong id="sequence">—</strong></div>
+    <div><span>FRAME UTC</span><strong id="frame-time">—</strong></div>
+    <div><span>DISPLAY UTC</span><strong id="display-time">—</strong></div>
+    <div class="footer-note">GROUND DISPLAY / READ-ONLY</div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

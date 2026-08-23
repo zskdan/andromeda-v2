@@ -1,0 +1,88 @@
+schema_version: 1
+interface_id: ICD-TC-GUI-001
+revision: 1
+status: draft
+owners:
+  - telemetry_command
+  - software
+  - flight_dynamics
+requirements:
+  - SYS-TC-001
+  - TDO-NB-001
+  - TDO-NAV-001
+  - TDO-NAV-002
+  - TDO-TIME-001
+  - TDO-GUI-001
+  - TDO-GUI-002
+  - TDO-GUI-003
+authoritative_schema: ground_station/schema/telemetry-frame.schema.json
+purpose: >-
+  Define one source-neutral telemetry frame for deterministic simulation,
+  recorded-flight replay, hardware-in-the-loop tests, and live-flight display.
+transport:
+  ingest:
+    protocol: HTTP POST JSON
+    endpoint: /api/telemetry
+    deployment_scope: localhost_or_trusted_private_network_only
+    live_rf_decoder_adapter: TBD
+  display:
+    protocol: server_sent_events
+    endpoint: /api/stream
+  snapshot:
+    protocol: HTTP GET JSON
+    endpoint: /api/state
+timing:
+  source_time: UTC ISO-8601 or Unix epoch milliseconds
+  mission_time: seconds from the mission epoch selected by the source
+  display_age: derived from ground receive monotonic time
+  required_time_alignment_error_ms: TBD
+  required_stale_indication_latency_ms: TBD
+sequence:
+  type: monotonically_increasing_nonnegative_integer
+  wrap_behavior: TBD
+coordinates:
+  attitude:
+    representation: Hamilton quaternion ordered w_x_y_z
+    transform: vehicle_body_to_local_NED
+    body_axes: X_forward_toward_nose_Y_right_Z_completes_right_handed_frame
+    required_validity: explicit Boolean
+  position:
+    horizontal_datum: WGS-84
+    latitude_unit: degree
+    longitude_unit: degree
+    altitude_reference: launch_site_AGL
+    altitude_unit: metre
+    required_validity: explicit Boolean
+  velocity:
+    frame: local_NED
+    unit: metre_per_second
+  acceleration:
+    frame: vehicle_body
+    unit: metre_per_second_squared
+  angular_rate:
+    frame: vehicle_body
+    unit: radian_per_second
+validity_behavior:
+  invalid_attitude: freeze_last_valid_orientation_and_show_invalid_state
+  invalid_position: retain_last_valid_position_and_show_invalid_state
+  stale_frame: show_data_age_and_prominent_stale_warning
+recording:
+  format: newline_delimited_JSON
+  source_frame_preservation: required
+  ground_receive_timestamp: required
+  durability_and_storage_budget: TBD
+security:
+  remote_authentication: not_implemented
+  transport_encryption: not_implemented
+  flight_deployment_rule: >-
+    Keep the reference server on localhost or a trusted private network until
+    authentication, authorization, and TLS are implemented and verified.
+open_issues:
+  - id: TC-GUI-TBD-001
+    statement: Select and verify the live RF decoder adapter and transport.
+  - id: TC-GUI-TBD-002
+    statement: Allocate update-rate, latency, and stale-indication thresholds.
+  - id: TC-GUI-TBD-003
+    statement: Define sequence wrap, restart, and multi-source arbitration rules.
+  - id: TC-GUI-TBD-004
+    statement: Define the flight recording durability and storage-capacity budget.

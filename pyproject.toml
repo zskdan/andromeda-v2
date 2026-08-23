@@ -17,6 +17,10 @@ andromeda-controller = "andromeda_control.controller:main"
 andromeda-worker = "andromeda_control.worker:main"
 andromeda-submit = "andromeda_control.cli:submit_main"
 andromeda-status = "andromeda_control.cli:status_main"
+andromeda-ground-station = "ground_station.server:main"
 
 [tool.setuptools]
-packages = ["andromeda_control"]
+packages = ["andromeda_control", "ground_station"]
+
+[tool.setuptools.package-data]
+ground_station = ["web/*.html", "web/*.css", "web/*.js", "schema/*.json"]

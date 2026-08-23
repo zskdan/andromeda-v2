@@ -1,0 +1,102 @@
+schema_version: 1
+deliverable:
+  id: GSVIZ-001
+  revision: 1
+  owner: telemetry_command
+  contributors:
+    - software
+    - flight_dynamics
+  status: preliminary
+requirements:
+  - SYS-TC-001
+  - TDO-NB-001
+  - TDO-NAV-001
+  - TDO-NAV-002
+  - TDO-TIME-001
+  - TDO-POST-001
+  - TDO-GND-001
+  - TDO-GUI-001
+  - TDO-GUI-002
+  - TDO-GUI-003
+inputs:
+  conops: docs/requirements/CONOPS.md
+  interface: requirements/interfaces/telemetry-ground-station.yaml
+  telemetry_schema: ground_station/schema/telemetry-frame.schema.json
+  visual_prior_art:
+    - https://www.youtube.com/watch?v=Km7-2Ds6_Xs
+    - https://www.youtube.com/watch?v=paY9GZG7QLA
+outputs:
+  service: ground_station/server.py
+  display:
+    - ground_station/web/index.html
+    - ground_station/web/styles.css
+    - ground_station/web/app.js
+  operations: ground_station/README.md
+interfaces:
+  ingest: HTTP_POST_/api/telemetry
+  display_stream: SSE_/api/stream
+  snapshot: HTTP_GET_/api/state
+  recording: newline_delimited_JSON
+  deployment: localhost_or_explicitly_approved_trusted_private_network
+budgets:
+  default_synthetic_display_rate_hz: 20.0
+  provisional_default_stale_indication_ms: 1000
+  required_display_update_rate_hz: TBD
+  required_end_to_end_display_latency_ms: TBD
+  required_stale_indication_latency_ms: TBD
+  required_time_alignment_error_ms: TBD
+  recording_durability_and_storage: TBD
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+    - XDOM-ELEC-MECH-001
+  dispositions:
+    XDOM-MECH-SIM-001: >-
+      Not triggered. The deliverable changes no vehicle geometry, mass, center
+      of gravity, launcher interface, recovery installation, or flight model.
+    XDOM-ELEC-MECH-001: >-
+      Not triggered. The deliverable changes no electronics hardware, PCB,
+      connector, cable, antenna, sensor, power dissipation, or packaging input.
+tools:
+  - name: Python
+    version: 3.12.3
+    use: dependency-free server, recorder, replay, and unit tests
+  - name: Node.js
+    version: 18.19.1
+    use: JavaScript syntax verification only
+  - name: Codex_in_app_browser
+    version: 26.810.52044
+    use: reference inspection and local visual verification
+evidence:
+  - tests/test_ground_station.py
+  - ground_station/schema/telemetry-frame.schema.json
+  - requirements/interfaces/telemetry-ground-station.yaml
+  - command: python3 -m unittest tests.test_ground_station -v
+  - command: node --check ground_station/web/app.js
+  - command: python3 scripts/validate.py
+  - command: python3 -m pip wheel . --no-deps --no-build-isolation
+  - command: python3 scripts/check_change_impact.py --working-tree
+verification:
+  schema_and_validation_unit_test: pass
+  recording_and_sequence_accounting_unit_test: pass
+  repository_validation: pass_24_tests_2_environment_skips
+  local_HTTP_end_to_end_test: not_run_loopback_socket_denied_by_execution_environment
+  JavaScript_syntax_check: pass
+  packaged_static_assets: pass
+  responsive_visual_browser_inspection: not_run_local_file_navigation_blocked_by_browser_policy
+  hardware_in_the_loop_test: not_run
+  integrated_RF_ground_segment_test: not_run
+  implementation_status: implemented
+  verification_status: partially_verified
+  validation_status: not_validated
+open_issues:
+  - id: GSVIZ-TBD-001
+    statement: Select and verify the live RF decoder adapter and packet mapping.
+  - id: GSVIZ-TBD-002
+    statement: Allocate display update, latency, stale indication, and timing thresholds.
+  - id: GSVIZ-TBD-003
+    statement: Verify body-frame conventions and quaternion mapping against the flight estimator.
+  - id: GSVIZ-TBD-004
+    statement: Qualify recording durability, storage sizing, restart behavior, and power-loss recovery.
+  - id: GSVIZ-TBD-005
+    statement: Execute hardware-in-the-loop and complete ground-segment verification before flight use.
