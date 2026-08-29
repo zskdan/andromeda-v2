@@ -1,0 +1,69 @@
+schema_version: 1
+deliverable:
+  id: MASS-BUDGET-001
+  revision: 1
+  owner: integrator
+  status: preliminary_top_down_baseline
+requirements:
+  - SYS-MASS-001
+  - SYS-FLIGHT-001
+inputs:
+  openrocket_model: simulations/openrocket/andromeda-v0.2/rocket.ork
+  motor_curve: simulations/openrocket/andromeda-v0.2/Pro54-5G-K570.eng
+  mechanical_allocations: subsystems/structures_mechanisms/cad/packaging-v0.2/parameters.csv
+  battery_planning_source: docs/decisions/battery.md@docs/battery-power-decision
+outputs:
+  authoritative_mass_ledger: integration/budgets/mass-budget.csv
+interfaces:
+  axis_convention: +X from nose tip toward motor nozzle
+  mass_unit: kg
+  axial_station_unit: mm_from_nose
+budgets:
+  current_model_basis:
+    dry_vehicle_excluding_motor_kg: 5.32
+    dry_vehicle_cg_mm_from_nose: 1280
+    loaded_motor_kg: 1.68
+    propellant_kg: 0.65
+    inert_motor_kg: 1.03
+    provisional_launch_mass_kg: 7.00
+    provisional_burnout_mass_kg: 6.35
+  battery_planning_allocation_not_reconciled_kg:
+    minimum: 0.630
+    maximum: 0.735
+  reconciled_component_dry_mass_kg: TBD
+  released_launch_mass_kg: TBD
+  released_burnout_mass_kg: TBD
+  released_vehicle_cg: TBD
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+  dispositions:
+    XDOM-MECH-SIM-001:
+      assessment: integration/change-impact/mass-budget-ledger-v0.1.yaml
+      current_model_update: not_required
+      numerical_rerun: not_required_for_ledger_creation
+      basis: >-
+        The ledger records the exact existing 5.32 kg dry-stage override, 1.28 m
+        dry CG, and K570 motor masses without changing a flight-driving value.
+        Unresolved component values and the draft battery allocation are marked
+        TBD or not reconciled and are excluded from the current model totals.
+tools:
+  - name: repository validation scripts
+    version: repository HEAD
+    purpose: schema tests and cross-domain path-impact checks
+evidence:
+  - id: MASS-ARITH-001
+    path: integration/change-impact/mass-budget-ledger-v0.1.yaml
+    command: manual deterministic decimal arithmetic recorded in evidence
+verification:
+  csv_schema_and_required_records: pass
+  current_model_mass_arithmetic: pass
+  component_reconciliation: pending_TBD_masses_and_positions
+  measured_integrated_mass_and_cg: pending_hardware
+  requirement_verification_status: not_verified
+  validation_status: not_validated
+open_issues:
+  - The 5.32 kg dry value is a top-down provisional override and is not a reconciled component sum.
+  - The battery estimates come from draft PR 3 and are not merged or reconciled with the dry override.
+  - Most component masses and installed axial CG positions remain TBD.
+  - OpenRocket must be updated and rerun when a reconciled or measured mass or CG changes the current baseline.

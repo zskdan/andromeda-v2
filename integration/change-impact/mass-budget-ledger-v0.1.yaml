@@ -1,0 +1,67 @@
+schema_version: 1
+assessment:
+  id: MASS-BUDGET-XDOM-001
+  revision: 1
+  trigger: creation_of_authoritative_mass_ledger
+  trigger_owner: integrator
+  review_owner: flight_dynamics
+requirements:
+  - SYS-MASS-001
+  - SYS-FLIGHT-001
+rule:
+  id: XDOM-MECH-SIM-001
+reviewed_inputs:
+  ledger: integration/budgets/mass-budget.csv
+  openrocket_model: simulations/openrocket/andromeda-v0.2/rocket.ork
+  motor_curve: simulations/openrocket/andromeda-v0.2/Pro54-5G-K570.eng
+deterministic_comparison:
+  dry_stage_override_kg:
+    ledger: 5.32
+    openrocket: 5.32
+    delta: 0.0
+  dry_cg_m_from_nose:
+    ledger: 1.28
+    openrocket: 1.28
+    delta: 0.0
+  loaded_motor_kg:
+    ledger: 1.68
+    motor_curve: 1.68
+    delta: 0.0
+  propellant_kg:
+    ledger: 0.65
+    motor_curve: 0.65
+    delta: 0.0
+  derived_inert_motor_kg:
+    expression: 1.68_minus_0.65
+    result: 1.03
+  derived_launch_mass_kg:
+    expression: 5.32_plus_1.68
+    result: 7.00
+  derived_burnout_mass_kg:
+    expression: 5.32_plus_1.03
+    result: 6.35
+assessment_scope:
+  external_geometry: unchanged
+  mass_and_center_of_gravity: existing_model_values_recorded_without_change
+  fin_and_stability_geometry: unchanged
+  motor_and_retention_envelope: unchanged
+  recovery_geometry_drag_and_deployment: unchanged
+  launcher_interfaces_and_rail_departure: unchanged
+  battery_planning_range: recorded_but_excluded_from_current_model_totals
+disposition:
+  model_update: not_required
+  numerical_rerun: not_required_for_ledger_creation
+  rationale: >-
+    No flight-driving input changes. The ledger makes the current provisional
+    top-down mass model explicit and prevents draft allocations or component
+    estimates from being added to it without reconciliation.
+rerun_criteria:
+  - A measured or reconciled dry mass replaces the 5.32 kg override.
+  - A measured or reconciled dry CG replaces the 1.28 m override.
+  - A selected component changes the integrated mass or axial mass distribution.
+  - Battery pack regulators wiring protection or mounts are selected and reconciled.
+  - Separation recovery antenna or structural hardware changes installed mass or CG.
+verification:
+  result: pass_for_no_update_disposition
+  requirement_status: not_verified
+  validation_status: not_validated

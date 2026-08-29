@@ -46,4 +46,11 @@ requirements:
     owner: integrator
     verification_method: analysis_and_measurement
     status: defined
-    threshold: TBD
+    threshold:
+      authoritative_budget: integration/budgets/mass-budget.csv
+      current_provisional_dry_mass_kg: 5.32
+      current_provisional_dry_cg_m_from_nose: 1.28
+      released_launch_mass_kg: TBD
+      released_burnout_mass_kg: TBD
+      released_vehicle_cg: TBD
+      values_status: provisional_top_down_pending_component_reconciliation_and_measurement
