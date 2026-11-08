@@ -31,6 +31,19 @@ Then open `http://127.0.0.1:8765`. Simulation/replay and recorded live-ingest
 commands, the telemetry contract, operational limitations, and flight-readiness
 TBDs are documented in `ground_station/README.md`.
 
+## Interactive project showcase
+
+The `showcase/` application presents the mission, mechanical architecture,
+historical flight-sizing evidence, subsystem data paths, and current
+verification status. Historical and interpolated simulation values are visibly
+labelled and are not promoted as flight verification evidence.
+
+```bash
+cd showcase
+npm ci
+npm run dev
+```
+
 ## Quick start
 
 Requires Python 3.11 or newer. No third-party packages are needed.

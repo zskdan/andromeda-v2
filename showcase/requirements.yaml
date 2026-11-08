@@ -1,0 +1,17 @@
+schema_version: 1
+requirements:
+  - id: WEB-SHOWCASE-001
+    statement: >-
+      The project showcase shall present the Andromeda mission, mechanical
+      architecture, flight-simulation evidence, subsystem data paths, and
+      engineering status in a responsive interactive web experience.
+    owner: software
+    verification_method: build_render_and_inspection
+    status: implemented_pending_visual_validation
+  - id: WEB-SHOWCASE-002
+    statement: >-
+      The project showcase shall visibly distinguish historical, preliminary,
+      interpolated, implemented, verified, and validated information.
+    owner: integrator
+    verification_method: inspection
+    status: implemented_pending_independent_review

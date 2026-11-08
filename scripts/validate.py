@@ -11,6 +11,7 @@ import tomllib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+SKIPPED_DIRS = {".git", ".next", ".vinext", ".wrangler", "dist", "node_modules"}
 
 REQUIRED = [
     "README.md", "AGENTS.md", "LICENSE", "pyproject.toml", ".codex/config.toml",
@@ -23,13 +24,22 @@ REQUIRED = [
 ]
 
 
+def repository_files(pattern: str):
+    """Yield committed-source candidates while excluding generated tool trees."""
+    return (
+        path
+        for path in ROOT.rglob(pattern)
+        if not SKIPPED_DIRS.intersection(path.relative_to(ROOT).parts)
+    )
+
+
 def main() -> int:
     missing = [name for name in REQUIRED if not (ROOT / name).is_file()]
     if missing:
         print("Missing required files:", *missing, sep="\n  ")
         return 1
 
-    for path in sorted(ROOT.rglob("*.json")):
+    for path in sorted(repository_files("*.json")):
         with path.open(encoding="utf-8") as handle:
             json.load(handle)
 
@@ -59,10 +69,10 @@ def main() -> int:
                 f"change-impact rule {rule.get('id', '<unknown>')} missing: "
                 f"{sorted(missing_fields)}"
             )
-    for path in sorted(ROOT.rglob("*.toml")):
+    for path in sorted(repository_files("*.toml")):
         with path.open("rb") as handle:
             tomllib.load(handle)
-    for path in sorted(ROOT.rglob("*.yaml")):
+    for path in sorted(repository_files("*.yaml")):
         text = path.read_text(encoding="utf-8")
         if not text.strip() or "\t" in text:
             raise ValueError(f"invalid YAML hygiene: {path}")
@@ -76,7 +86,8 @@ def main() -> int:
     )
     if completed.returncode:
         return completed.returncode
-    print(f"Validated Andromeda Agent Framework v0.2 ({len(list(ROOT.rglob('*')))} filesystem entries).")
+    source_entries = sum(1 for _ in repository_files("*"))
+    print(f"Validated Andromeda Agent Framework v0.2 ({source_entries} source entries).")
     return 0
 
 

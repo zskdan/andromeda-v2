@@ -1,0 +1,84 @@
+schema_version: 1
+deliverable:
+  id: WEB-SHOWCASE-001
+  revision: 1
+  owner: software
+  contributors:
+    - architect
+    - integrator
+  status: implemented_pending_visual_and_independent_validation
+requirements:
+  - WEB-SHOWCASE-001
+  - WEB-SHOWCASE-002
+inputs:
+  conops: docs/requirements/CONOPS.md
+  system_requirements: requirements/system.yaml
+  verification_matrix: requirements/verification.yaml
+  authoritative_mass_budget: integration/budgets/mass-budget.csv
+  mechanical_manifest: integration/manifests/mechanical-packaging-v0.2.yaml
+  flight_manifest: integration/manifests/flight-simulation-v0.2.yaml
+  ground_manifest: integration/manifests/ground-station-visualization-v0.1.yaml
+  historical_flight_result: >-
+    origin/codex/add-modular-flight-simulation:
+    simulations/openrocket/andromeda-v0.1/RESULTS.md
+outputs:
+  application: showcase/app
+  hosting_configuration: showcase/.openai/hosting.json
+  social_preview: showcase/public/og.png
+  application_requirements: showcase/requirements.yaml
+interfaces:
+  delivery: responsive_web_application
+  data_update_model: repository_backed_static_content
+  live_vehicle_connection: not_allocated
+budgets:
+  nominal_altitude_m_AGL: 3000
+  design_envelope_km: 10
+  body_diameter_mm: 120
+  overall_length_mm: 2150
+  historical_result_status: preliminary_not_verification_evidence
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+    - XDOM-ELEC-MECH-001
+  dispositions:
+    XDOM-MECH-SIM-001: >-
+      Not triggered. The showcase reads and labels committed engineering values
+      but changes no geometry, mass, CG, recovery installation, launcher
+      interface, or flight model.
+    XDOM-ELEC-MECH-001: >-
+      Not triggered. The showcase changes no electronics hardware, connector,
+      cable, antenna, sensor, thermal, power-dissipation, or packaging input.
+tools:
+  - name: Node.js
+    version: 24.22.1
+    purpose: application build and server-render test
+  - name: vinext
+    version: 1.0.0-beta.2
+    purpose: application and Cloudflare Worker build
+  - name: OpenAI_image_generation
+    version: builtin
+    purpose: repository-bound social preview card
+evidence:
+  - id: WEB-BUILD-001
+    path: showcase/dist/server/index.js
+    command: npm run build
+  - id: WEB-RENDER-001
+    path: showcase/tests/rendered-html.test.mjs
+    command: npm test
+  - id: WEB-SOCIAL-001
+    path: showcase/public/og.png
+    result: inspected_for_exact_title_and_tagline
+verification:
+  production_build: pass
+  server_render_test: pass
+  responsive_source_rules: implemented
+  local_preview: pass_HTTP_200
+  visual_browser_inspection: not_run_not_requested
+  independent_content_review: not_run
+  requirement_verification_status: partially_verified
+  validation_status: not_validated
+open_issues:
+  - Replace the historical flight replay after the current OpenRocket and RocketPy models are rerun.
+  - Add a browser-native GLB mechanical model when a controlled STEP-to-GLB conversion pipeline is committed.
+  - Connect mission control to live or recorded telemetry only after the decoder interface is allocated.
+  - Obtain independent engineering and responsive visual review before promoting the site as validated.
