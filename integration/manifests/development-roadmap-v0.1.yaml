@@ -1,0 +1,131 @@
+schema_version: 1
+deliverable:
+  id: ROADMAP-001
+  revision: 1
+  owner: architect
+  status: preliminary_sequence_approved_scope_and_dates_tbd
+requirements:
+  - SYS-RF-001
+  - SYS-VIDEO-001
+  - SYS-TC-001
+  - SYS-TC-002
+  - SYS-STRUCT-001
+  - SYS-FLIGHT-001
+  - SYS-MASS-001
+  - TDO-FLT-001
+  - TDO-FLT-002
+  - TDO-FLT-003
+  - TDO-SAFE-001
+  - TDO-STR-001
+  - TDO-WND-001
+  - TDO-LCH-001
+  - TDO-REC-001
+  - TDO-EVT-001
+  - TDO-PWR-001
+  - TDO-ISO-001
+  - TDO-NB-001
+  - TDO-NB-002
+  - TDO-CMD-001
+  - TDO-CMD-002
+  - TDO-CMD-003
+  - TDO-WB-001
+  - TDO-WB-002
+  - TDO-CAM-001
+  - TDO-ACC-001
+  - TDO-NAV-001
+  - TDO-NAV-002
+  - TDO-TIME-001
+  - TDO-DATA-001
+  - TDO-INT-001
+  - TDO-LOC-001
+  - TDO-GND-001
+  - TDO-GUI-001
+  - TDO-GUI-002
+  - TDO-GUI-003
+  - TDO-RF-001
+  - TDO-RF-002
+  - TDO-HLT-001
+  - TDO-FAULT-001
+  - TDO-POST-001
+  - TDO-CFG-001
+  - TDO-MOD-001
+  - TDO-OPS-001
+  - TDO-OPS-002
+inputs:
+  system_requirements: requirements/system.yaml
+  conops: docs/requirements/CONOPS.md
+  current_mass_budget: integration/budgets/mass-budget.csv
+  launcher_interface: requirements/interfaces/launcher-vehicle.yaml
+  telemetry_ground_interface: requirements/interfaces/telemetry-ground-station.yaml
+  current_mechanical_manifest: integration/manifests/mechanical-packaging-v0.2.yaml
+  current_flight_simulation_manifest: integration/manifests/flight-simulation-v0.2.yaml
+  current_ground_station_manifest: integration/manifests/ground-station-visualization-v0.1.yaml
+  wb_architecture_input: docs/architecture/WB_OFDM_ARCHITECTURE_INPUT.md
+outputs:
+  roadmap: docs/DEVELOPMENT_ROADMAP.md
+  lifecycle_decision: architecture/decisions/ADR-001-spiral-mini-v-development.md
+interfaces:
+  governance:
+    architecture_and_trade_authority: architect
+    independent_evidence_and_interface_check: integrator
+    bounded_implementation: subsystem_owners_and_specialists
+    hazardous_activity_authority: explicit_approval_required
+  baseline_states:
+    - hypothesis
+    - allocated_baseline
+    - flight_baseline
+budgets:
+  schedule: TBD_after_spiral_0_scope_and_resource_review
+  cost: TBD
+  staffing_and_resources: TBD
+  spiral_0_priority: mission_and_architecture_definition
+change_impact:
+  assessed_rules:
+    - XDOM-MECH-SIM-001
+    - XDOM-ELEC-MECH-001
+  dispositions:
+    XDOM-MECH-SIM-001:
+      status: not_triggered
+      basis: >-
+        This revision defines development governance and future trade/prototype
+        work. It does not change external geometry, mass, CG, fins, motor,
+        recovery inputs, launcher inputs, or any flight-driving model value.
+    XDOM-ELEC-MECH-001:
+      status: not_triggered
+      basis: >-
+        This revision does not select or change electronics hardware, PCB,
+        connector, cable, antenna, power-dissipation, or sensor-interface
+        geometry. Future electronics prototypes remain subject to the rule.
+tools:
+  - name: repository document review
+    version: git_HEAD_at_revision
+    purpose: identify authoritative requirements, interfaces, manifests, budgets, and open issues
+  - name: NASA Systems Engineering Handbook
+    version: web_reference_accessed_2026-11-08
+    purpose: iterative_and_recursive_system_design_reference
+  - name: INCOSE Systems Engineering Agility Primer
+    version: web_reference_accessed_2026-11-08
+    purpose: iterative_incremental_development_and_continual_integration_reference
+evidence:
+  - id: ROADMAP-METHOD-001
+    path: architecture/decisions/ADR-001-spiral-mini-v-development.md
+    result: accepted_method_decision
+  - id: ROADMAP-SEQUENCE-001
+    path: docs/DEVELOPMENT_ROADMAP.md
+    result: six_spirals_defined_with_active_spiral_0_backlog
+verification:
+  method_decision_present: pass
+  architecture_priority_present: pass
+  concurrent_risk_retirement_prototypes_present: pass
+  progressive_baseline_policy_present: pass
+  requirement_traceability: pass
+  change_impact_disposition: pass_no_design_value_changed
+  roadmap_execution_status: not_started_beyond_existing_partial_prototypes
+  requirement_verification_status: not_applicable_governance_deliverable
+  validation_status: pending_project_use_and_spiral_0_review
+open_issues:
+  - First-flight mission-success partition is not approved.
+  - Design-reference missions and launch constraints remain TBD.
+  - Diameter alternatives and trade weights remain TBD; 120 mm is provisional.
+  - Schedule, cost, staffing, and procurement constraints remain TBD.
+  - Spiral review cadence and participant quorum are not yet baselined.

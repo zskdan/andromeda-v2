@@ -19,6 +19,16 @@ This is a safe starting skeleton, not a production remote-execution service. It 
 - offline-capable 3D ground-station visualization with simulation, replay, live
   telemetry ingest, and NDJSON recording (`ground_station/`).
 
+## Development roadmap
+
+The project uses risk-driven spiral development with bounded mini-V increments.
+Architecture definition remains the priority while targeted models, mockups,
+and breadboards retire the assumptions needed for architecture decisions. See
+[`docs/DEVELOPMENT_ROADMAP.md`](docs/DEVELOPMENT_ROADMAP.md) for the active
+Spiral 0 backlog and
+[`ADR-001`](architecture/decisions/ADR-001-spiral-mini-v-development.md) for the
+method decision.
+
 ## 3D flight visualization
 
 Run the visibly labelled synthetic display exercise:
