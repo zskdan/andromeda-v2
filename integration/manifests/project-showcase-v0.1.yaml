@@ -1,7 +1,7 @@
 schema_version: 1
 deliverable:
   id: WEB-SHOWCASE-001
-  revision: 1
+  revision: 2
   owner: software
   contributors:
     - architect
@@ -10,6 +10,7 @@ deliverable:
 requirements:
   - WEB-SHOWCASE-001
   - WEB-SHOWCASE-002
+  - WEB-SHOWCASE-003
 inputs:
   conops: docs/requirements/CONOPS.md
   system_requirements: requirements/system.yaml
@@ -23,12 +24,14 @@ inputs:
     simulations/openrocket/andromeda-v0.1/RESULTS.md
 outputs:
   application: showcase/app
+  interactive_vehicle_explorer: showcase/app/components/RocketExplorer3D.tsx
   hosting_configuration: showcase/.openai/hosting.json
   social_preview: showcase/public/og.png
   application_requirements: showcase/requirements.yaml
 interfaces:
   delivery: responsive_web_application
   data_update_model: repository_backed_static_content
+  three_dimensional_runtime: Three.js_WebGL_parametric_scene
   live_vehicle_connection: not_allocated
 budgets:
   nominal_altitude_m_AGL: 3000
@@ -55,6 +58,9 @@ tools:
   - name: vinext
     version: 1.0.0-beta.2
     purpose: application and Cloudflare Worker build
+  - name: Three.js
+    version: 0.187.0
+    purpose: interactive parametric vehicle visualization
   - name: OpenAI_image_generation
     version: builtin
     purpose: repository-bound social preview card
@@ -65,6 +71,9 @@ evidence:
   - id: WEB-RENDER-001
     path: showcase/tests/rendered-html.test.mjs
     command: npm test
+  - id: WEB-3D-001
+    path: showcase/app/components/RocketExplorer3D.tsx
+    result: interactive_component_selection_and_guided_chapters_implemented
   - id: WEB-SOCIAL-001
     path: showcase/public/og.png
     result: inspected_for_exact_title_and_tagline
@@ -72,6 +81,8 @@ verification:
   production_build: pass
   server_render_test: pass
   responsive_source_rules: implemented
+  three_dimensional_interaction_source: implemented
+  guided_chapter_source: implemented
   local_preview: pass_HTTP_200
   visual_browser_inspection: not_run_not_requested
   independent_content_review: not_run
@@ -79,6 +90,7 @@ verification:
   validation_status: not_validated
 open_issues:
   - Replace the historical flight replay after the current OpenRocket and RocketPy models are rerun.
-  - Add a browser-native GLB mechanical model when a controlled STEP-to-GLB conversion pipeline is committed.
+  - Replace the current parametric engineering envelopes with controlled GLB
+    manufacturing geometry when a traceable STEP-to-GLB conversion pipeline is committed.
   - Connect mission control to live or recorded telemetry only after the decoder interface is allocated.
   - Obtain independent engineering and responsive visual review before promoting the site as validated.

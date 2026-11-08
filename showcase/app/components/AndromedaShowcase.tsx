@@ -1,39 +1,9 @@
 "use client";
 
 import { useState } from "react";
+import { RocketExplorer3D } from "./RocketExplorer3D";
 
-type SectionId = "recovery" | "avionics" | "rf" | "propulsion";
 type SystemId = "navigation" | "telemetry" | "video" | "ground";
-
-const sections: Record<SectionId, {
-  index: string;
-  title: string;
-  range: string;
-  eyebrow: string;
-  description: string;
-  facts: [string, string][];
-}> = {
-  recovery: {
-    index: "01", title: "Nose + recovery", range: "0–550 mm", eyebrow: "Safe return",
-    description: "Dual-deployment recovery volume, event electronics, harness and separation interface.",
-    facts: [["Main envelope", "104 × 180 mm"], ["Current state", "Fit conflict open"], ["Target descent", "≤ 9.0 m/s"]],
-  },
-  avionics: {
-    index: "02", title: "Avionics + power", range: "550–1,350 mm", eyebrow: "Flight intelligence",
-    description: "Modular disks for power, compute, cameras, recording and narrowband communications.",
-    facts: [["Compute", "Kria-class"], ["Dry mass", "5.32 kg provisional"], ["Architecture", "Replaceable disks"]],
-  },
-  rf: {
-    index: "03", title: "Navigation + RF", range: "1,320–1,550 mm", eyebrow: "Connected flight",
-    description: "INS, dual GNSS and RF-transparent antenna bay for telemetry and wideband video.",
-    facts: [["INS station", "x = 1,320 mm"], ["WB target", "~50 Mbps"], ["Waveform", "CP-OFDM"]],
-  },
-  propulsion: {
-    index: "04", title: "Motor + fins", range: "1,550–2,150 mm", eyebrow: "Powered ascent",
-    description: "Aft structure, fin set and Pro54-class propulsion module for the nominal mission.",
-    facts: [["Motor", "K570 reference"], ["Fin span", "400 mm max"], ["Body diameter", "120 mm"]],
-  },
-};
 
 const systems: Record<SystemId, { label: string; title: string; description: string; chain: string[]; metric: string; status: string }> = {
   navigation: {
@@ -68,10 +38,8 @@ const requirementStatus = [
 function ArrowIcon() { return <span aria-hidden="true">↗</span>; }
 
 export function AndromedaShowcase() {
-  const [active, setActive] = useState<SectionId>("avionics");
   const [missionProgress, setMissionProgress] = useState(13);
   const [activeSystem, setActiveSystem] = useState<SystemId>("video");
-  const detail = sections[active];
   const system = systems[activeSystem];
   const apogeeProgress = 12.7;
   const altitude = missionProgress <= apogeeProgress
@@ -124,26 +92,12 @@ export function AndromedaShowcase() {
         <div className="scroll-cue"><span>Scroll to explore</span><i /></div>
       </section>
 
-      <section className="vehicle-section" id="vehicle">
+      <section className="vehicle-section digital-twin-section" id="vehicle">
         <div className="section-heading">
-          <div><span className="section-number">01 / Vehicle architecture</span><h2>One airframe.<br />Four test domains.</h2></div>
-          <p>Every module is designed as a replaceable engineering allocation. Select a section to inspect its role and current design evidence.</p>
+          <div><span className="section-number">01 / Interactive digital twin</span><h2>Take Andromeda<br />apart in 3D.</h2></div>
+          <p>Orbit the complete vehicle, reveal its internal allocations, select components, or separate the architecture into an exploded engineering view.</p>
         </div>
-        <div className="vehicle-explorer">
-          <div className="exploded-rocket" role="group" aria-label="Select a vehicle section">
-            {(Object.keys(sections) as SectionId[]).map((id) => (
-              <button key={id} className={`exploded-section exploded-${id} ${active === id ? "is-active" : ""}`} onClick={() => setActive(id)} aria-pressed={active === id}>
-                <span className="segment-index">{sections[id].index}</span><span className="segment-name">{sections[id].title}</span><span className="segment-range">{sections[id].range}</span>
-              </button>
-            ))}
-          </div>
-          <article className="detail-card" aria-live="polite">
-            <div className="detail-topline"><span>{detail.index}</span><span>{detail.eyebrow}</span></div>
-            <h3>{detail.title}</h3><p>{detail.description}</p>
-            <dl>{detail.facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-            <div className="evidence-note"><i /> Repository-backed design allocation</div>
-          </article>
-        </div>
+        <RocketExplorer3D />
       </section>
 
       <section className="mission-section" id="mission">

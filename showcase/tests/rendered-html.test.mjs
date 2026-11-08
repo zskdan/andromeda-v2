@@ -34,6 +34,10 @@ test("server-renders the Andromeda showcase", async () => {
   assert.match(html, /<title>Andromeda v2 — Experimental Flight Platform<\/title>/i);
   assert.match(html, /Built to test/);
   assert.match(html, /Explore the vehicle/);
+  assert.match(html, /Interactive digital twin/);
+  assert.match(html, /Guided story/);
+  assert.match(html, /Free explore/);
+  assert.match(html, /Geometry includes published dimensions and conceptual engineering envelopes/);
   assert.match(html, /Flight laboratory/);
   assert.match(html, /Engineering status/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|Your site is taking shape/i);

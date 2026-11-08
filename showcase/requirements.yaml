@@ -15,3 +15,12 @@ requirements:
     owner: integrator
     verification_method: inspection
     status: implemented_pending_independent_review
+  - id: WEB-SHOWCASE-003
+    statement: >-
+      The project showcase shall provide an interactive three-dimensional
+      vehicle explorer with selectable engineering components, exterior,
+      X-ray, and exploded views, plus guided chapters that connect the model
+      to the project's architecture, navigation, RF, and recovery decisions.
+    owner: software
+    verification_method: build_render_interaction_and_inspection
+    status: implemented_pending_visual_validation
